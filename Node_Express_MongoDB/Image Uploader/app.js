@@ -26,7 +26,7 @@ app.set('view engine', 'ejs');
 cloudinary.config({ 
     cloud_name: 'dwtj9wtoh', 
     api_key: '691767474411747', 
-    api_secret: '<pass here your key>' // Click 'View API Keys' above to copy your API secret
+    api_secret: '<pass here your key>' // Click 'View API Keys' above to copy your API secret 
 });
 
 
