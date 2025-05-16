@@ -4,6 +4,10 @@ This project is a full-stack image uploading web application built with **Node.j
 
 ---
 
+### 📸 Screenshot
+<!-- Add your own image file -->
+<img src="image-uploader.jpg" alt="image-uploader-image">
+
 ## 🔧 Features
 
 - Upload images via a simple HTML form
