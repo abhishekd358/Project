@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="/css/Profile.css">
+    <title>Profile</title>
+  </head>
+  <body>
+    <div class="nav-bar">
+      <h1>UserAuth</h1>
+    </div>
+    <div class="container">
+      <img src="<%= profileImage%>" alt="profileimg" class="profile-img" />
+      <div class="user-details">
+        <h2><%= username %></h2>
+        <p><span class="label">Email:</span> <%= useremail %></p>
+        <p><span class="label">Password:</span><%= userpwd %> </p>
+        <p><span class="label">Age:</span> <%= userage %></p>
+        <p><span class="label">Date of Birth:</span> <%= userdob %></p>
+      </div>
+    </div>
+  </body>
+</html>

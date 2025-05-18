@@ -1,0 +1,105 @@
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+}
+
+body {
+  background: linear-gradient(120deg, #ffc1f5, #b3eff7);
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  animation: fadeIn 1s ease-in;
+}
+
+.nav-bar {
+  position: absolute;
+  top: 0;
+  width: 100%;
+  padding: 1rem;
+  background: rgba(255, 255, 255, 0.559);
+  backdrop-filter: blur(10px);
+  text-align: center;
+  color: #a30178;
+  font-size: 1.5rem;
+  font-weight: bold;
+  animation: slideDown 1s ease-out;
+}
+
+.container {
+  background: white;
+  padding: 2rem;
+  border-radius: 20px;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
+  text-align: center;
+  max-width: 400px;
+  width: 100%;
+  animation: popIn 0.7s ease-in-out;
+}
+
+.profile-img {
+  width: 120px;
+  height: 120px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 5px solid  #a30178;
+  margin-bottom: 1rem;
+  transition: transform 0.4s ease;
+}
+
+.profile-img:hover {
+  transform: scale(1.1);
+}
+
+.user-details h2 {
+  margin: 0.5rem 0;
+  color: #333;
+}
+
+.user-details p {
+  margin: 0.3rem 0;
+  font-size: 0.95rem;
+  color: #555;
+}
+
+.label {
+  font-weight: bold;
+  color: #666;
+}
+
+/* Animations */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes popIn {
+  0% {
+    transform: scale(0.8);
+    opacity: 0;
+  }
+  100% {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+
+@keyframes slideDown {
+  0% {
+    transform: translateY(-100%);
+    opacity: 0;
+  }
+  100% {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
