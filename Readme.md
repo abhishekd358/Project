@@ -58,7 +58,7 @@ Feel free to open a pull request or raise an issue!
 
 ## 📬 Contact
 
-**Abhishek Dhaware**  
+**Abhishek D**  
 GitHub: [@abhishekd358](https://github.com/abhishekd358)
 
 Feel free to connect, suggest ideas, or just say hello! 😄
