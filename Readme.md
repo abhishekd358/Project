@@ -24,6 +24,7 @@ This folder contains projects built using **Node.js**, **Express.js**, and **Mon
 
 #### 2. [`API`](./API)
 This folder contains API built using **Node.js**, **Express.js**, and **MongoDB**.
+
 ✅ Included Projects:
 - **E-Commerce API**: handles user registration, login, product management, cart operations, and admin tasks.
 ---
