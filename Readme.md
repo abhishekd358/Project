@@ -16,7 +16,7 @@ Each folder inside this repo contains an **independent project** with its own RE
 #### 1. [`Node_Express_MongoDB`](./Node_Express_MongoDB)
 This folder contains projects built using **Node.js**, **Express.js**, and **MongoDB**.
 
-✅ Included Projects:
+- ✅ Included Projects:
 - **Image Uploader**: Upload and store images using Multer, Cloudinary, and MongoDB with a clean UI.
 - **URL Shortener**: Shorten long URLs, save them to MongoDB, and handle redirection using short codes.
 
@@ -25,7 +25,7 @@ This folder contains projects built using **Node.js**, **Express.js**, and **Mon
 #### 2. [`API`](./API)
 This folder contains API built using **Node.js**, **Express.js**, and **MongoDB**.
 
-✅ Included Projects:
+- ✅ Included Projects:
 - **E-Commerce API**: handles user registration, login, product management, cart operations, and admin tasks.
 ---
 
