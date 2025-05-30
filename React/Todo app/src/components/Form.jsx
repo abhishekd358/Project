@@ -7,18 +7,8 @@ const Form = () => {
   const [formData, setFormData] = useState([
     {
       id: 1,
-      title: "t1",
-      desc: "d2",
-    },
-    {
-      id: 2,
-      title: "t2",
-      desc: "d2",
-    },
-    {
-      id: 3,
-      title: "t3",
-      desc: "d2",
+      title: "Dummy Task",
+      desc: "This is Dummy Task With Action you can DELETE and EDIT the existing Task as well.",
     },
   ]);
 
