@@ -24,7 +24,7 @@ A simple and beautiful React-based Todo WebApp to manage tasks, edit, and delete
 
 ## 📸 Screenshots
 
-> _(Add screenshots here if you want — just drop images into your repo and link them like `![Screenshot](./images/screenshot.png)`)_  
+![Screenshot](./todo.jpg)  
 
 ---
 
@@ -33,25 +33,26 @@ A simple and beautiful React-based Todo WebApp to manage tasks, edit, and delete
 1️⃣ Clone the repository:
 ```bash
 git clone https://github.com/abhishekd358/todo-webapp.git
-
+```
 
 2️⃣ Navigate to the project folder:
-```
+```bash
 cd todo-webapp
 ````
 3️⃣ Install dependencies:
-```
+```bash
 npm install
 ```
 4️⃣ Start the development server:
-```
+```bash
 npm run dev
 ```
 ✅ App will run at:
-```
+```bash
 http://localhost:5173
 ```
 ## 📂 Project Structure
+```bash
 /src
   ├── components/
   │    ├── Form.js         # Form component
@@ -59,7 +60,7 @@ http://localhost:5173
   │    └── Form.css        # Form stylesheet
   ├── App.js               # Main application component
   └── Index.css            # Custom styles
-
+```
 
 ## 💖 Contributing
 Feel free to fork this repo, improve it, and submit pull requests!
