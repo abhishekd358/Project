@@ -1,0 +1,177 @@
+/* General styles */
+
+
+body::-webkit-scrollbar {
+    display: none;             
+}
+
+body {
+    margin: 0;
+    padding: 0;
+    font-family: "Cambria", sans-serif;
+    background: linear-gradient(135deg, #ffd0fd, #ffe6ff);
+    min-height: 100vh;
+}
+
+/* Nav bar */
+.nav-bar {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 32px;
+    font-weight: 700;
+    margin-top: 0px;
+    margin-bottom: 30px;
+    padding: 20px;
+    background-color: #ca01c0;
+    color: #fff;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+}
+
+/* Container */
+.container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 40px;
+    background: #fff;
+    padding: 30px;
+    border-radius: 16px;
+    box-shadow: 0 4px 20px rgba(202, 1, 192, 0.3);
+    flex-direction: column;
+    max-width: 400px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.container label {
+    font-size: 18px;
+    margin-top: 15px;
+    color: #ca01c0;
+    align-self: flex-start;
+}
+
+.container input {
+    width: 100%;
+    padding: 12px 15px;
+    margin-top: 8px;
+    border: 2px solid #d536cd;
+    border-radius: 10px;
+    font-size: 16px;
+    outline: none;
+    transition: border-color 0.3s;
+}
+
+.container input:focus {
+    border-color: #a900a1;
+}
+
+.container button {
+    margin-top: 20px;
+    padding: 12px 30px;
+    color: white;
+    background: linear-gradient(135deg, #ca01c0, #a900a1);
+    border: none;
+    border-radius: 10px;
+    font-size: 18px;
+    cursor: pointer;
+    transition: background 0.3s, transform 0.2s;
+}
+
+.container button:hover {
+    background: linear-gradient(135deg, #a900a1, #6e006c);
+    transform: translateY(-2px);
+}
+
+.container button:active {
+    transform: scale(0.98);
+}
+
+/* textaerea */
+.container textarea {
+    width: 100%;
+    min-height: 100px;
+    padding: 12px 15px;
+    margin-top: 8px;
+    border: 2px solid #d536cd;
+    border-radius: 10px;
+    font-size: 16px;
+    resize: vertical; /* lets user drag to resize vertically */
+    outline: none;
+    transition: border-color 0.3s;
+    font-family: "Cambria", sans-serif;
+}
+
+.container textarea:focus {
+    border-color: #a900a1;
+}
+
+
+/* Card table */
+.card-container {
+    margin: 50px auto;
+    width: 90%;
+    max-width: 800px;
+    background: #fff;
+    border-radius: 16px;
+    box-shadow: 0 4px 20px rgba(202, 1, 192, 0.3);
+    overflow-x: auto;
+}
+
+.table {
+    width: 100%;
+    border-collapse: collapse;
+    border-radius: 12px;
+    overflow: hidden;
+}
+
+.table th,
+.table td {
+    padding: 15px 20px;
+    text-align: center;
+    font-size: 16px;
+}
+
+.table thead {
+    background: linear-gradient(135deg, #ca01c0, #a900a1);
+    color: #fff;
+}
+
+.table tbody tr:nth-child(even) {
+    background-color: #fce5fc;
+}
+
+.table tbody tr:nth-child(odd) {
+    background-color: #ffe6ff;
+}
+
+.table button {
+    margin: 0 5px;
+    padding: 8px 16px;
+    font-size: 14px;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    color: #fff;
+    transition: background 0.3s, transform 0.2s;
+}
+
+.table button:first-child {
+    background-color: #ffa500; /* Edit button - orange */
+}
+
+.table button:first-child:hover {
+    background-color: #cc8400;
+}
+
+.table button:last-child {
+    background-color: #ff4d4d; /* Delete button - red */
+}
+
+.table button:last-child:hover {
+    background-color: #cc0000;
+}
+
+.table button:active {
+    transform: scale(0.95);
+}

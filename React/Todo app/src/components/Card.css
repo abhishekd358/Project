@@ -1,0 +1,17 @@
+.table button{
+    margin: 10px;
+    padding: 10px 22px 10px 22px;
+    color: white;
+    background-color:  rgb(202, 1, 192);
+    border-style: dashed;
+    border: 1px solid white;
+    border-radius: 10px;
+    font-family: "Cambria";
+    font-size: 18px;
+    
+}
+
+.table{
+    margin: 10px 0px 0px 10px;
+
+}
