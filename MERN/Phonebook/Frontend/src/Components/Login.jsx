@@ -2,7 +2,7 @@ import React from 'react'
 import { Link } from 'react-router-dom'
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
-const Login = ({email, password, setEmail, setPassword, setMessage, message, setIsLogin, isLogin}) => {
+const Login = ({email, password, setEmail, setPassword, setMessage, message, setIsLogin, setToken}) => {
     const navigate = useNavigate()
   // //  navigation to phonebook
   // const redirectPhonebook = ()=>
@@ -14,13 +14,12 @@ const Login = ({email, password, setEmail, setPassword, setMessage, message, set
         email,
         password,
       });
+      setToken(response.data.your_token)
       setMessage(response.data.message)
       if(response.data.success == true){
         
-        console.log(isLogin)
         setIsLogin(true)
         navigate('/phonebook')
-        console.log(isLogin)
       }
       // Clear the input fields
       setEmail('');

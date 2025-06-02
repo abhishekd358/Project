@@ -22,11 +22,21 @@ const App = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [message, setMessage] = useState("");
+  // for token
+  const savedToken = localStorage.getItem("authToken") || null;
+  const [token, setToken] = useState(savedToken);
 
- 
+  // If token is set (user logs in), it saves.If token is cleared (user logs out), it removes.
+  useEffect(() => {
+    if (token) {
+      localStorage.setItem("authToken", token);
+    } else {
+      localStorage.removeItem("authToken");
+    }
+  }, [token]);
 
   // now if user referesh the page when login , we not going to logout him , weven afeter he referesh we check the login stauts
-    //Initialize from localStorage directly
+  //Initialize from localStorage directly
   const [isLogin, setIsLogin] = useState(() => {
     return localStorage.getItem("isLogin") === "true";
   });
@@ -69,15 +79,12 @@ const App = () => {
                 setMessage={setMessage}
                 message={message}
                 setIsLogin={setIsLogin}
-                isLogin={isLogin}
+                setToken={setToken}
               />
             }
           />
 
-
-
-            <Route path="/about-project" element={<AboutProject/>}/>
-
+          <Route path="/about-project" element={<AboutProject />} />
 
           {/* Phonebook */}
           <Route
@@ -85,16 +92,14 @@ const App = () => {
             element={
               <ProtectedRoute isLogin={isLogin}>
                 {/* if login is true then only we render children(whstever inside the ProtectedRoute Component) */}
-                <Phonebook message={message} /> {/* this is my children*/}
+                <Phonebook message={message} token={token} />{" "}
+                {/* this is my children*/}
               </ProtectedRoute>
             }
           />
 
-
-
           {/* Handle non existing route */}
           <Route path="*" element={<NotFound />} />
-
         </Routes>
 
         <Footer />
