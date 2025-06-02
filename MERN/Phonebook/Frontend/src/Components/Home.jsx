@@ -1,11 +1,12 @@
 import React from 'react'
+import { Link } from 'react-router-dom'
 const Home = () => {
   return (
     <>
   <header className="hero-banner">
     <h1>Securely Manage Your Contacts</h1>
     <p>Simple, fast, and secure phonebook you can access anytime.</p>
-    <a href="register.html" className="cta-button">Get Started</a>
+    <Link to="/register" className="cta-button">Get Started</Link>
   </header>
 
   <section className="features-section">

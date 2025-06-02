@@ -16,9 +16,13 @@ body {
   min-height: 100vh;
 }
 
+body::-webkit-scrollbar{
+  display: none;
+}
+
 /* Navbar */
 .navbar {
-  width: 1400px;
+  width:1399px;
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -292,6 +296,8 @@ body {
 
 .auth-main{
   min-height: 73vh;
+  padding: 26px;
+  background-color: #f4f9ff;
 }
 .auth-container {
   max-width: 400px;
@@ -401,4 +407,177 @@ body {
 
 .testimonial-card h4 {
   font-weight: bold;
+}
+
+
+/* ProjectInfo */
+
+.about-container {
+  max-width: 1399px;
+  margin: 0 auto;
+  padding: 2rem;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  line-height: 1.6;
+  background-color: #f4f9ff;
+}
+
+.about-hero {
+  text-align: center;
+  margin-bottom: 2rem;
+}
+
+.about-hero h1 {
+  font-size: 2.5rem;
+  margin-bottom: 0.5rem;
+}
+
+.about-hero p {
+  font-size: 1.2rem;
+  color: #555;
+}
+
+.about-section {
+  text-align: center;
+  margin-bottom: 2rem;
+}
+
+.about-section h2 {
+  font-size: 1.8rem;
+  margin-bottom: 0.5rem;
+  color: #333;
+}
+
+.about-section p{
+  font-size: 1rem;
+  color: #444;
+  padding: 0 400px;
+  text-align: left;
+} 
+.about-section ul {
+  font-size: 1rem;
+  color: #444;
+}
+.about-section ul li {
+  list-style: none;
+}
+
+.about-section ul {
+  list-style-type: disc;
+  padding-left: 1.5rem;
+}
+
+.about-section a {
+  font-weight: 700;
+  color: #ff1fa1;
+  text-decoration: none;
+  
+}
+
+.about-section a:hover {
+  text-decoration: underline;
+}
+
+.git{
+  margin-left:35%;
+}
+
+
+
+/* Add Contact */
+/* Overlay background */
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+}
+
+/* Card container */
+.modal-card {
+  background: #fff;
+  padding: 2rem;
+  border-radius: 12px;
+  max-width: 400px;
+  width: 90%;
+  box-shadow: 0 8px 16px rgba(0,0,0,0.2);
+  animation: slideUp 0.3s ease-out;
+}
+
+.modal-card h2{
+  text-align: center;
+}
+
+/* Slide animation */
+@keyframes slideUp {
+  from {
+    transform: translateY(50px);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+/* Form styles */
+.modal-form label {
+  display: block;
+  margin-bottom: 1rem;
+  font-size: 0.95rem;
+  color: #333;
+}
+
+.modal-form input {
+  width: 100%;
+  padding: 0.6rem;
+  margin-top: 0.3rem;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  font-size: 1rem;
+}
+
+.modal-actions {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 1.5rem;
+}
+
+.btn-save {
+  background-color: #007acc;
+  color: white;
+  border: none;
+  /* padding: 0.6rem 1.2rem; */
+  padding: 12px 15px 10px 15px;
+  border-radius: 8px;
+  cursor: pointer;
+  background: #6a11cb;
+  transition: background 0.3s ease, transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.btn-save:hover {
+  background: #000000;
+  transform: scale(1.02);
+  box-shadow: 0 12px 20px rgba(0,0,0,0.3);
+}
+
+.btn-cancel {
+  background-color: #cc00b8;
+  color: white;
+  border: 1px solid #ccc;
+  padding: 12px 15px 10px 15px;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background 0.3s ease, transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.btn-cancel:hover {
+  background: #000000;
+  transform: scale(1.02);
+  box-shadow: 0 12px 20px rgba(0,0,0,0.3);
 }

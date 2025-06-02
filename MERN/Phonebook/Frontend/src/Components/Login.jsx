@@ -1,16 +1,47 @@
 import React from 'react'
+import { Link } from 'react-router-dom'
+import axios from 'axios';
+import { useNavigate } from 'react-router-dom';
+const Login = ({email, password, setEmail, setPassword, setMessage, message, setIsLogin, isLogin}) => {
+    const navigate = useNavigate()
+  // //  navigation to phonebook
+  // const redirectPhonebook = ()=>
+  const submitHandler = async (e) => {
+    e.preventDefault();
 
-const Login = () => {
+    try {
+      const response = await axios.post('http://localhost:3000/api/user/login', {
+        email,
+        password,
+      });
+      setMessage(response.data.message)
+      if(response.data.success == true){
+        
+        console.log(isLogin)
+        setIsLogin(true)
+        navigate('/phonebook')
+        console.log(isLogin)
+      }
+      // Clear the input fields
+      setEmail('');
+      setPassword('');
+
+    } catch (error) {
+      console.error('Registration error:', error.response ? error.response.data : error.message);
+    }
+  };
+
   return (
     <>
-    <div className='auth-main'> 
+    <div className='auth-main'  style={{ padding: '58px',backgroundColor: '#f4f9ff'}}> 
     <div className="auth-container">
     <h2>Login to Your Account</h2>
-    <form className="auth-form">
-      <input type="email" placeholder="Email Address" required />
-      <input type="password" placeholder="Password" required />
+    <form className="auth-form" method='POST' onSubmit={submitHandler}>
+      {message && <h4>{message}</h4>}
+      <input type="email" placeholder="Email Address" required value={email} name='email' onChange={(e)=>setEmail(e.target.value)}/>
+      <input type="password" placeholder="Password" required value={password} name='password' onChange={(e)=>setPassword(e.target.value)}/>
       <button type="submit">Login</button>
-      <p>Don't have an account? <a href="register.html">Register here</a></p>
+      <p>Don't have an account? <Link to="/register">Register here</Link></p>
     </form>
   </div>
   </div>

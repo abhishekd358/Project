@@ -4,6 +4,7 @@ import UserRouter from './Routes/user.route.js'
 import ContactRouter from './Routes/contact.route.js'
 import dotenv from 'dotenv';
 dotenv.config()
+import cors from 'cors'
 
 // ------------------------------------- DB Connection
 mongoose.connect(
@@ -19,6 +20,12 @@ const app = express();
 // ------------------------------------- middleware
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
+app.use(cors({
+  origin: 'http://localhost:5173', // allow only your frontend
+  credentials: true,               // if using cookies or auth headers
+}));
+
+
 
 //  ------------------------------------ User-routes
 app.use('/api/user', UserRouter)
