@@ -69,7 +69,7 @@ export const delContact = async (req, res) => {
 export const getAllContact = async (req, res) => {
   try {
     const userId = req.userId
-    const contactsdata = await Contact.find({userId});
+    const contactsdata = await Contact.find({userId}).sort({createdAt:-1});
     res.json({ message: "All your Contacts!!!", contacts: contactsdata, success: true });
   } catch (error) {
     res.json({ message: error.message, success: false });

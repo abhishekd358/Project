@@ -16,12 +16,13 @@ import {
 } from "react-router-dom";
 import { useState } from "react";
 import ProtectedRoute from "./Components/ProtectedRoute";
+import { ToastContainer } from 'react-toastify'; 
+import 'react-toastify/dist/ReactToastify.css';
 const App = () => {
   // ----------------------- states
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [message, setMessage] = useState("");
   // for token
   const savedToken = localStorage.getItem("authToken") || null;
   const [token, setToken] = useState(savedToken);
@@ -49,6 +50,7 @@ const App = () => {
   return (
     <>
       <Router>
+        <ToastContainer />
         <Navbar isLogin={isLogin} setIsLogin={setIsLogin} />
 
         <Routes>
@@ -60,11 +62,11 @@ const App = () => {
                 name={name}
                 email={email}
                 password={password}
-                message={message}
+              
                 setName={setName}
                 setEmail={setEmail}
                 setPassword={setPassword}
-                setMessage={setMessage}
+            
               />
             }
           />
@@ -76,8 +78,8 @@ const App = () => {
                 password={password}
                 setEmail={setEmail}
                 setPassword={setPassword}
-                setMessage={setMessage}
-                message={message}
+               
+          
                 setIsLogin={setIsLogin}
                 setToken={setToken}
               />
@@ -92,7 +94,7 @@ const App = () => {
             element={
               <ProtectedRoute isLogin={isLogin}>
                 {/* if login is true then only we render children(whstever inside the ProtectedRoute Component) */}
-                <Phonebook message={message} token={token} />{" "}
+                <Phonebook  token={token} />{" "}
                 {/* this is my children*/}
               </ProtectedRoute>
             }

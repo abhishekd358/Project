@@ -58,19 +58,19 @@ body::-webkit-scrollbar{
 /* Phone container */
 .phone-container {
   background: #efefef;
-  width: 400px; /* typical mobile width */
+  width: 800px; /* typical mobile width */
   max-width: 90%;
   margin: 2rem auto;
   border: 12px solid #333;
   border-radius: 40px;
   box-shadow: 0 20px 40px rgba(0,0,0,0.2);
-  padding: 1rem;
+  padding: 2rem;
   display: flex;
   flex-direction: column;
   align-items: center;
   overflow-y: auto;
-  max-height: 555px; /* mimic screen size */
-  min-height: 555px;
+  max-height: 503px; /* mimic screen size */
+  min-height: 503px;
   position: relative;
   animation: fadeInUp 0.8s ease forwards;
 }

@@ -1,7 +1,8 @@
 import React from 'react'
 import axios from 'axios'
 import { Link } from 'react-router-dom';
-const Register = ({name, email, password, message, setEmail, setName, setMessage,setPassword}) => {
+import { toast, Bounce } from 'react-toastify';
+const Register = ({name, email, password, setEmail, setName,setPassword}) => {
   
 
 
@@ -13,9 +14,19 @@ const Register = ({name, email, password, message, setEmail, setName, setMessage
         name,
         email,
         password,
-      });
-      setMessage(response.data.message)
-
+      })
+      // toast
+      toast(response.data.message, {
+position: "top-center",
+autoClose: 1000,
+hideProgressBar: false,
+closeOnClick: false,
+pauseOnHover: true,
+draggable: true,
+progress: undefined,
+theme: "dark",
+transition: Bounce,
+});
       // Clear the input fields
       setName('');
       setEmail('');
@@ -38,7 +49,6 @@ const Register = ({name, email, password, message, setEmail, setName, setMessage
         <div className="auth-container" >
     <h2>Create Your Account</h2>
     <form className="auth-form" method='POST' onSubmit={submitHandler}>
-      {message !== '' ? <h4>{message}</h4> : ''}
       <input type="text" placeholder="Full Name" required name='name' value={name} onChange={(e)=>setName(e.target.value)}/>
       <input type="email" placeholder="Email Address" required name='email' value={email} onChange={(e)=>setEmail(e.target.value)}/>
       <input type="password" placeholder="Password" required name='password' value={password} onChange={(e)=>setPassword(e.target.value)}/>
