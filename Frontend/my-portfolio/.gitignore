@@ -24,6 +24,4 @@ dist-ssr
 *.sw?
 
 
-
-# user input
 node_modules
