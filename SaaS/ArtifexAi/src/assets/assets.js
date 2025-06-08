@@ -99,3 +99,12 @@ export const plans = [
       desc: 'Best for enterprise use.'
     },
   ]
+
+
+
+export const Introduction = {
+  title: 'Introducing the Al-Powered Text to Image Generator',
+  desc1: 'Easily bring your ideas to life with our free Al image generator. Whether you need stunning visuals or unique imagery, our tool transforms your text into eye-catching images with just a few clicks. Imagine it, describe it, and watch it come to life instantly.'
+  ,
+  desc2:"Simply type in a text prompt, and our cutting-edge Al will generate high- quality images in seconds. From product visuals to character designs and portraits, even concepts that don't yet exist can be visualized effortlessly. Powered by advanced Al technology, the creative possibilities are limitless!"
+}
