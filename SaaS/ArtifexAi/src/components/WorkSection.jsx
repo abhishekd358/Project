@@ -13,7 +13,7 @@ const WorkSection = () => {
                 <div><img src={data.icon} alt="" width={40} className='min-w-[40px]'/></div>
                     
                 <div className='flex-1'>
-                    <h3 className='font-semibold text-xl'>{data.title}</h3>
+                    <h3 className='font-[400] text-lg'>{data.title}</h3>
                     <p className='text-gray-500'>"{data.description}"</p>
                 </div>
             </div>
