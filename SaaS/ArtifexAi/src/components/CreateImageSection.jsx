@@ -8,7 +8,7 @@ const CreateImageSection = () => {
         Turn Your Imagination Into Visuals
       </p>
 
-        <div className="flex flex-col justify-center my-10 md:gap-15 md:flex-row items-center">
+        <div className="flex flex-col justify-center mt-12 md:gap-15 md:flex-row items-center">
             <img src={assets.sample_img_1} alt="" className="w-80 xl:w-96 rounded-lg"/>
             <div>
                 <h3 className="text-5xl text-gray-700 mt-12 mb-9">{Introduction.title}</h3>
