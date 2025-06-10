@@ -3,14 +3,16 @@ import React, { useState } from 'react'
 
 const StoreContext = (props) => {
     // user login or not state
-    const [isLogin, setisLogin] = useState(null)
-    const [user, setUser] = useState(true)
+    // const [isLogin, setisLogin] = useState(null)
+    const [user, setUser] = useState(false)
+    const [showLogin, setShowLogin] = useState(false)
 
     const value= {
-        isLogin,
-        setisLogin,
+        showLogin,
+        setShowLogin,
         user,
-        setUser
+        setUser,
+        // isLogin
     }
 
 

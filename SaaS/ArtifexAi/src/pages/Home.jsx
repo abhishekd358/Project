@@ -14,6 +14,8 @@ const Home = () => {
     <CreateImageSection/>
     <TestimonalSection/>
     <BottomSection/>
+
+
     </>
   )
 }

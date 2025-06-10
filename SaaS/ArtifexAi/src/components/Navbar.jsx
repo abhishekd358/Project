@@ -3,9 +3,10 @@ import {CircleUserRound, Star} from 'lucide-react'
 import {assets} from '../assets/assets'
 import {Link} from 'react-router-dom'
 import { useContext } from 'react'
+import StoreContext from '../context/StoreContext'
 import MyContext from '../context/MyContex'
 const Navbar = () => {
-  const {isLogin} = useContext(MyContext)
+  const {setShowLogin, user} = useContext(MyContext)
   return (
     <div className='py-4  flex justify-between items-center'>
         {/* image */}
@@ -15,7 +16,7 @@ const Navbar = () => {
 
       {/* conditional rednering if user login or logout */}
       {
-      isLogin ?
+      user ?
 
       <div className='flex items-center gap-2 sm:gap-3'>
         <button className='flex items-center gap-2 bg-blue-100 px-4 py-1.5 sm:px-6 sm:py-3 rounded-full hover:scale-105 transition-all duration-700 '>
@@ -38,7 +39,7 @@ const Navbar = () => {
       :
       <div className='flex items-center gap-4 list-none'>
             <li><Link to='/buy'>Pricing</Link></li>
-            <li><button className='bg-zinc-800 text-white px-7 py-2 sm:px-10 rounded-full text-center text-sm hover:bg-blue-500'>Login</button></li>
+            <li><button onClick={()=>setShowLogin(true)} className='bg-zinc-800 text-white px-7 py-2 sm:px-10 rounded-full text-center text-sm hover:bg-blue-500'>Login</button></li>
         </div>
       
       }
