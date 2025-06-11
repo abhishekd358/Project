@@ -1,5 +1,6 @@
 import express from 'express';
 import { userLogin, userRegister } from '../controllers/userController.js';
+import userAuth from '../middleware/auth.js';
 
 const UserRouter = express.Router()
 
@@ -13,7 +14,7 @@ UserRouter.post('/register', userRegister)
 // login
 // endpoint: api/user/login
 // desc: new user login handling
-UserRouter.post('/login', userLogin);
+UserRouter.post('/login', userAuth, userLogin);
 
 
 

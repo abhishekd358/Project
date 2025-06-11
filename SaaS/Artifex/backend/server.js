@@ -3,6 +3,10 @@ import mongoose from 'mongoose'
 import UserRouter from './routes/userRoute.js'
 import cors from 'cors'
 import dotenv from 'dotenv'
+// dotenv config
+dotenv.config()
+
+
 // creating connection with DB
 mongoose.connect(process.env.DB_URL, {dbName: 'Artifex'}).then(()=>console.log('Database connected successfully.')).catch((error)=>console.log(error))
 
@@ -16,8 +20,7 @@ app.use(cors({
   credentials: true,               // if using cookies or auth headers
 }));
 
-// dotenv config
-dotenv.config()
+
 
 
 // ---------user route
