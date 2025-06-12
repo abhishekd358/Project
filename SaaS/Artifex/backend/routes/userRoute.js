@@ -1,5 +1,5 @@
 import express from 'express';
-import { userLogin, userRegister } from '../controllers/userController.js';
+import { userCredits, userLogin, userRegister } from '../controllers/userController.js';
 import userAuth from '../middleware/auth.js';
 
 const UserRouter = express.Router()
@@ -14,7 +14,13 @@ UserRouter.post('/register', userRegister)
 // login
 // endpoint: api/user/login
 // desc: new user login handling
-UserRouter.post('/login', userAuth, userLogin);
+UserRouter.post('/login',  userLogin);
+
+
+// credit
+// endpoint : api/user/credit
+// desc: rturn the token available for user
+UserRouter.post('/credit',userAuth, userCredits )
 
 
 

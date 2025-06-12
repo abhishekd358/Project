@@ -74,9 +74,8 @@ export const userLogin = async (req, res) => {
         return res.json({message: 'Invalid password', success:false})
     }
     
-    const userId = emailExists._id 
     // now we create a token to maked verifcation 
-    const token = jwt.sign({userId},process.env.SECRET_KEY,{expiresIn: '1h'} )
+    const token = jwt.sign({userId: emailExists._id},process.env.SECRET_KEY,{expiresIn: '1h'} )
 
     res.json({message:`${emailExists.name} Welcome...`,token:token, success:true})
         
@@ -86,4 +85,22 @@ export const userLogin = async (req, res) => {
     }
 
 
+}
+
+
+
+
+// user credit
+
+
+export const userCredits = async (req, res) => {
+    try {
+        const id = req.userId
+        const user = await UserDB.findById(id)
+        res.json({credits:user.credit, name: user.name, success:true})
+        
+    } catch (error) {
+     return res.json({message:error.message, success:false})   
+    }
+    
 }

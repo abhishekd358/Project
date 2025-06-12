@@ -3,6 +3,7 @@ import mongoose from 'mongoose'
 import UserRouter from './routes/userRoute.js'
 import cors from 'cors'
 import dotenv from 'dotenv'
+import imageRouter from './routes/imageRoute.js'
 // dotenv config
 dotenv.config()
 
@@ -25,6 +26,7 @@ app.use(cors({
 
 // ---------user route
 app.use('/api/user', UserRouter)
+app.use('/api/image', imageRouter)
 
 const port = process.env.PORT;
 app.listen(port, ()=>console.log('Server Running Successfully on port', port))
