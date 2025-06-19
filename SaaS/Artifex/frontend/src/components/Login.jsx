@@ -3,11 +3,45 @@ import { assets } from "../assets/assets";
 import { useEffect } from "react";
 import StoreContext from "../context/StoreContext";
 import MyContext from "../context/MyContex";
+import axios from 'axios'
 
 const Login = () => {
   const [state, setState] = useState("Login");
+  const { setShowLogin,backendUrl,setToken, setUser } = useContext(MyContext);
 
-  const { setShowLogin } = useContext(MyContext);
+  // state for the user input field name, email, password 
+  const [name, setName] = useState('')
+  const [email, setEmail] = useState('')
+  const [password, setPassword] = useState('')
+
+  // form submit handler
+  const submitHandler = async (e) =>{
+    e.PreventDefault();
+
+    // as user submit the form we call the server
+    try {
+      if (state === 'Login') {
+        const response = await axios.post( `${backendUrl}/api/user/login`, {
+          email,
+          password
+        })
+
+        if (response.success) {
+          setToken(response.token)
+          setUser(response.user)
+          // store the token to local storage
+          localStorage.setItem('token', response.token)
+        }
+        
+      }
+      
+    } catch (error) {
+      console.error('Registration error:', error.response ? error.response.data : error.message);  
+    }
+
+  }
+
+
 
   useEffect(() => {
     document.body.style.overflow = "hidden";
@@ -37,6 +71,8 @@ const Login = () => {
               type="email"
               placeholder="Full Name"
               className="outline-none text-sm"
+              onChange={(e)=>setName(e.target.value)}
+              value={name}
             />
           </div>
         )}
@@ -48,6 +84,8 @@ const Login = () => {
             type="email"
             placeholder="Email id"
             className="outline-none text-sm"
+            onChange={(e)=>setEmail(e.target.value)}
+            value={email}
           />
         </div>
 
@@ -58,6 +96,8 @@ const Login = () => {
             type="password"
             placeholder="Password"
             className="outline-none text-sm"
+            onChange={(e)=>setPassword(e.target.value)}
+            value={password}
           />
         </div>
 

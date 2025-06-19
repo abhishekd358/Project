@@ -77,7 +77,7 @@ export const userLogin = async (req, res) => {
     // now we create a token to maked verifcation 
     const token = jwt.sign({userId: emailExists._id},process.env.SECRET_KEY,{expiresIn: '1h'} )
 
-    res.json({message:`${emailExists.name} Welcome...`,token:token, success:true})
+    res.json({user:emailExists.name,token:token, success:true})
         
     } catch (error) {
         return res.json({message:error.message, success:false})
