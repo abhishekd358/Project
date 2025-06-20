@@ -42,7 +42,7 @@ export const generateImage = async (req, res) => {
     return res.json({
       message: "Image generated successfully",
       success: true,
-      imageUrl, // Base64 URL or CDN URL
+      resultImage: imageUrl, // Base64 URL or CDN URL
       creditBalance: user.credit,
     });
   } catch (error) {

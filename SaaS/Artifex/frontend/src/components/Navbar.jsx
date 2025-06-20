@@ -6,7 +6,7 @@ import { useContext } from 'react'
 import StoreContext from '../context/StoreContext'
 import MyContext from '../context/MyContex'
 const Navbar = () => {
-  const {setShowLogin, user} = useContext(MyContext)
+  const {setShowLogin, user, logout, credit} = useContext(MyContext)
   return (
     <div className='py-4  flex justify-between items-center'>
         {/* image */}
@@ -21,16 +21,17 @@ const Navbar = () => {
       <div className='flex items-center gap-2 sm:gap-3'>
         <button className='flex items-center gap-2 bg-blue-100 px-4 py-1.5 sm:px-6 sm:py-3 rounded-full hover:scale-105 transition-all duration-700 '>
           <img src={assets.credit_star} alt="" className='w-5' />
-          <p className='text-xs sm:text-sm font-medium text-gray-600'>Credit left: 4</p>
+          <p className='text-xs sm:text-sm font-medium text-gray-600'>Credit left: {credit}</p>
+
         </button>
 
 
-        <p className='text-gray-600 pl-4 max-sm:hidden'>Hi, Abhi</p>
+        <p className='text-gray-600 pl-4 max-sm:hidden'>Hi, {user}</p>
         <div className='relative group '>
           <img src={assets.profile_icon} alt="" className='w-10 drop-shadow'/>
           <div className='absolute hidden group-hover:block top-0 right-0 z-10 text-black rounded pt-12'>
             <ul className='list-none m-0 p-2 bg-white rounded-md text-sm'>
-              <li className='py-1 px-2 cursor-pointer pr-10'>Logout</li>
+              <li className='py-1 px-2 cursor-pointer pr-10' onClick={logout}>Logout</li>
             </ul>
           </div>
         </div>

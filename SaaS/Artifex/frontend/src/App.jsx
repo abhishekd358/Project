@@ -7,13 +7,14 @@ import Footer from "./components/Footer";
 import Navbar from "./components/Navbar"
 import Login from "./components/Login";
 import MyContext from "./context/MyContex";
-
+import { ToastContainer, toast } from 'react-toastify';
 
 const App = () => {
     const {showLogin} = useContext(MyContext)
   return (
     <div className="min-h-screen bg-gradient-to-b from-teal-50 to-orange-50 px-4 sm:px-10 md:px-14 lg:px-28 ">
       <Router>
+        <ToastContainer position="bottom-right"/>
          <Navbar/>
 
          {showLogin && <Login/>}

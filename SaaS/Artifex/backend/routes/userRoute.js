@@ -20,7 +20,7 @@ UserRouter.post('/login',  userLogin);
 // credit
 // endpoint : api/user/credit
 // desc: rturn the token available for user
-UserRouter.post('/credit',userAuth, userCredits )
+UserRouter.get('/credits',userAuth, userCredits )
 
 
 

@@ -1,5 +1,6 @@
 import React from 'react'
 import { assets } from '../assets/assets'
+
 const HeroSection = () => {
   return (
     <div className='flex flex-col justify-center items-center py-12'>
@@ -13,7 +14,7 @@ const HeroSection = () => {
         
              <p className='text-center w-130 max-sm:w-120'>Uneleash yout creativity with AI. Turn your imagaintion into visual art in seconds - just type, and watch the magic happen </p>
         
-        <button className='bg-gray-900 px-8 py-3 rounded-full text-white text-xs text-center mt-8 mb-15'>Generate Images <img className='inline w-5 ml-1.5' src={assets.star_group} alt="" /></button>
+        <button className='bg-gray-900 px-8 py-3 rounded-full text-white text-xs text-center mt-8 mb-15 hover:cursor-pointer'>Generate Images <img className='inline w-5 ml-1.5' src={assets.star_group} alt="" /></button>
 
 
         <div className='flex justify-center items-center gap-1.5'>
