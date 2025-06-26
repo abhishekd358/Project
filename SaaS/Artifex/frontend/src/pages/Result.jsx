@@ -9,7 +9,7 @@ const Result = () => {
   const [loading, setLoading] = useState(false)
   const [input, setInput] = useState('')
   const {generateImage} = useContext(MyContext)
-  const navigate = useNavigate(); // ✅ correct placement
+  const navigate = useNavigate(); 
 
   const submitHandler = async (e) => {
     e.preventDefault();

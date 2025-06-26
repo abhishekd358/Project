@@ -3,7 +3,7 @@ import { UserDB } from '../models/userModel.js'
 
 const userAuth = async (req, res, next) => {
     
-    const token = req.header('Auth')
+    const token = req.header('token')
     try {
             // check the token is getting from the header or not
     if(!token){

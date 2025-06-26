@@ -3,9 +3,6 @@ import { UserDB } from '../models/userModel.js';
 import bcrypt, { hash } from 'bcrypt'
 import jwt from 'jsonwebtoken'
 import dotenv from 'dotenv'
-// Melody Marks
-
-
 // controllers 
 
 // Register

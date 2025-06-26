@@ -25,8 +25,19 @@ export const generateImage = async (req, res) => {
     }
 
     // Step 1: Send generation request to AI Horde
+    // const urlPrompt = encodeURIComponent(prompt);
+    // const imageUrl = `https://image.pollinations.ai/prompt/${urlPrompt}`;
+
+    // extra code
+        const width = 1024, height = 1024;
+    const seed = 43;
+    const model = "flux";
     const urlPrompt = encodeURIComponent(prompt);
-    const imageUrl = `https://image.pollinations.ai/prompt/${urlPrompt}`;
+    const imageUrl = `https://image.pollinations.ai/prompt/${urlPrompt}` +
+      `?model=${model}&width=${width}&height=${height}&seed=${seed}`;
+
+
+
 
     // Test that the URL returns an image
     const result = await axios.head(imageUrl);

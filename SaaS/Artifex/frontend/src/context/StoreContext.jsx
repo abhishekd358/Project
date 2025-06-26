@@ -2,6 +2,7 @@ import axios from "axios";
 import MyContext from "./MyContex";
 import React, { useEffect, useState} from 'react'
 import { toast } from "react-toastify";
+import { useNavigate } from "react-router-dom";
 const StoreContext = (props) => {
     // user login or not state
     // const [isLogin, setisLogin] = useState(null)
@@ -14,6 +15,9 @@ const StoreContext = (props) => {
     const [credit, setCredit] = useState(0)
     // backend url
     const backendUrl = import.meta.env.VITE_BACKEND_URL
+
+    // Navigate
+    const navigate = useNavigate()
     
 
 
@@ -37,7 +41,7 @@ const StoreContext = (props) => {
   const generateImage = async (prompt) => { 
     try {
       const {data} = await axios.post(`${backendUrl}/api/image/generate-image`, {prompt}, {headers: {token}})
-
+     
       if (data.success) {
           loadCreditsData()
           return data.resultImage
@@ -69,6 +73,8 @@ const StoreContext = (props) => {
       localStorage.removeItem('token')
       setToken('')
       setUser(null)
+      navigate('/')
+      
     }
 
 

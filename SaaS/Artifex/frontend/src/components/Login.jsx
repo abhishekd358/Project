@@ -25,12 +25,11 @@ const Login = () => {
                 email,
                 password
             });
-            console.log(response)
 
             if (response.data.success) {
                 setToken(response.data.token);
                 setUser(response.data.user);
-                setCredit(response.data.credits);
+                // setCredit(response.data.credits);
                 localStorage.setItem('token', response.data.token);
                 setShowLogin(false);
             } else {
@@ -42,12 +41,12 @@ const Login = () => {
                 email,
                 password
             });
-            console.log(response)
+            
 
             if (response.data.success) {
                 setToken(response.data.token);
                 setUser(response.data.user);
-                setCredit(response.data.credits);
+                // setCredit(response.data.credits);
                 localStorage.setItem('token', response.data.token);
         
                 setShowLogin(false);
