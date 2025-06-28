@@ -25,18 +25,33 @@ export const generateImage = async (req, res) => {
     }
 
     // Step 1: Send generation request to AI Horde
-    // const urlPrompt = encodeURIComponent(prompt);
-    // const imageUrl = `https://image.pollinations.ai/prompt/${urlPrompt}`;
-
-    // extra code
-        const width = 1024, height = 1024;
-    const seed = 43;
-    const model = "flux";
     const urlPrompt = encodeURIComponent(prompt);
-    const imageUrl = `https://image.pollinations.ai/prompt/${urlPrompt}` +
-      `?model=${model}&width=${width}&height=${height}&seed=${seed}`;
+    const imageUrl = `https://image.pollinations.ai/prompt/${urlPrompt}`;
 
+     // Pollinations secured API endpoint
+    const pollinationAPI = `https://image.pollinations.ai/openai?token=${process.env.POLLINATIONS_API_KEY}`;
 
+    const response = await axios.post(
+      pollinationAPI,
+      {
+        prompt,
+        model: "turbo",
+        width: 720,
+        height: 1280,
+        seed: 28312,
+      },
+      {
+        headers: {
+          Authorization: `Bearer ${process.env.POLLINATIONS_API_KEY}`,
+          "Content-Type": "application/json",
+        },
+      }
+    );
+
+    //  const seed = 42;
+    // const imageUrl = `https://image.pollinations.ai/prompt/${encodeURIComponent(prompt)}?model=flux&width=1024&height=1024&seed=${seed}&nologo=true`;
+
+    console.log(response)
 
 
     // Test that the URL returns an image

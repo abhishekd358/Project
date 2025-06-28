@@ -3,6 +3,8 @@ import { UserDB } from '../models/userModel.js';
 import bcrypt, { hash } from 'bcrypt'
 import jwt from 'jsonwebtoken'
 import dotenv from 'dotenv'
+import razorpay from razorpay;
+import { transactionModel } from '../models/TransactionModel.js';
 // controllers 
 
 // Register
@@ -105,3 +107,83 @@ export const userCredits = async (req, res) => {
     }
     
 }
+
+
+
+// razorpay instance
+const razorpayInstance = new razorpay({
+    key_id:process.env.RAZORPAY_KEY_ID,
+    key_secret: process.env.RAZORPAY_KEY_SECRET
+});
+
+// razorpay controller
+export const paymentRazorpay = async (req, res) => {
+    try {
+
+        const {userId, planId} = req.body
+
+        // if userId and planId is not found
+        if(!userId || !planId){
+            return res.json({message:'Missing Details', success: false})
+        }
+
+        let credits, plan , amount , date
+
+        // we use switch case for particular plans
+        switch (planId) {
+            case 'Basic':
+                plan = 'Basic'
+                credits = 100
+                amount = 10
+                break;
+            
+            case 'Advanced':
+                plan = 'Advanced'
+                credits = 500
+                amount = 50
+                break;
+            
+            case 'Business':
+                plan = 'Business'
+                credits = 5000
+                amount = 250
+                break;
+            default:
+                return res.json({message:'plan not found', success:false})
+        }
+        date = Date.now();
+
+        const transactionData = {
+            userId, plan, amount , credits, date
+        }
+
+        const newTransaction = await transactionModel.create(transactionData)
+
+        // we create option here
+        const options = {
+            amount : amount * 100,
+            currency: process.env.CURRENCY,
+            receipt: newTransaction._id
+        }
+
+        await razorpayInstance.order.create(options, (error, order)=>{
+            if(error){
+                console.log(error);
+                return res.json({success:false, message:error})
+            }
+
+            res.json({order, success:true})
+        })
+
+        
+    } catch (error) {
+        console.log(error)
+        res.json({message:error.message, success:false})
+    }
+    
+}
+
+
+
+
+

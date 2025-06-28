@@ -1,5 +1,5 @@
 import express from 'express';
-import { userCredits, userLogin, userRegister } from '../controllers/userController.js';
+import { paymentRazorpay, userCredits, userLogin, userRegister } from '../controllers/userController.js';
 import userAuth from '../middleware/auth.js';
 
 const UserRouter = express.Router()
@@ -22,7 +22,10 @@ UserRouter.post('/login',  userLogin);
 // desc: rturn the token available for user
 UserRouter.get('/credits',userAuth, userCredits )
 
-
+// payment
+// endpoint : api/user/pay-razor
+// desc: for payment handle
+UserRouter.get('/pay-razor',userAuth, paymentRazorpay )
 
 
 export default UserRouter;
