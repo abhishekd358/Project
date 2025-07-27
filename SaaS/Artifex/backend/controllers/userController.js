@@ -2,7 +2,8 @@ import express from 'express';
 import { UserDB } from '../models/userModel.js';
 import bcrypt, { hash } from 'bcrypt'
 import jwt from 'jsonwebtoken'
-import dotenv from 'dotenv'
+import dotenv from 'dotenv';
+dotenv.config();
 import { transactionModel } from '../models/TransactionModel.js';
 import Razorpay from "razorpay"; 
 // controllers 
@@ -47,8 +48,6 @@ export const userRegister = async (req, res) => {
 }
 
 
-
-
 // user login 
 export const userLogin = async (req, res) => {
 
@@ -91,11 +90,7 @@ export const userLogin = async (req, res) => {
 }
 
 
-
-
 // user credit
-
-
 export const userCredits = async (req, res) => {
     try {
         const id = req.userId
@@ -166,7 +161,7 @@ export const paymentRazorpay = async (req, res) => {
             receipt: newTransaction._id
         }
 
-        await razorpayInstance.order.create(options, (error, order)=>{
+        await razorpayInstance.orders.create(options, (error, order)=>{
             if(error){
                 console.log(error);
                 return res.json({success:false, message:error})
@@ -183,17 +178,37 @@ export const paymentRazorpay = async (req, res) => {
     
 }
 
-// const verifyRazorpay = async (req, res) => {
-//     try {
+export const verifyRazorpay = async (req, res) => {
+    try {
+        const {razorpay_order_id} = req.body;
 
+        const orderInfo = await razorpayInstance.orders.fetch(razorpay_order_id);
+
+        if(orderInfo.status === 'paid'){
+            const transactionData = await transactionModel.findById(orderInfo.receipt);
+            if(transactionData.payment){
+                return res.json({message:'Payment already done', success:false})
+            }
+            const userData = await UserDB.findById(transactionData.userId);
+
+            const creditBalance = userData.credit + transactionData.credits;
+
+            await UserDB.findByIdAndUpdate(transactionData.userId, {credit: creditBalance}, {new:true});
+
+            await transactionModel.findByIdAndUpdate(transactionData._id, {payment:true}, {new:true});
+
+            res.json({message:'Payment successful!, Credit Added🎉', success:true, credits: creditBalance})
+            }else{
+                res.json({success:false, message:'Payment failed!'})
+            }
+        }        
+    catch (error) {
+        console.log(error);
+        res.json({message:error.message, success:false})
         
-//     } catch (error) {
-//         console.log(error);
-//         res.json({message:error.message, success:false})
-        
-//     }
+    }
     
-// }
+}
 
 
 

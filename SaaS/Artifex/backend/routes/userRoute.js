@@ -1,5 +1,5 @@
 import express from 'express';
-import { paymentRazorpay, userCredits, userLogin, userRegister } from '../controllers/userController.js';
+import { paymentRazorpay, userCredits, userLogin, userRegister, verifyRazorpay  } from '../controllers/userController.js';
 import userAuth from '../middleware/auth.js';
 
 const UserRouter = express.Router()
@@ -25,7 +25,9 @@ UserRouter.get('/credits',userAuth, userCredits )
 // payment
 // endpoint : api/user/pay-razor
 // desc: for payment handle
-UserRouter.get('/pay-razor',userAuth, paymentRazorpay )
+UserRouter.post('/pay-razor',userAuth, paymentRazorpay )
+
+UserRouter.post('/verify-payment', verifyRazorpay  )
 
 
 export default UserRouter;
