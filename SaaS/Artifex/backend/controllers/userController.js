@@ -202,7 +202,7 @@ export const verifyRazorpay = async (req, res) => {
                 res.json({success:false, message:'Payment failed!'})
             }
         }        
-    catch (error) {
+    catch (error) {z
         console.log(error);
         res.json({message:error.message, success:false})
         

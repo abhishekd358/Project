@@ -7,7 +7,7 @@ const Footer = () => {
 
         {/* div for left
         <div className='flex justify-around items-center gap-10'> */}
-            <img src={assets.logo} alt="" width={150} className='pb-2'/>
+            <img src={assets.artifex} alt="" width={150} className='pb-2'/>
             <p className='flex-1 border-l border-gray-400 pl-4 text-sm text-gray-500 max-sm:text-xs'>All right reserved. Copyright @ArtifexAi</p>
         {/* </div> */}
 

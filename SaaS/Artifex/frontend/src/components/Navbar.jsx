@@ -10,7 +10,7 @@ const Navbar = () => {
   return (
     <div className='py-4  flex justify-between items-center'>
         {/* image */}
-        <Link to='/'><img src={assets.logo} alt="Imageify Logo" /></Link>
+        <Link to='/'><img src={assets.artifex} alt="Artifex Logo"  width={150}/></Link>
 
 
 
