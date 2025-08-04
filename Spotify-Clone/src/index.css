@@ -1,3 +1,7 @@
-/* importing tailwindcss styles */
-@import "tailwindcss"
+/* Importing Tailwind CSS styles */
+@import "tailwindcss";
+
+::-webkit-scrollbar {
+    display: none;
+}
 
