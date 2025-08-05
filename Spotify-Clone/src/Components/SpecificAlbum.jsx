@@ -1,13 +1,19 @@
-import React from 'react'
+import React, { useContext } from 'react'
 import { useParams } from 'react-router-dom'
 import { albumsData, assets, songsData} from '../assets/assets';
 import Navbar from './Navbar'
+import { PlayerContext } from '../context/PlayerContext';
 const SpecificAlbum = () => {
     const {albumName} = useParams();
     // console.log(albumName);
     // specific album data
     const eachAlbum = albumsData.find((album) => album.name === albumName);
-    console.log(eachAlbum);
+    // console.log(eachAlbum);
+
+    // playing album song
+    const {albumSongPlay} = useContext(PlayerContext);
+
+
   return (
     <div style={{ backgroundImage:  `linear-gradient(${eachAlbum.bgColor}, #121212)`}}>
 
@@ -47,7 +53,7 @@ const SpecificAlbum = () => {
         {/* showing song list */}
 
         {songsData.map((song, index) =>(
-            <div className='grid grid-cols-3 mx-5 sm:grid-cols-4 gap-2 p-2 items-[#a7a7a7] hover:bg-[#ffffff2b] cursor-pointer' key={index}>
+            <div onClick={()=>albumSongPlay(index)} className='grid grid-cols-3 mx-5 sm:grid-cols-4 gap-2 p-2 items-[#a7a7a7] hover:bg-[#ffffff2b] cursor-pointer' key={index}>
                 <div className="flex items-center text-white">
                     <b className="mr-4 text-[#a7a7a7]">{index + 1}</b>
                     <img className="w-10 h-10 mr-4" src={song.image} alt="" />

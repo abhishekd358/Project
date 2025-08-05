@@ -2,7 +2,7 @@ import React, { useContext } from 'react'
 import { assets, songsData } from '../assets/assets'
 import { PlayerContext } from '../context/PlayerContext';
 const MusicPlayer = () => {
-    const{seekBar, seekBg,play,pause,track, playStatus, nextSong,time, currentTime } = useContext(PlayerContext);
+    const{seekBar, seekBg,play,pause,track, playStatus, nextSong,time } = useContext(PlayerContext);
 
   return (
     <div id='main-div' className='max-h-[10%] z-50 relative flex justify-between items-center px-10 py-2'>
@@ -29,7 +29,7 @@ const MusicPlayer = () => {
         </div>
 
         <div className='flex items-center gap-5'>
-            <p>{time.currentTime.minute}:{time.currentTime.second}{currentTime}</p>
+            <p>{time.currentTime.minute}:{time.currentTime.second}</p>
             <div ref={seekBg} className='w-[60vw] max-w-[500px] bg-gray-300 rounded-full cursor-pointer'>
                 <hr ref={seekBar} className='h-1 border-none w-0 bg-green-800 rounded-full'/>
             </div>
