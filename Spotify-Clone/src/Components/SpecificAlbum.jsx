@@ -11,7 +11,7 @@ const SpecificAlbum = () => {
     // console.log(eachAlbum);
 
     // playing album song
-    const {albumSongPlay} = useContext(PlayerContext);
+    const {specificSongPlay} = useContext(PlayerContext);
 
 
   return (
@@ -53,7 +53,7 @@ const SpecificAlbum = () => {
         {/* showing song list */}
 
         {songsData.map((song, index) =>(
-            <div onClick={()=>albumSongPlay(index)} className='grid grid-cols-3 mx-5 sm:grid-cols-4 gap-2 p-2 items-[#a7a7a7] hover:bg-[#ffffff2b] cursor-pointer' key={index}>
+            <div onClick={()=>specificSongPlay(index)} className='grid grid-cols-3 mx-5 sm:grid-cols-4 gap-2 p-2 items-[#a7a7a7] hover:bg-[#ffffff2b] cursor-pointer' key={index}>
                 <div className="flex items-center text-white">
                     <b className="mr-4 text-[#a7a7a7]">{index + 1}</b>
                     <img className="w-10 h-10 mr-4" src={song.image} alt="" />

@@ -1,8 +1,10 @@
-import React from 'react'
+import React, { useContext } from 'react'
 import { albumsData,songsData } from '../assets/assets'
 import { useNavigate } from 'react-router-dom'
+import { PlayerContext } from '../context/PlayerContext';
 const MusicCarousal = () => {
   const navigate = useNavigate();
+  const {specificSongPlay} = useContext(PlayerContext);
 
   return (
 
@@ -24,8 +26,8 @@ const MusicCarousal = () => {
       {/* Second Sectin divv Music Card Carousal */}
       <h1 className='my-5 font-bold text-2xl'>Today's Biggest Hits</h1>
       <div className='flex overflow-x-auto scrollbar-hide gap-4'>
-        {songsData.map((song) => (
-      <div key={song.id} className='min-w-[180px] p-2 px-3 rounded cursor-pointer hover:bg-[#ffffff26]'>
+        {songsData.map((song, index) => (
+      <div onClick={()=>specificSongPlay(index)} key={index} className='min-w-[180px] p-2 px-3 rounded cursor-pointer hover:bg-[#ffffff26]'>
       <img className='rounded' src={song.image} alt="" />
       <p className='font-bold mt-2 mv-1'>{song.name}</p>
       <p className='text-slate-200 text-sm'>{song.desc}</p>
