@@ -77,14 +77,20 @@ export const albumsData = [
         name: "Top 50 Global",
         image: img8,
         desc:"Your weekly update of the most played tracks",
-        bgColor:"#2a4365"
+        bgColor:"#2a4365",
+        likes: '1,234,353',
+        total_songs:'50Songs',
+        duration: '2hr 30min'
     },
     {   
         id:1,
         name: "Top 50 India",
         image: img9,
         desc:"Your weekly update of the most played tracks",
-        bgColor:"#22543d"
+        bgColor:"#22543d",
+        likes: '1,925,360,060',
+        total_songs:'30Songs',
+        duration: '1hr 10min'
     },
     {   
         id:2,
@@ -92,6 +98,10 @@ export const albumsData = [
         image: img10,
         desc:"Your weekly update of the most played tracks",
         bgColor:"#742a2a"
+        ,
+        likes: '1,234,353',
+        total_songs:'50Songs',
+        duration: '2hr 30min'
     },
     {   
         id:3,
@@ -99,6 +109,10 @@ export const albumsData = [
         image: img16,
         desc:"Your weekly update of the most played tracks",
         bgColor:"#44337a"
+        ,
+        likes: '1,234,353',
+        total_songs:'50Songs',
+        duration: '2hr 30min'
     },
     {   
         id:4,

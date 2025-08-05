@@ -3,9 +3,9 @@ import {assets} from '../assets/assets'
 const Sidebar = () => {
 
   return (
-    <div>
+    <div className='hidden lg:block'>
     {/* sidebar card 1 home and search */}
-      <div id="widget-1" className=" bg-[#121212] mx-2 my-2 px-7 py-4 flex flex-col gap-5 rad rounded-lg cursor-pointer">
+      <div id="widget-1" className="bg-[#121212] mx-2 my-2 px-7 py-4 flex flex-col gap-5 rad rounded-lg cursor-pointer">
 
         <div className="flex items-center gap-3">
           <img src={assets.home_icon} alt=""  width="20"/>

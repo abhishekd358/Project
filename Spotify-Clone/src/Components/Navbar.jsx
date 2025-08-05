@@ -1,13 +1,19 @@
 import React from 'react'
 import { assets } from '../assets/assets'
+import { useNavigate } from 'react-router-dom'
+
 const Navbar = () => {
+  const navigate = useNavigate();
   return (
     <>
-    <div className='flex justify-between items-center py-3 mb-5 px-5 sticky top-0 bg-blue-300/30 backdrop-blur-md z-50'>
+    <div className='flex justify-between items-center py-3 mb-5 px-5 '>
+    {/* sticky top-0 bg-blue-300/30 backdrop-blur-md z-50 >>> more if you want to stick the nav but you can delete it it dump code i just keep for my study pupose */}
+
+    
         {/* arrows  */}
         <div className='flex justify-start items-center gap-8'>
-            <img className='w-4 cursor-pointer' src={assets.arrow_left} alt="" />
-            <img className='w-4 cursor-pointer' src={assets.arrow_right} alt="" />
+            <img onClick={()=>navigate(-1)} className='w-4 cursor-pointer' src={assets.arrow_left} alt="" />
+            <img onClick={()=>navigate(+1)} className='w-4 cursor-pointer' src={assets.arrow_right} alt="" />
         </div>
 
         {/* profile and other buttons */}
