@@ -34,7 +34,7 @@ Will be hosted soon on [Vercel](https://vercel.com)
 
 ## 📷 Demo Video
 
-![Demo](./src/assets/SpotifyCloneDemo.mp4)
+[Click here to watch demo video](https://drive.google.com/file/d/1Qa7Vm8s6q7U2tYNj0CX6FgKabAuGmDkb/view?usp=drive_link)
 
 ---
 
