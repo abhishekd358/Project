@@ -19,7 +19,7 @@ const SpecificAlbum = () => {
 
         <Navbar/>
         {/* upper div */}
-        <div id='main-upper-div' className='block md:flex items-center gap-5 mx-7 pt-5 '>
+        <div id='main-upper-div' className='block md:flex items-center gap-5 mx-7 pt-5'>
             {/* image  */}
             
                 <img className='w-40 md:w-60 shadow-lg shadow-gray-950/40' src={eachAlbum.image} alt="" />
@@ -42,18 +42,18 @@ const SpecificAlbum = () => {
         </div>
 
         {/* song title, Dated added, album name etc */}
-        <div className='grid grid-cols-3 mx-5 sm:grid-cols-4 mb-4 pl-2 text-[#a7a7a7] mt-5'>
-
+        <div className='grid grid-cols-3 mx-5 sm:grid-cols-4 mb-4 pl-2 text-[#a7a7a7] mt-5 sticky top-0 z-10'>
             <p><b className='mr-4'>#</b>Title</p>
             <p>Album</p>
             <p className='hidden sm:block'>Date Added</p> 
             <img className='m-auto w-4' src={assets.clock_icon} alt="" />
+        
         </div>
         <hr />
         {/* showing song list */}
 
         {songsData.map((song, index) =>(
-            <div onClick={()=>specificSongPlay(index)} className='grid grid-cols-3 mx-5 sm:grid-cols-4 gap-2 p-2 items-[#a7a7a7] hover:bg-[#ffffff2b] cursor-pointer' key={index}>
+            <div onClick={()=>specificSongPlay(index)} className='grid grid-cols-3 mx-5 sm:grid-cols-4 gap-2 p-2 items-[#a7a7a7]  hover:bg-[#ffffff2b] cursor-pointer' key={index}>
                 <div className="flex items-center text-white">
                     <b className="mr-4 text-[#a7a7a7]">{index + 1}</b>
                     <img className="w-10 h-10 mr-4" src={song.image} alt="" />
@@ -64,6 +64,7 @@ const SpecificAlbum = () => {
                 <p className='text-[15px] text-center'>{song.duration}</p>
             </div>
         ))}
+
     </div>
   )
 }
