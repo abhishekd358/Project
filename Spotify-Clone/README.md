@@ -34,7 +34,7 @@ Will be hosted soon on [Vercel](https://vercel.com)
 
 ## 📷 Demo Video
 
-![Demo](./src/assets/spotify-demo.gif)
+![Demo](./src/assets/demo.gif)
 
 [Click here to watch Full demo video](https://drive.google.com/file/d/1Qa7Vm8s6q7U2tYNj0CX6FgKabAuGmDkb/view?usp=drive_link)
 
