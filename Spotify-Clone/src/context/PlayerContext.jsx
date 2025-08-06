@@ -64,70 +64,41 @@ const seekSong = async(e) => {
   } 
 
 
-  // time showing logic
-// useEffect(() => {
-//   audioref.current.ontimeupdate = () => {
-//     seekBar.current.style.width = (Math.floor(audioref.current.currentTime) / Math.floor(audioref.current.duration)) * 100 + "%";
-
-//     setTime({
-//       currentTime: {
-//         second: Math.floor(audioref.current.currentTime % 60),
-//         minute: Math.floor(audioref.current.currentTime / 60),
-//       },
-//       totalTime: {
-//         second: Math.floor(audioref.current.duration % 60),
-//         minute: Math.floor(audioref.current.duration / 60),
-//       },
-//     });
-//   };
-
-//
-  
-
-// }, [audioref]);
-
-// ++++++++++++ if not want following useeffect to hide NaNa problem then try above useeffect++++++++++++++++++++++
-
- //   for hidding the meta data loading by broweser which will not show the song time as NaNa:NaNa
+  // song time showing logic
 useEffect(() => {
-  const audio = audioref.current;
+  // Time update logic
+  audioref.current.ontimeupdate = () => {
+    // Skip if duration isn't loaded yet (prevents NaN flash)
+    if (!audioref.current.duration) return;
 
-  // 1. Define the function BEFORE using it
-  const handleLoadedMetadata = () => {
-    setTime((prev) => ({
-      ...prev,
-      totalTime: {
-        second: Math.floor(audio.duration % 60),
-        minute: Math.floor(audio.duration / 60),
+    seekBar.current.style.width =
+      (Math.floor(audioref.current.currentTime) / Math.floor(audioref.current.duration)) * 100 + "%";
+
+    setTime({
+      currentTime: {
+        second: Math.floor(audioref.current.currentTime % 60),
+        minute: Math.floor(audioref.current.currentTime / 60),
       },
-    }));
+      totalTime: {
+        second: Math.floor(audioref.current.duration % 60),
+        minute: Math.floor(audioref.current.duration / 60),
+      },
+    });
   };
 
-  // 2. Set up time update
-  if (audio) {
-    audio.ontimeupdate = () => {
-      seekBar.current.style.width =
-        (Math.floor(audio.currentTime) / Math.floor(audio.duration)) * 100 + "%";
+  // Load metadata to set total time early
+  // audioref.current.onloadedmetadata = () => {
+  //   setTime((prev) => ({
+  //     ...prev,
+  //     totalTime: {
+  //       second: Math.floor(audioref.current.duration % 60),
+  //       minute: Math.floor(audioref.current.duration / 60),
+  //     },
+  //   }));
+  // };
+}, [audioref]);
 
-      setTime((prev) => ({
-        ...prev,
-        currentTime: {
-          second: Math.floor(audio.currentTime % 60),
-          minute: Math.floor(audio.currentTime / 60),
-        },
-      }));
-    };
 
-    // 3. Add loadedmetadata listener
-    audio.addEventListener("loadedmetadata", handleLoadedMetadata);
-  }
-
-  return () => {
-    if (audio) {
-      audio.removeEventListener("loadedmetadata", handleLoadedMetadata);
-    }
-  };
-}, [track]); // <--- Use [track], NOT [audioref]
 
 
 

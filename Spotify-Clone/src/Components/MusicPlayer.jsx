@@ -7,11 +7,11 @@ const MusicPlayer = () => {
   return (
     <div id='main-div' className='max-h-[10%] z-50 relative flex justify-between items-center px-10 py-2'>
         {/* left section */}
-        <div id='left-div' className='hidden lg:flex justify-center items-center gap-4'>
+        <div id='left-div' className='hidden md:flex justify-center items-center gap-4'>
             <img src={track.image} alt="" className='w-15'/>
             <div>
-                <h2 className='font-semibold'>{track.name}</h2>
-                <p>{track.desc.slice(0,12)}</p>
+                <h2 className='font-semibold text-sm lg:text-md'>{track.name}</h2>
+                <p className='text-sm lg:text-md'>{track.desc.slice(0,12)}</p>
             </div>
         </div>
         {/* --------------------------------------------- */}
