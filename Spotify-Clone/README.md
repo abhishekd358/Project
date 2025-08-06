@@ -6,7 +6,7 @@ A beautiful Spotify UI clone built with **React** and **Tailwind CSS**, includin
 
 ## 🚀 Live Demo
 
-Will be hosted soon on [Vercel](https://vercel.com)
+Will be hosted soon on [Vercel](https://spotify-clone-tawny-zeta.vercel.app/)
 
 ---
 
