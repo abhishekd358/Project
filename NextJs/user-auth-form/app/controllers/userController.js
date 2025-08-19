@@ -2,6 +2,7 @@ import { NextResponse } from "next/server";
 import User from "../models/user.js";
 import jwt from "jsonwebtoken";
 import bcrypt, { hash } from 'bcrypt'
+import user from "../models/user.js";
 
 export const registerUser = async (req) => {
   try {
@@ -35,7 +36,7 @@ export const registerUser = async (req) => {
     // if user not exists then create a new user in the db
     const newUser = await User.create({ name, email, password:hashPassword });
     return Response.json({
-      message: "Registered Successfully",
+      message: `${name} Registered Successfully 🙌`,
       userDetails:{
         name:name,
         email:email
@@ -76,5 +77,5 @@ export const loginUser = async (req) => {
     // here we create a token to userID store
     const token =  jwt.sign({userId: userExists._id}, "16$4$u6" ,{expiresIn: '1h'})
   
-    return NextResponse.json({ message: "User login Successfully",token:token, success:true });
+    return NextResponse.json({ message: `Hello ${userExists.name}, Welcome Back 🎉! `,token:token,user:{name:userExists.name, email:userExists.email}, success:true });
 };
