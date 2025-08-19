@@ -19,7 +19,7 @@ export async function POST(req) {
   // now get the searchparams each
   const signUp = searchParams.get("signup");
   const signIn = searchParams.get("signin");
-  console.log("login:",signIn,"register:",signUp )
+//   console.log("login:",signIn,"register:",signUp )
 
   if (signIn === "true") {
     return loginUser(req); // call login Controller function
