@@ -63,21 +63,18 @@ export const loginUser = async (req) => {
     // check is the email id user exists in db or not
     const userExists = await User.findOne({email})
     if(!userExists){
-        console.log("user not found");
-        return Response.json({message:"User Not Found!", success:false})
+        return NextResponse.json({message:"User Not Found!", success:false})
     }
     // if user exits then check the password
     const verifyPassword = await bcrypt.compare(password, userExists.password)
 
     // if password not correct
     if(!verifyPassword){
-        console.log("invalid pass");
-        
-        return Response.json({message:"Inavlid password", success:false})
+        return NextResponse.json({message:"Inavlid password", success:false})
     }
 
     // here we create a token to userID store
     const token =  jwt.sign({userId: userExists._id}, "16$4$u6" ,{expiresIn: '1h'})
-    console.log("login success");
-    return Response.json({ message: "User login Successfully",token:token, success:true });
+  
+    return NextResponse.json({ message: "User login Successfully",token:token, success:true });
 };
