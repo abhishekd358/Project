@@ -8,13 +8,8 @@ const AuthForm = () => {
   const [register, isRegister] = useState(false);
 
   // ---------------- TOKEN ----------------
-  const [token, setToken] = useState(null);
-
-  // Load token from localStorage (only runs in browser)
-  useEffect(() => {
-    const savedToken = localStorage.getItem("authToken");
-    if (savedToken) setToken(savedToken);
-  }, []);
+  const savedToken = localStorage.getItem("authToken") || null
+  const [token, setToken] = useState(savedToken);
 
   // Keep localStorage updated when token changes
   useEffect(() => {

@@ -1,4 +1,5 @@
-"use client";
+"use client";  // 👈 Important
+
 import { useEffect, useState } from "react";
 import { FaUserCircle } from "react-icons/fa";
 
@@ -16,8 +17,8 @@ const Navbar = () => {
   const handleLogout = () => {
     localStorage.removeItem("authToken");
     localStorage.removeItem("user");
-    setUser(null); // remove user from UI
-    window.location.href = "/login"; // redirect to login
+    setUser(null);
+    window.location.href = "/login"; // or use next/navigation router
   };
 
   return (
@@ -30,10 +31,8 @@ const Navbar = () => {
           onMouseEnter={() => setDropdown(true)}
           onMouseLeave={() => setDropdown(false)}
         >
-          {/* Avatar */}
           <FaUserCircle size={36} className="text-gray-700 cursor-pointer" />
 
-          {/* Dropdown menu */}
           {dropdown && (
             <div className="absolute right-0 mt-2 w-56 bg-white rounded-lg shadow-lg p-4 z-20">
               <p className="font-semibold text-gray-800">{user.name}</p>
