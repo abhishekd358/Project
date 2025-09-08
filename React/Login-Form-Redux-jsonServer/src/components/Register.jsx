@@ -1,18 +1,23 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import styles from './register.module.css'
 import { useDispatch, useSelector } from 'react-redux'
-import { captureEmail, captureName, capturePassword, userRegisterFetch } from '../store/User/userRegisterSlice'
+import { captureEmail, captureName, capturePassword, userRegisterFetch, clearFields } from '../store/User/userRegisterSlice'
 const Register = () => {
     const {name, email, password, status} = useSelector((state)=>state.user)
     const dispatch = useDispatch()
 
     const formSubmitHandler = (e)=>{
         e.preventDefault()
-
         // now we call the fecth function which declare in the userRegisterSlice
         dispatch(userRegisterFetch({name, email, password}))
-
     }
+
+      // 👇 Run when status changes to success
+  useEffect(() => {
+    if (status === 'success') {
+      dispatch(clearFields())
+    }
+  }, [status, dispatch])
 
     
   return (
@@ -20,9 +25,11 @@ const Register = () => {
       <form className={styles.registerForm} onSubmit={formSubmitHandler}>
         <h2>Create Account</h2>
 
-        {status === 'success' && console.log(alert("User Register Successfully!"))}
+        <div style={{textAlign:'center'}}>
+        {status === 'success' && <p>User Register Successfully !</p>}
         {status === 'loading' && <p>Loading...........</p>}
         {status === 'failed'  && <p>Failed to Register</p>}
+        </div>
 
         <div className={styles.inputGroup}>
           <label htmlFor="name">Full Name</label>

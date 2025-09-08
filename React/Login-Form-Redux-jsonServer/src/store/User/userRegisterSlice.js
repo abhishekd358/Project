@@ -36,7 +36,12 @@ export const userRegisterSlice = createSlice({
         },
         capturePassword(state, action){
             state.password = action.payload  // and we get name that user inputed in filled by action payload
-        }  
+        },
+        clearFields(state){
+            state.name = '',
+            state.email='',
+            state.password =''
+        }
     },
 
 
@@ -59,5 +64,5 @@ export const userRegisterSlice = createSlice({
             })
 })
 
-export const {captureName, captureEmail, capturePassword} = userRegisterSlice.actions;
+export const {captureName, captureEmail, capturePassword, clearFields} = userRegisterSlice.actions;
 export default userRegisterSlice.reducer;
