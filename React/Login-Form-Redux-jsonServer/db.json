@@ -1,0 +1,28 @@
+{
+  "users": [
+    {
+      "id": "793a",
+      "name": "Rakesh Sharma",
+      "email": "abhi@gmail.com",
+      "password": "12345"
+    },
+    {
+      "id": "c62f",
+      "name": "Rakesh Sharma",
+      "email": "abhi@gmail.com",
+      "password": "12345"
+    },
+    {
+      "id": "3e2c",
+      "name": "Rakesh Sh",
+      "email": "abhi777@gmail.com",
+      "password": "12345"
+    },
+    {
+      "id": "2c3a",
+      "name": "Rakesh Sh",
+      "email": "abhi777@gmail.com",
+      "password": "12345"
+    }
+  ]
+}
