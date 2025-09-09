@@ -1,0 +1,18 @@
+{
+  "users": [
+    {
+      "id": "793a",
+      "firstName": "Darao",
+      "lastName": "Padre",
+      "age": "10",
+      "email": "padre@gmail.com"
+    },
+    {
+      "firstName": "abhishek",
+      "lastName": "dhaewate",
+      "age": "66",
+      "email": "sbdh@hd.com",
+      "id": "eadb"
+    }
+  ]
+}
