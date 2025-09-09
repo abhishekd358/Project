@@ -1,4 +1,5 @@
 # RTK Query + JSON Server CRUD Web-App
+![Logo](./demo.jpg)
 
 This project is a simple **CRUD (Create, Read, Update, Delete)** web application built with **React + Redux Toolkit Query (RTK Query)** for API state management and **JSON Server** as a mock backend database.
 
