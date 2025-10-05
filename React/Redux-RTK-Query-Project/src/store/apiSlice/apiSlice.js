@@ -7,7 +7,7 @@ export const apiSlice = createApi({
   endpoints: (builder) => ({
     getUsers: builder.query({
       query: () => "/users",
-      providesTags: ["Users"], // 2. This query provides 'Users' tag
+      providesTags: ["Users"], //  This query provides 'Users' tag
     }),
 
     // now we going to add user in our db or api POST
