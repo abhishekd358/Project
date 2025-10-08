@@ -1,1 +1,25 @@
+/* ✅ 1️⃣ Import Google Fonts first */
+@import url('https://fonts.googleapis.com/css2?family=Outfit:wght@100..900&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+
+
+/* ✅ 2️⃣ Then import Tailwind layers */
 @import "tailwindcss";
+
+/* ✅ 3️⃣ Then define custom layers or utilities */
+@layer utilities {
+  .font-poppins {
+    font-family: 'Poppins';
+  }
+}
+
+/* ✅ 4️⃣ Your custom styles can follow */
+.nav-link {
+  @apply relative text-gray-800 font-semibold uppercase text-sm;
+  @apply before:content-[''] before:absolute before:bg-blue-500 before:w-0 before:h-[3px];
+  @apply before:top-[30px] before:left-1/2 before:transition-all before:duration-400 before:rounded-2xl;
+  @apply hover:before:w-[50%] hover:before:left-1/4 hover:text-blue-600;
+}
+
+.nav-link.active {
+  @apply text-blue-800 before:w-full before:left-0 before:bg-blue-800 font-bold;
+}
