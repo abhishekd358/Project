@@ -29,7 +29,7 @@ const FooterBanner = () => {
           </div>
     
             <div className="order-2 relative top-10 md:top-10 lg:top-0 lg:order-1 flex justify-center lg:justify-end px-6 lg:px-10">
-                <img src={assets.header_img} alt="" className="w-4/5 sm:w-3/5 lg:w-full max-w-md lg:max-w-xl"/>
+                <img src={assets.appointment_img} alt="" className="w-4/5 sm:w-3/5 lg:w-full max-w-md lg:max-w-xl"/>
             </div>
     
         </div>

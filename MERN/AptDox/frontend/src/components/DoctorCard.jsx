@@ -2,32 +2,34 @@ import { doctors } from "../assets/assets_frontend/assets"
 
 const DoctorCard = () => {
   return (
-    <section className='font-poppins py-20 px-50 bg-neutral-50'>
-        {/* TItle and Description */}
-        <h1 className='text-xl md:text-2xl font-semibold text-gray-800 text-center'>Top Doctors to Book</h1>
-        <p className='font-normal text-sm text-center text-gray-600 py-3'>Simple browse through our entensive list of trusted doctors.</p>
+    <section className='font-poppins py-20 px-6 md:px-16 lg:px-24 bg-pink-50'>
+        {/* Title and Description */}
+        <div className="max-w-6xl mx-auto">
+            <h1 className='text-2xl md:text-3xl font-semibold text-gray-800 text-center'>Top Doctors to Book</h1>
+            <p className='font-normal text-base text-center text-gray-600 py-3 max-w-2xl mx-auto'>Simply browse through our extensive list of trusted doctors.</p>
 
+            {/* Cards Container - FIXED GAP */}
+            <div className="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-2 sm:gap-6 md:gap-8 lg:gap-10 pt-8 md:pt-12 justify-items-center">
 
-        {/* div for holding all cards */}
-        <div className="flex justify-center items-center gap-4 flex-wrap pt-10">
+                {/* Cards */}
+                {doctors.slice(0, 10).map((doctorCard)=>(
+                    <div className="bg-[#eaefff] rounded-xl border border-blue-100 hover:shadow-lg transition duration-300 w-full flex flex-col" key={doctorCard._id}>
+                    
+                        {/* Image Container */}
+                        <div className="flex-1 flex items-center justify-center">
+                            <img src={doctorCard.image} alt={`Dr. ${doctorCard.name}`} className="w-full object-cover rounded-lg"/>
+                        </div>
 
-            {/* cards */}
-        {doctors.map((doctorCard)=>(
-            <div className="bg-[#eaefff] rounded-xl border-1 border-blue-100 my-2" key={doctorCard._id}>
-            
-            <img src={doctorCard.image} alt="" className="w-60"/>
-
-            <div className="bg-[#ffffff] rounded-b-xl px-4 py-3">
-            <p className="text-green-400 text-sm font-medium">Availble</p>
-            <h2 className="font-semibold text-lg text-gray-700">{doctorCard.name}</h2>
-            <p className="font-normal text-sm text-gray-500">{doctorCard.speciality}</p>
+                        {/* Card Content */}
+                        <div className="bg-white rounded-b-xl px-4 py-4 flex flex-col">
+                            <p className="text-green-500 text-sm font-medium mb-1">Available</p>
+                            <h2 className="font-semibold text-sm md:text-md text-gray-800 truncate">{doctorCard.name}</h2>
+                            <p className="font-normal text-sm text-gray-600 truncate">{doctorCard.speciality}</p>
+                        </div>
+                    </div>
+                ))}
             </div>
         </div>
-
-))}
-</div>
-        
-
     </section>
   )
 }
