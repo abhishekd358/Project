@@ -8,7 +8,7 @@ const DoctorCard = () => {
             <h1 className='text-2xl md:text-3xl font-semibold text-gray-800 text-center'>Top Doctors to Book</h1>
             <p className='font-normal text-base text-center text-gray-600 py-3 max-w-2xl mx-auto'>Simply browse through our extensive list of trusted doctors.</p>
 
-            {/* Cards Container - FIXED GAP */}
+            {/* Cards Container */}
             <div className="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-2 sm:gap-6 md:gap-8 lg:gap-10 pt-8 md:pt-12 justify-items-center">
 
                 {/* Cards */}
@@ -28,6 +28,9 @@ const DoctorCard = () => {
                         </div>
                     </div>
                 ))}
+            </div>
+            <div className="text-center pt-10">
+              <button className="bg-blue-100 py-3 px-10 rounded-full font-medium text-gray-700 cursor-pointer hover:bg-blue-300 transition duration-400">See all</button>
             </div>
         </div>
     </section>
