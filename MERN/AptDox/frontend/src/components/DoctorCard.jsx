@@ -2,18 +2,18 @@ import { doctors } from "../assets/assets_frontend/assets"
 
 const DoctorCard = () => {
   return (
-    <section className='font-poppins py-20 px-6 md:px-16 lg:px-24 bg-pink-50'>
+    <section className='font-poppins py-20 px-6 md:px-16 lg:px-24'>
         {/* Title and Description */}
         <div className="max-w-6xl mx-auto">
             <h1 className='text-2xl md:text-3xl font-semibold text-gray-800 text-center'>Top Doctors to Book</h1>
             <p className='font-normal text-base text-center text-gray-600 py-3 max-w-2xl mx-auto'>Simply browse through our extensive list of trusted doctors.</p>
 
             {/* Cards Container */}
-            <div className="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-2 sm:gap-6 md:gap-8 lg:gap-10 pt-8 md:pt-12 justify-items-center">
+            <div className="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-2 sm:gap-6 md:gap-8 lg:gap-10 pt-1 md:pt-12 justify-items-center">
 
                 {/* Cards */}
                 {doctors.slice(0, 10).map((doctorCard)=>(
-                    <div className="bg-[#eaefff] rounded-xl border border-blue-100 hover:shadow-lg transition duration-300 w-full flex flex-col" key={doctorCard._id}>
+                    <div className="bg-[#eaefff] rounded-xl border border-blue-100 hover:shadow-lg transition duration-300 hover:scale-105 w-full flex flex-col cursor-pointer" key={doctorCard._id}>
                     
                         {/* Image Container */}
                         <div className="flex-1 flex items-center justify-center">

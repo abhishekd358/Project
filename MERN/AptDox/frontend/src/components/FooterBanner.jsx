@@ -6,7 +6,7 @@ import { assets } from "../assets/assets_frontend/assets"
 const FooterBanner = () => {
   const navigate= useNavigate()
   return (
-    <div  className="flex bg-gradient-to-r from-green-500 to-green-300 rounded-lg px-6 sm:px-10 lg:px-12 my-20 mx-10 md:mx-20 lg:mx-40">
+    <div  className="flex bg-gradient-to-r from-green-500 to-green-300 rounded-lg px-6 sm:px-10 lg:px-12 my-15 sm:my-20 md:my-25 lg:my-30 mx-10 md:mx-20 lg:mx-40">
       {/* px-6 sm:px-10 md:px-14 lg:px-12 my-20 md:mx-10 max-w-7xl mx-auto */}
       {/* container  */}
     

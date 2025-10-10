@@ -17,7 +17,7 @@ const Navabar = () => {
       </NavLink>
 
       {/* navigation NavLink */}
-      <ul className="flex justify-center items-center gap-10 font-semibold text-md max-md:hidden">
+      <ul className="flex justify-center items-center gap-8 sm:gap-10 font-medium text-sm sm:text-base md:text-lg lg:text-[18px] max-md:hidden">
         <li>
           {" "}
           {/* New thing to Learn */}
