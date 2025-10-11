@@ -2,7 +2,7 @@ import { assets } from "../assets/assets_frontend/assets"
 
 const Footer = () => {
   return (
-    <section className="px-10 py-2 bg-blue-50/40 border-t-1 border-blue-100">
+    <section className="px-10 py-2 bg-blue-50/40 border-t-1 border-blue-100 !mx-0">
       <div className="flex flex-col sm:grid grid-cols-[3fr_1fr_1fr] gap-14 my-10 mt-20 text-sm">
         {/* left container */}
         <div>

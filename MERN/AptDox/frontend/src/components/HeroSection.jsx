@@ -20,8 +20,8 @@ const HeroSection = () => {
 
           {/* btn */}
           <div className="relative inline-block">
-            <button className="bg-white text-purple-700 font-medium rounded-full px-10 md:px-10 py-3 md:py-3 cursor-pointer hover:bg-gray-100 transition-colors">Book appointment</button>
-            <img src={assets.arrow_icon} alt="" className="absolute right-1/12 top-[25px]  transform -translate-y-1/2 w-4 h-4 cursor-pointer"/>
+            <a href="#speciality" className="bg-white text-purple-700 font-medium rounded-full px-10 md:px-10 py-3 md:py-3 cursor-pointer hover:bg-gray-100 transition-colors">Book appointment</a>
+            <img src={assets.arrow_icon} alt="" className="absolute right-1/12 top-[13px]  transform -translate-y-1/2 w-4 h-4 cursor-pointer"/>
           </div>
           
           {/* div holding our right box */}

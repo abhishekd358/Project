@@ -1,8 +1,13 @@
-import { doctors } from "../assets/assets_frontend/assets"
+import { useContext } from "react"
+import { useNavigate } from "react-router-dom"
+import {AppContext} from "../context/AppContext"
+
 
 const DoctorCard = () => {
+    const navigate = useNavigate()
+    const {doctors} = useContext(AppContext)
   return (
-    <section className='font-poppins py-20 px-6 md:px-16 lg:px-24'>
+    <section id='speciality' className='font-poppins py-20 px-6 md:px-16 lg:px-25'>
         {/* Title and Description */}
         <div className="max-w-6xl mx-auto">
             <h1 className='text-2xl md:text-3xl font-semibold text-gray-800 text-center'>Top Doctors to Book</h1>
@@ -13,7 +18,7 @@ const DoctorCard = () => {
 
                 {/* Cards */}
                 {doctors.slice(0, 10).map((doctorCard)=>(
-                    <div className="bg-[#eaefff] rounded-xl border border-blue-100 hover:shadow-lg transition duration-300 hover:scale-105 w-full flex flex-col cursor-pointer" key={doctorCard._id}>
+                    <div className="bg-[#eaefff] rounded-xl border border-blue-100 hover:shadow-lg transition duration-300 hover:scale-105 w-full flex flex-col cursor-pointer" key={doctorCard._id} onClick={()=>navigate(`/appointment/${doctorCard.name}`)}>
                     
                         {/* Image Container */}
                         <div className="flex-1 flex items-center justify-center">
@@ -30,7 +35,7 @@ const DoctorCard = () => {
                 ))}
             </div>
             <div className="text-center pt-10">
-              <button className="bg-blue-100 py-3 px-10 rounded-full font-medium text-gray-700 cursor-pointer hover:bg-blue-300 transition duration-400">See all</button>
+              <button className="bg-blue-100 py-3 px-10 rounded-full font-medium text-gray-700 cursor-pointer hover:bg-blue-300 transition duration-400" onClick={()=>{navigate('/doctors'); scrollTo(0,0)}}>See all</button>
             </div>
         </div>
     </section>

@@ -26,3 +26,9 @@
 .nav-link.active {
   @apply text-blue-800 before:w-full before:left-0 before:bg-blue-800 font-bold;
 }
+
+
+/* smooth scroll */
+html {
+  @apply scroll-smooth;
+}
