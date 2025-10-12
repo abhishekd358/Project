@@ -18,7 +18,7 @@ const DoctorCard = () => {
 
                 {/* Cards */}
                 {doctors.slice(0, 10).map((doctorCard)=>(
-                    <div className="bg-[#eaefff] rounded-xl border border-blue-100 hover:shadow-lg transition duration-300 hover:scale-105 w-full flex flex-col cursor-pointer" key={doctorCard._id} onClick={()=>navigate(`/appointment/${doctorCard.name}`)}>
+                    <div className="bg-[#eaefff] rounded-xl border border-blue-100 hover:shadow-lg transition duration-300 hover:scale-105 w-full flex flex-col cursor-pointer" key={doctorCard._id} onClick={()=>{navigate(`/appointment/${doctorCard._id}`); scrollTo(0, 0)}}>
                     
                         {/* Image Container */}
                         <div className="flex-1 flex items-center justify-center">
