@@ -53,7 +53,7 @@ const Doctor = () => {
         {/* Cards Container */}
         <div className="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-2 sm:gap-6 md:gap-8 lg:gap-10 pt-1 justify-items-center px-5">
           {/* Cards */}
-          {filteredDoctors.slice(0, 10).map((doctorCard) => (
+          {filteredDoctors.map((doctorCard) => (
             <div
               className="bg-[#eaefff] rounded-xl border border-blue-100 hover:shadow-lg transition duration-300 hover:scale-105 w-full flex flex-col cursor-pointer"
               key={doctorCard._id}
