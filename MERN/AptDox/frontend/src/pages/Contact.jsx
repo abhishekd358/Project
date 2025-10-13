@@ -2,14 +2,14 @@ import { assets } from "../assets/assets_frontend/assets";
 
 const Contact = () => {
   return (
-    <div className="mx-10 md:mx-20 lg:mx-25 mt-5 mb-50">
+    <div className="mx-10 md:mx-20 lg:mx-25 mt-5 mb-50 ">
       {/* heading */}
       <h1 className="uppercase text-2xl font-base text-center text-gray-600">
         CONTACT <span className="font-semibold text-gray-800">US</span>
       </h1>
-      <div className="grid lg:items-center md:flex gap-10 pt-15">
+      <div className="grid justify-center lg:items-center md:flex gap-10 pt-15">
         {/* ---------------left side image */}
-        <img src={assets.contact_image} alt="" className=" w-full sm:w-xl md:w-1/2 lg:w-1/3" />
+        <img src={assets.contact_image} alt="" className=" w-full sm:w-xl md:w-xs md:h-1/2 lg:w-md xl:w-md" />
 
         {/* -----------------content of contact us right side */}
         <div>
