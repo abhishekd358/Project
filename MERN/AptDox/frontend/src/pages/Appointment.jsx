@@ -29,30 +29,37 @@ const getAvailbleSlots = async () => {
 
   // getting current date 
   let today = new Date();
-  // console.log(today);
+  
 
   for (let i = 0; i < 7; i++) {
     // getting date with index
-    let currentDate = new Date(today);
-    currentDate.setDate(today.getDate()+i)
+    let currentDate = new Date(today); // ✅ Today ki copy banao
     
     // setting end time of the date with index
     let endTime = new Date()
     endTime.setDate(today.getDate()+i)
+    // set docotr last end time for appointment
     endTime.setHours(21,0,0,0)
 
     // setting hours
-    if (today.getDate()=== currentDate.getDate()) {
-        currentDate.setHours(currentDate.getHours()> 10? currentDate.getHours()+ 1: 10)
+    if (today.getDate()=== currentDate.getDate()) {// if today date and user choose date same 
+      // Agar current time 10 AM se zyada hai, next hours se start kro 
+      currentDate.setHours(currentDate.getHours()> 10? currentDate.getHours()+ 1: 10)
+        // Agar 30 minutes se zyada hue hain: next 30-minute slot se start karo
+
+        // Example: Agar abhi 11:20 AM hai, toh 11:30 AM se slots start honge
         currentDate.setMinutes(currentDate.getMinutes() >30 ? 30 : 0)
     }else{
       // not in current date 
       currentDate.setHours(10);
       currentDate.setMinutes(0)
     }
+    // Ek din ke saare slots store karne ke liye empty array
     let timeSlots = []
     while(currentDate< endTime){
       let formattedTime = currentDate.toLocaleTimeString([],{hour: '2-digit', minute:'2-digit'})
+
+      
       // add slot to array
       timeSlots.push({
         datetime : new Date(currentDate),
@@ -107,7 +114,7 @@ useEffect(() => {
             <div className="flex gap-3 items-center w-full overflow-x-scroll mt-4">
               {
                 docSlots.length && docSlots.map((item, index)=>(
-                  <div onClick={()=>setSlotIndex(index)} className={`text-center py-6 min-w-16 rounded-full cursor-pointer transition-all duration-400 ${slotIndex === index ? 'bg-blue-500 text-white' : 'border border-gray-400'}`} key={index}> 
+                  <div onClick={()=>setSlotIndex(index)} className={`text-center py-6 min-w-16 rounded-full cursor-pointer transition-all duration-400 ${slotIndex === index ? 'bg-blue-600 text-white' : 'border border-gray-400'}`} key={index}> 
                     <p>{item[0] && dayOfWeek[item[0].datetime.getDay()]}</p>
                     <p>{item[0] && item[0].datetime.getDate()}</p>
                   </div>
@@ -118,7 +125,7 @@ useEffect(() => {
             {/* time selection */}
             <div className="flex items-center gap-3 w-full overflow-x-scroll mt-4">
               {docSlots.length && docSlots[slotIndex].map((item, index)=>(
-                <p onClick={()=>setSlotTime(item.time)} key={index} className={`text-sm font-light flex-shrink-0 px-5 py-2 rounded-full cursor-pointer transition-all duration-400 ${item.time === slotTime ? 'bg-blue-500 text-white' : 'text-gray-400 border border-gray-300'}`}>
+                <p onClick={()=>setSlotTime(item.time)} key={index} className={`text-sm font-light flex-shrink-0 px-5 py-2 rounded-full cursor-pointer transition-all duration-400 ${item.time === slotTime ? 'bg-blue-600 text-white' : 'text-gray-400 border border-gray-300'}`}>
                   {item.time.toLowerCase()}
                 </p>
               ))}
@@ -126,7 +133,7 @@ useEffect(() => {
             </div>
             {/* Button for Book an appointment */}
             <button className="bg-blue-600 text-white text-sm font-light px-14 py-3 rounded-full my-6
-            ">Book an appointment</button>
+            cursor-pointer transition-bg duration-300 hover:bg-blue-400">Book an appointment</button>
           </div>
           {/* import the Related Doctor component */}
           <RelatedDoctor docId={docId} speciality={docInfo.speciality}>
@@ -138,3 +145,37 @@ useEffect(() => {
 };
 
 export default Appointment;
+
+
+// here is the logic of implemetation 
+
+// START
+//   ↓
+// GET CURRENT DATE & TIME
+//   ↓
+// FOR EACH DAY (7 days total):
+//   ↓
+// CALCULATE DAY'S DATE
+//   ↓
+// SET END TIME (9 PM)
+//   ↓
+// CHECK IF TODAY OR FUTURE DAY?
+//   ↓
+// IF TODAY: 
+//    → START FROM CURRENT TIME + 30 mins
+// IF FUTURE DAY: 
+//    → START FROM 10:00 AM
+//   ↓
+// GENERATE 30-MINUTE SLOTS UNTIL 9 PM
+//   ↓
+// STORE SLOTS FOR THIS DAY
+//   ↓
+// NEXT DAY? (Repeat 7 times)
+//   ↓
+// DISPLAY SLOTS TO USER
+//   ↓
+// USER SELECTS SLOT
+//   ↓
+// BOOK APPOINTMENT
+//   ↓
+// END
