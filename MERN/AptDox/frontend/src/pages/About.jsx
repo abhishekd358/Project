@@ -5,21 +5,18 @@ const About = () => {
 
 
   return (
-    <div className="mx-25 mt-5 mb-50">
+    <div className="mx-10 md:mx-20 lg:mx-25 mt-5 mb-50">
       {/* heading */}
       <h1 className="uppercase text-2xl font-base text-center text-gray-600">ABOUT <span className="font-semibold text-gray-800">US</span></h1>
       {/* content of the page */}
-      <div className="flex gap-10 pt-15">
-        <img src={assets.about_image} alt="" className="w-80 h-70"/>
+      <div className="grid lg:items-center md:flex gap-10 pt-15">
+        <img src={assets.about_image} alt="" className=" w-70 md:w-80 h-70"/>
         {/* content of about us */}
         <div>
-        <p className="text-md title font-base text-gray-700 text-justify">
-          Welcome to AptDox, your dedicated partner in revolutionizing
-          healthcare management through intelligent appointment solutions and
-          seamless digital documentation. We understand the complexities of
-          navigating today's healthcare landscape and have created an intuitive
-          platform that bridges the gap between patients and providers, making
-          quality healthcare accessible to everyone.   </p>
+        <p className="text-md title font-base text-gray-700 ">
+          Welcome to AptDox, your dedicated partner in revolutionizing healthcare management through intelligent appointment solutions and
+          seamless digital documentation. We understand the complexities of navigating today's healthcare landscape and have created an intuitive
+          platform that bridges the gap between patients and providers, making quality healthcare accessible to everyone. </p>
           <p className="text-md title font-base text-gray-700 text-justify py-5">
           At AptDox, we're committed to transforming how you manage your health
           journey. Our innovative system combines cutting-edge technology with
@@ -36,19 +33,19 @@ const About = () => {
       <h2 className="mt-20 mb-10 text-lg font-base text-gray-600">WHY <span className="font-semibold text-gray-800">CHOOSE US</span></h2>
       
       
-      <div className="flex border border-gray-300">  
+      <div className="grid md:flex border border-gray-300 md:min-w-[700px]">  
         {/* effieceny div */}
-        <div className="p-15 border-r-1 border-gray-300">
+        <div className="p-15 border-b-1 md:border-r-1 border-gray-300">
           <h3 className="uppercase font-medium text-md text-gray-900">EFFICIENCY:</h3>
           <p className="text-gray-700 pt-5">Streamlined processes and smart scheduling save you valuable time and reduce waiting periods.</p>
         </div>
         {/* Convenience div */}
-        <div className="p-15 border-r-1 border-gray-300">
+        <div className="p-15 border-b-1 md:border-r-1 border-gray-300">
           <h3 className="uppercase font-medium text-md text-gray-900">Convenience:</h3>
           <p className="text-gray-700 pt-5">Streamlined processes and smart scheduling save you valuable time and reduce waiting periods.</p>
         </div>
         {/* Personalization div */}
-        <div className="p-15 border-r-1 border-gray-300">
+        <div className="p-15 ">
           <h3 className="uppercase font-medium text-md text-gray-900">Personalization:</h3>
           <p className="text-gray-700 pt-5">Streamlined processes and smart scheduling save you valuable time and reduce waiting periods.</p>
         </div>
