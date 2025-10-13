@@ -35,7 +35,7 @@ const Contact = () => {
           <p className="text-md title font-base text-gray-500 text-justify">
             🚀 Explore Rewarding Careers at AptDox - Join Our Team! </p>
           
-            <button className="mt-5 rounded border-1 border-gray-400 px-5 py-3 cursor-pointer hover:bg-blue-400 hover:text-white transion-bg duration-300">Explore Jobs</button>
+            <button className="mt-5 rounded border-1 border-gray-400 px-5 py-3 cursor-pointer hover:bg-black hover:text-white transion-bg duration-500">Explore Jobs</button>
          
         </div>
       </div>
