@@ -7,12 +7,12 @@ const Navabar = () => {
   const [token, setToken] = useState(true);
 
   return (
-    <div className="flex justify-around items-center p-5 max-md:gap-40">
-      <NavLink to="/">
+    <div className="flex justify-between md:justify-around items-center p-5">
+      <NavLink to="/" className='flex-shrink-0'>
         <img
           src={assets.logo}
           alt="aptdox logo"
-          className="md:w-44 cursor-pointer max-md:w-30"
+          className="w-32 md:w-40 cursor-pointer transition-all duration-300"
         />
       </NavLink>
 
@@ -66,17 +66,18 @@ const Navabar = () => {
         </li>
       </ul>
 
+      <div className="flex items-center gap-3">
       {token ? (
         <div className="relative group">
           <img
             src={assets.profile_pic}
             alt=""
-            className="w-10 cursor-pointer rounded-full border-2 border-blue-500 relative z-20"
+            className="w-10 h-10 object-cover cursor-pointer rounded-full border-2 border-blue-500"
           />
 
           {/* menu-profile-hover-card */}
-          <div className="absolute top-0 right-0 pt-12 text-base font-semibold text-gray-600 hidden group-hover:block z-10">
-            <div className="min-w-48 bg-blue-50 shadow-lg p-4 rounded flex flex-col gap-4">
+          <div className="absolute top-full right-0 mt-2 w-48 shadow-xl rounded-lg opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 transform translate-y-2 group-hover:translate-y-0 z-50 border border-blue-100">
+            <div className="min-w-48 bg-blue-50 shadow-lg p-4 rounded flex flex-col gap-4 font-medium text-gray-600">
               <p
                 onClick={() => navigate("/my-profile")}
                 className="hover:text-black cursor-pointer"
@@ -91,7 +92,7 @@ const Navabar = () => {
               </p>
               <p
                 onClick={() => setToken(false)}
-                className="hover:text-black cursor-pointer"
+                className="text-blue-700 font-bold hover:text-red-500 cursor-pointer"
               >
                 Logout
               </p>
@@ -106,85 +107,114 @@ const Navabar = () => {
           Create Account
         </button>
       )}
-      {/* hamburger icon */}
-      <img
-        onClick={() => setShowMenu(!showMenu)}
-        src={assets.menu_icon}
-        alt=""
-        className="w-6 md:hidden"
-      />
+      
 
       {/* mobile menu drawer sccren*/}
-      {showMenu && (
-        <div
-          className={`${
-            showMenu ? "fixed w-full" : "h-0 w-0"
-          } md:hidden right-0 top-0 bottom-0 z-20 overflow-hidden bg-blue-100 transition-all duration-1000`}
-        >
-          {/* images */}
-          <div className="flex justify-between items-center px-5 py-6 border-b border-gray-200">
-            <img src={assets.logo} alt="" className="w-36" />
-            <img
-              onClick={() => setShowMenu(false)}
-              src={assets.cross_icon}
-              alt=""
-              className="w-7"
-            />
-          </div>
+      
+      {/*MOBILE MENU BUTTON */}
+      <img
+        onClick={() => setShowMenu(true)}
+        src={assets.menu_icon}
+        alt="Menu"
+        className="w-6 cursor-pointer md:hidden transition-transform duration-300 hover:scale-110"
+      />
+    </div>
 
-          {/* menu links */}
-          <ul className="flex flex-col justify-center items-center gap-2 mt-5 text-lg font-medium text-gray-800">
-            <li>
-              {" "}
-              <NavLink
-                className={({ isActive }) =>
-                  isActive && "nav-link-mobile"
-                }
-                onClick={() => setShowMenu(false)}
-                to="/"
-              >
-                Home
-              </NavLink>{" "}
-            </li>
-            <li>
-              {" "}
-              <NavLink
-                className={({ isActive }) =>
-                  isActive && "nav-link-mobile"
-                }
-                onClick={() => setShowMenu(false)}
-                to="/doctors"
-              >
-                Doctors
-              </NavLink>{" "}
-            </li>
-            <li>
-              {" "}
-              <NavLink
-                className={({ isActive }) =>
-                  isActive && "nav-link-mobile"
-                }
-                onClick={() => setShowMenu(false)}
-                to="/about"
-              >
-                About
-              </NavLink>{" "}
-            </li>
-            <li>
-              {" "}
-              <NavLink
-                className={({ isActive }) =>
-                  isActive && "nav-link-mobile"
-                }
-                onClick={() => setShowMenu(false)}
-                to="/contact"
-              >
-                Contact
-              </NavLink>{" "}
-            </li>
-          </ul>
+      {/* ========== OVERLAY (Background Dim) ========== */}
+      <div
+        className={`fixed inset-0 bg-black z-40 transition-opacity duration-500 ${
+          showMenu 
+            ? "opacity-50 pointer-events-auto" 
+            : "opacity-0 pointer-events-none"
+        } md:hidden`}
+        onClick={() => setShowMenu(false)}
+      />
+
+      {/* ========== DRAWER ITSELF ========== */}
+      <div
+        className={`fixed top-0 right-0 h-full w-80 bg-white z-50 transform transition-transform duration-500 ease-in-out ${
+          showMenu 
+            ? "translate-x-0" 
+            : "translate-x-full"
+        } md:hidden shadow-2xl`}
+      >
+        
+        {/* ========== DRAWER HEADER ========== */}
+        <div className="flex justify-between items-center px-6 py-6 border-b border-gray-200">
+          <img src={assets.logo} alt="Logo" className="w-32" />
+          <button
+            onClick={() => setShowMenu(false)}
+            className="p-2 hover:bg-gray-100 rounded-full transition-colors duration-200"
+          >
+            <img src={assets.cross_icon} alt="Close" className="w-5" />
+          </button>
         </div>
-      )}
+
+        {/* ========== MENU LINKS ========== */}
+        <ul className="flex flex-col p-6 space-y-4">
+          <li>
+            <NavLink
+              to="/"
+              onClick={() => setShowMenu(false)}
+              className={({ isActive }) =>
+                `block py-3 px-4 rounded-lg transition-all duration-300 ${
+                  isActive
+                    ? "bg-blue-100 text-blue-600 font-semibold"
+                    : "text-gray-700 hover:bg-gray-100 hover:text-blue-600"
+                }`
+              }
+            >
+              Home
+            </NavLink>
+          </li>
+          <li>
+            <NavLink
+              to="/doctors"
+              onClick={() => setShowMenu(false)}
+              className={({ isActive }) =>
+                `block py-3 px-4 rounded-lg transition-all duration-300 ${
+                  isActive
+                    ? "bg-blue-100 text-blue-600 font-semibold"
+                    : "text-gray-700 hover:bg-gray-100 hover:text-blue-600"
+                }`
+              }
+            >
+              Doctors
+            </NavLink>
+          </li>
+          <li>
+            <NavLink
+              to="/about"
+              onClick={() => setShowMenu(false)}
+              className={({ isActive }) =>
+                `block py-3 px-4 rounded-lg transition-all duration-300 ${
+                  isActive
+                    ? "bg-blue-100 text-blue-600 font-semibold"
+                    : "text-gray-700 hover:bg-gray-100 hover:text-blue-600"
+                }`
+              }
+            >
+              About
+            </NavLink>
+          </li>
+          <li>
+            <NavLink
+              to="/contact"
+              onClick={() => setShowMenu(false)}
+              className={({ isActive }) =>
+                `block py-3 px-4 rounded-lg transition-all duration-300 ${
+                  isActive
+                    ? "bg-blue-100 text-blue-600 font-semibold"
+                    : "text-gray-700 hover:bg-gray-100 hover:text-blue-600"
+                }`
+              }
+            >
+              Contact
+            </NavLink>
+          </li>
+        </ul>
+      </div>
+    
     </div>
   );
 };
