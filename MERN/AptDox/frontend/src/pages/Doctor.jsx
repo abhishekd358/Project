@@ -14,16 +14,32 @@ const Doctor = () => {
       ? doctors
       : doctors.filter((doc) => doc.speciality === activeSpeciality);
 
+
+
+    // filter functionality show speciality wise doctors cards
+    const [showfilter, setShowFilter] = useState(false)
+
   return (
     <div className="mx-10 md:mx-20 lg:mx-25 mt-5 mb-50">
       <p className="text-gray-600 ">Browse through the doctors speciality.</p>
 
-      <div className="flex flex-cols sm:flex-row items-start gap-5 mt-5">
+      <div className="grid sm:flex sm:flex-row items-start gap-5 mt-5">
         {/* left div */}
-        <div className="flex flex-col gap-4 text-sm text-gray-600">
+
+        {/* -------------------------------------------------- */}
+        {/* filter btn for mobile screen */}
+
+          <button className="bg-blue-100 px-4 py-2 rounded-md text-gray-700 font-medium border border-blue-300 hover:bg-blue-200 transition-all duration-300 sm:hidden cursor-pointer" onClick={()=>setShowFilter(!showfilter)}> {showfilter ? "Hide Filters" : "Show Filters"}</button>
+
+          {showfilter 
+          
+          && 
+          
+          <div className="flex flex-col gap-4 text-sm text-gray-600 sm:hidden">
+          
           {/* show all btn */}
           <p
-            className={`w-[94px] sm:w-auto pl-3 py-1.5 pr-16 border border-gray-300 rounded transition-all cursor-pointer ${
+            className={`w-auto pl-3 py-1.5  border border-gray-300 rounded transition-all cursor-pointer ${
               activeSpeciality === "All"
                 ? "bg-blue-100 border-blue-300 font-semibold"
                 : "bg-white border-gray-300"
@@ -37,7 +53,40 @@ const Doctor = () => {
           {specialityData.map((item, index) => (
             <p
               key={index}
-              className={`w-[94px] sm:w-auto pl-3 py-1.5 pr-16 border rounded cursor-pointer transition-all ${
+              className={`w-[94px]c sm:w-auto pl-3 py-1.5 pr-16 border rounded cursor-pointer transition-all ${
+                activeSpeciality === item.speciality
+                  ? "bg-blue-100 border-blue-300 font-semibold"
+                  : "bg-white border-gray-300"
+              }`}
+              onClick={() => setActiveSpeciality(item.speciality)}
+            >
+              {item.speciality}
+            </p>
+          ))}
+        </div>}
+
+          {/* ------------------------------------------------------- */}
+        {/* for larger scrren we show doctor specility */}
+
+        <div className="hidden sm:flex flex-col gap-4 text-sm text-gray-600">
+          
+          {/* show all btn */}
+          <p
+            className={`w-auto pl-3 py-1.5  border border-gray-300 rounded transition-all cursor-pointer ${
+              activeSpeciality === "All"
+                ? "bg-blue-100 border-blue-300 font-semibold"
+                : "bg-white border-gray-300"
+            }`}
+            onClick={() => setActiveSpeciality("All")}
+          >
+            All
+          </p>
+
+          {/* filter card */}
+          {specialityData.map((item, index) => (
+            <p
+              key={index}
+              className={`w-[94px]c sm:w-auto pl-3 py-1.5 pr-16 border rounded cursor-pointer transition-all ${
                 activeSpeciality === item.speciality
                   ? "bg-blue-100 border-blue-300 font-semibold"
                   : "bg-white border-gray-300"
@@ -51,7 +100,7 @@ const Doctor = () => {
 
         {/* right div */}
         {/* Cards Container */}
-        <div className="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-2 sm:gap-6 md:gap-8 lg:gap-10 pt-1 justify-items-center px-5">
+        <div className="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8 sm:gap-5 md:gap-8 lg:gap-5 xl:gap-8 pt-1 justify-items-center px-5">
           {/* Cards */}
           {filteredDoctors.map((doctorCard) => (
             <div
