@@ -32,6 +32,11 @@
   @apply text-blue-800 before:w-full before:left-0 before:bg-blue-800 font-bold;
 }
 
+/* mobile menu */
+.nav-link-mobile {
+  @apply bg-blue-600 px-4 py-2 rounded text-white
+}
+
 
 /* smooth scroll */
 html {

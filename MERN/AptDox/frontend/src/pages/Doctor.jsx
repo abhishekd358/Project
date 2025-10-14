@@ -15,7 +15,7 @@ const Doctor = () => {
       : doctors.filter((doc) => doc.speciality === activeSpeciality);
 
   return (
-    <div className="px-25 pt-10 pb-30">
+    <div className="mx-10 md:mx-20 lg:mx-25 mt-5 mb-50">
       <p className="text-gray-600 ">Browse through the doctors speciality.</p>
 
       <div className="flex flex-cols sm:flex-row items-start gap-5 mt-5">

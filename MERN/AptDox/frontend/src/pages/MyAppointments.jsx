@@ -4,8 +4,6 @@ import { useNavigate } from "react-router-dom"
 
 const MyAppointments = () => {
   const { doctors }  = useContext(AppContext)
-  console.log(doctors);
-  
   const navigate = useNavigate()
   
   return (

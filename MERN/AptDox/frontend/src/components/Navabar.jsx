@@ -7,7 +7,7 @@ const Navabar = () => {
   const [token, setToken] = useState(true);
 
   return (
-    <div className="flex justify-around items-center p-10 max-md:gap-40">
+    <div className="flex justify-around items-center p-5 max-md:gap-40">
       <NavLink to="/">
         <img
           src={assets.logo}
@@ -89,7 +89,7 @@ const Navabar = () => {
               >
                 My Appointements
               </p>
-              <p 
+              <p
                 onClick={() => setToken(false)}
                 className="hover:text-black cursor-pointer"
               >
@@ -105,6 +105,85 @@ const Navabar = () => {
         >
           Create Account
         </button>
+      )}
+      {/* hamburger icon */}
+      <img
+        onClick={() => setShowMenu(!showMenu)}
+        src={assets.menu_icon}
+        alt=""
+        className="w-6 md:hidden"
+      />
+
+      {/* mobile menu drawer sccren*/}
+      {showMenu && (
+        <div
+          className={`${
+            showMenu ? "fixed w-full" : "h-0 w-0"
+          } md:hidden right-0 top-0 bottom-0 z-20 overflow-hidden bg-blue-100 transition-all duration-1000`}
+        >
+          {/* images */}
+          <div className="flex justify-between items-center px-5 py-6 border-b border-gray-200">
+            <img src={assets.logo} alt="" className="w-36" />
+            <img
+              onClick={() => setShowMenu(false)}
+              src={assets.cross_icon}
+              alt=""
+              className="w-7"
+            />
+          </div>
+
+          {/* menu links */}
+          <ul className="flex flex-col justify-center items-center gap-2 mt-5 text-lg font-medium text-gray-800">
+            <li>
+              {" "}
+              <NavLink
+                className={({ isActive }) =>
+                  isActive && "nav-link-mobile"
+                }
+                onClick={() => setShowMenu(false)}
+                to="/"
+              >
+                Home
+              </NavLink>{" "}
+            </li>
+            <li>
+              {" "}
+              <NavLink
+                className={({ isActive }) =>
+                  isActive && "nav-link-mobile"
+                }
+                onClick={() => setShowMenu(false)}
+                to="/doctors"
+              >
+                Doctors
+              </NavLink>{" "}
+            </li>
+            <li>
+              {" "}
+              <NavLink
+                className={({ isActive }) =>
+                  isActive && "nav-link-mobile"
+                }
+                onClick={() => setShowMenu(false)}
+                to="/about"
+              >
+                About
+              </NavLink>{" "}
+            </li>
+            <li>
+              {" "}
+              <NavLink
+                className={({ isActive }) =>
+                  isActive && "nav-link-mobile"
+                }
+                onClick={() => setShowMenu(false)}
+                to="/contact"
+              >
+                Contact
+              </NavLink>{" "}
+            </li>
+          </ul>
+        </div>
       )}
     </div>
   );
