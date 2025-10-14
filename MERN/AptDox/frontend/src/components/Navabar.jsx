@@ -144,9 +144,9 @@ const Navabar = () => {
           <img src={assets.logo} alt="Logo" className="w-32" />
           <button
             onClick={() => setShowMenu(false)}
-            className="p-2 hover:bg-gray-100 rounded-full transition-colors duration-200"
+            className="p-2 bg-gray-200 hover:bg-blue-100 rounded-full transition-colors duration-200 cursor-pointer"
           >
-            <img src={assets.cross_icon} alt="Close" className="w-5" />
+            <img src={assets.cross_icon} alt="Close" className="w-5 " />
           </button>
         </div>
 
