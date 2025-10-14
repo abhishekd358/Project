@@ -45,7 +45,7 @@ const MyProfile = () => {
   };
 
   return (
-    <div className="max-w-4xl mx-auto p-6 md:p-8 lg:p-10 my-8 mb-20">
+    <div className="max-w-4xl mx-10 sm:mx-20 lg:mx-auto p-6 md:p-8 lg:p-10 my-8 mb-20">
       {/* Profile Header with Image */}
       <div className="flex items-center gap-6 mb-8">
         <div className="relative">
@@ -68,7 +68,7 @@ const MyProfile = () => {
               name="name"
               value={userData.name}
               onChange={handleInputChange}
-              className="w-full text-2xl font-bold text-gray-900 bg-blue-50 px-4 py-2 rounded-lg border border-blue-200 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-colors duration-200"
+              className="w-full text-2xl font-bold text-gray-900 bg-blue-50 px-4 py-2 rounded-lg border border-blue-200 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-colors duration-200 "
               placeholder="Enter your name"
             />
           ) : (
