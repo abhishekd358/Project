@@ -2,6 +2,7 @@ import express from "express";
 import dotenv from "dotenv";
 import cors from "cors";
 import connectDB from "./config/mongodb.js";
+import cloudinaryConnect from "./config/cloudinary.js";
 
 // ------------------- env config
 dotenv.config({ path: './config/.env', quiet: true }); // so we hide the Logging of .env file loading
@@ -36,6 +37,8 @@ app.use(express.json());
 app.use(cors(corsOptions));
 // DB conncection
 await connectDB();
+// cloudinary connect
+cloudinaryConnect()
 
 //test route
 app.get("/", (req, res) => {
