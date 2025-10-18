@@ -22,6 +22,6 @@ const doctorSchema = new mongoose.Schema({
 // export const DoctorSchema = mongoose.Model("doctor", doctorSchema)    ----- my logic
 // to not repeately create again again shcema if it arelady created then we use model.docotrs
 
-const DoctorModel = mongoose.models.doctor || mongoose.model("doctor", doctorSchema) //----industrial
+const Doctor = mongoose.models.doctor || mongoose.model("doctor", doctorSchema) //----industrial
 
-export default DoctorSchema;
+export default Doctor;

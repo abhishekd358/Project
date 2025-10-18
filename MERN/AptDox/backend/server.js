@@ -3,6 +3,7 @@ import dotenv from "dotenv";
 import cors from "cors";
 import connectDB from "./config/mongodb.js";
 import cloudinaryConnect from "./config/cloudinary.js";
+import adminRouter from "./routes/admin.route.js";
 
 // ------------------- env config
 dotenv.config({ path: './config/.env', quiet: true }); // so we hide the Logging of .env file loading
@@ -44,6 +45,15 @@ cloudinaryConnect()
 app.get("/", (req, res) => {
   res.json({ message: "API is working", success: true });
 });
+
+// Admin endpoint
+//api/admin/
+
+app.use('/api/admin/',adminRouter)
+
+
+
+
 
 const port = process.env.PORT || 3000;
 
