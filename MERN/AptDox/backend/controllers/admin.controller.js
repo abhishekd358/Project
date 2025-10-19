@@ -12,7 +12,7 @@ const addDoctor = async(req, res)=>{
         // to get file
         const imgFile = req.file;
         // testing above value getting or not
-        console.log({name, email, password,speciality,degree, experience, about, fees, address},imgFile)
+        // console.log({name, email, password,speciality,degree, experience, about, fees, address},imgFile)
 
         // check all abover field are necessary 
         if(!name || !email || !password || !speciality || !degree || !experience || !about || !fees || !address){
