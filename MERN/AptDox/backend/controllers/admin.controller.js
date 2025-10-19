@@ -76,7 +76,7 @@ const adminLogin = async (req, res) => {
         // console.log(email, password)
         if(email === process.env.ADMIN_EMAIL && password === process.env.ADMIN_PASSWORD){
             // generate a token
-            const token = jwt.sign(email, "hfb$564FGC##$@")
+            const token = jwt.sign(email+password, process.env.A_SECRET_KEY)
             return res.json({adminToken:token, success:false})
         }else{
             return res.json({message:"Please Enter Valid Credentials.", success:false})
