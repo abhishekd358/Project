@@ -10,14 +10,14 @@ const doctorSchema = new mongoose.Schema({
    degree: {type:String, required:true},
    experience: {type:String, required:true},
    about: {type:String, required:true},
-   available: {type:Boolean, required:true},
+   available: {type:Boolean, default:true},
    fees: {type:Number, required:true},
    address: {type:Object, required:true},
    date: {type:Number, required:true},
    slots_booked:{type:Object, default:{}} // storing default empty value in object
 }, 
-{minimize:true},
-{timestamps:true} // for to store empty value we have to use this
+{minimize:true,
+timestamps:true} // for to store empty value we have to use this
 )
 // export const DoctorSchema = mongoose.Model("doctor", doctorSchema)    ----- my logic
 // to not repeately create again again shcema if it arelady created then we use model.docotrs
