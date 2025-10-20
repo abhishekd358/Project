@@ -15,7 +15,9 @@ const adminRouter = express.Router()
 //full path - localhost:3000/api/admin/add-doctor
 adminRouter.post('/add-doctor', authAdmin,upload.single('image'), addDoctor)  // we sending image on backend with 'image' name
 
-
+// add-docotr route
+// method- POST
+//full path - localhost:3000/api/admin/login
 adminRouter.post('/login',adminLogin)
 
 

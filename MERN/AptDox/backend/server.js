@@ -16,8 +16,9 @@ const corsOptions = {
     // allowed origins
     const allowedOrigin = [
       "http://localhost:5173",
-      "https://myblog.com",
-      "https://admin.myblog.com",
+      "http://localhost:5174",
+      "http://localhost:3000",
+  
     ];
 
     if (allowedOrigin.includes(origin)) {

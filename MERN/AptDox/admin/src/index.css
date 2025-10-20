@@ -1,2 +1,5 @@
 @import "tailwindcss";
 
+.text-primary{
+    @apply text-[#5F6FFF]
+}
