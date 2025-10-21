@@ -3,6 +3,13 @@ import Login from './pages/Login';
 import {ToastContainer} from 'react-toastify'
 import { useContext } from 'react';
 import AdminContext from './context/admin-context/AdminContext';
+import Navbar from './components/Navbar';
+import Sidebar from './components/Sidebar';
+import {Routes, Route} from 'react-router-dom'
+import AddDoctor from './pages/Admin/AddDoctor'
+import AllAppointment from './pages/Admin/AllAppointment'
+import Dashboard from './pages/Admin/Dashboard'
+import DoctorList from './pages/Admin/DoctorList'
 
 const App = () => {
     const {adminToken} = useContext(AdminContext)
@@ -10,11 +17,26 @@ const App = () => {
   return adminToken ? 
     (<div>
       <ToastContainer/>
+      <Navbar/>
+      <div className='flex items-start bg-blue-50'>
+        <Sidebar/>
+        {/* here wee create routes */}
+        <Routes>
+          <Route path='/' element={<></>}></Route>
+          <Route path='/admin-dashboard' element={<Dashboard/>}></Route>
+          <Route path='/all-appointments' element={<AllAppointment/>}></Route>
+          <Route path='/add-doctor' element={<AddDoctor/>}></Route>
+          <Route path='/doctor-list' element={<DoctorList/>}></Route>
+
+        </Routes>
+
+      </div>
       
     </div>)
     :
     (
     <>
+    <Navbar/>
      <Login/>
      <ToastContainer/>
 
