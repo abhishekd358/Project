@@ -9,34 +9,36 @@ import adminRouter from "./routes/admin.route.js";
 dotenv.config({ path: './config/.env', quiet: true }); // so we hide the Logging of .env file loading
 
 // ------------------------ CORS --------------------------
-const corsOptions = {
-  origin: function (origin, callback) {
-    if (!origin) return callback(null, true);
+// const corsOptions = {
+//   origin: function (origin, callback) {
+//     if (!origin) return callback(null, true);
 
-    // allowed origins
-    const allowedOrigin = [
-      "http://localhost:5173",
-      "http://localhost:5174",
-      "http://localhost:3000",
+//     // allowed origins
+//     const allowedOrigin = [
+//       "http://localhost:5173",
+//       "http://localhost:5174",
+//       "http://localhost:3000",
   
-    ];
+//     ];
 
-    if (allowedOrigin.includes(origin)) {
-      return callback(null, true);
-    } else {
-      callback(new Error("CORS policy violation"));
-    }
-  },
-  credential: true,
-  methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
-};
+//     if (allowedOrigin.includes(origin)) {
+//       return callback(null, true);
+//     } else {
+//       callback(new Error("CORS policy violation"));
+//     }
+//   },
+//   credential: true,
+//   methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
+// };
+
+
 
 const app = express();
 
 // middleware to parse JSON request bodies
 app.use(express.json());
 // using cors here
-app.use(cors(corsOptions));
+app.use(cors());
 // DB conncection
 await connectDB();
 // cloudinary connect

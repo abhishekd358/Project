@@ -88,4 +88,25 @@ const adminLogin = async (req, res) => {
     }
 }
 
-export {addDoctor, adminLogin}
+
+
+// Get all Docotor Data 
+
+
+const allDoctors = async (req, res) => {
+    try {
+        
+        const doctors = await Doctor.find({}).select('-password') //exclude the specific property from the document       
+       return res.json({doctors,success:true})  
+    } catch (error) {
+        console.log(error)
+       return res.json({message:error.message, success:false})
+        
+    }
+    
+}
+
+
+
+
+export {addDoctor, adminLogin, allDoctors}
