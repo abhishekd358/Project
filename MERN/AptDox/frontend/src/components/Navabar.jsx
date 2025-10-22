@@ -1,10 +1,18 @@
 import { NavLink, useNavigate } from "react-router-dom";
 import { assets } from "../assets/assets_frontend/assets.js";
-import { useState } from "react";
+import { useContext, useState } from "react";
+import { AppContext } from "../context/AppContext.jsx";
 const Navabar = () => {
   const navigate = useNavigate();
   const [showMenu, setShowMenu] = useState(false);
-  const [token, setToken] = useState(true);
+//  importign token from the context 
+  const {token, setToken}= useContext(AppContext)
+
+  // logout method 
+  const logout = ()=>{
+    setToken(false)
+    localStorage.removeItem('token')
+  }
 
   return (
     <div className="flex justify-between md:justify-around items-center p-5">
@@ -91,7 +99,7 @@ const Navabar = () => {
                 My Appointements
               </p>
               <p
-                onClick={() => setToken(false)}
+                onClick={logout}
                 className="text-blue-700 font-bold hover:text-red-500 cursor-pointer"
               >
                 Logout
