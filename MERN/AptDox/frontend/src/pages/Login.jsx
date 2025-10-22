@@ -1,7 +1,60 @@
-import { useState } from "react";
+import { useContext, useState } from "react";
+import { toast } from "react-toastify";
+import { AppContext } from "../context/AppContext";
+import axios from "axios";
 
 const Login = () => {
   const [createAccount, setCreateAccount] = useState(true);
+
+  const [name, setName] = useState('')
+  const [email, setEmail] = useState('')
+  const [password, setPassword] = useState('')
+
+  const {backendUrl,setToken} = useContext(AppContext)
+  
+  const onSubmitHandler = async (e) => {
+    e.preventDefault()
+
+    try {
+      // ================ create/register account
+        if(createAccount){
+            const {data} = await axios.post(`${backendUrl}/api/user/register`,{name, email,password})
+            // console.log("==create==",data);
+            
+            if(data.success){
+              localStorage.setItem('token', data.token)
+              setToken(data.token)
+              toast.success(data.message)
+            }else{
+              toast.error(data.message)
+            }
+        }else{
+          // ======================== login account
+       
+            const {data} = await axios.post(`${backendUrl}/api/user/login`,{email,password})
+            console.log("======login=====", data)
+            if(data.success){
+              localStorage.setItem('token', data.token)
+              setToken(data.token)
+              toast.success(data.message)
+            }else{
+              toast.error(data.message)
+            }
+        
+      }
+
+    } catch (error) {
+      console.log(error)
+      toast.error(error.message)
+      
+    }
+    
+  }
+
+
+
+
+  
 
   return (
     <section className="max-w-sm mx-auto p-10 bg-white rounded-2xl shadow-xl shadow-indigo-100 border-1 border-gray-300 mt-10 mb-50">
@@ -17,7 +70,7 @@ const Login = () => {
         <p className="text-gray-500 mt-2">Please login to book appointment</p>
       )}
 
-      <form action="" className="space-y-4">
+      <form onSubmit={onSubmitHandler} className="space-y-4">
         {/* full name */}
         {/* showing name based on login or create account page */}
         {createAccount && (
@@ -28,10 +81,12 @@ const Login = () => {
             <input
               className="py-2 w-full rounded border-1 border-gray-400 px-2 mt-2"
               type="text"
-              name=""
+              name='name'
               id="fullname"
               required
               placeholder="Enter your full name"
+              onChange={(e)=> setName(e.target.value)}
+              value={name}
             />
           </div>
         )}
@@ -44,13 +99,15 @@ const Login = () => {
           <input
             className="py-2 w-full rounded border-1 border-gray-400 px-2 mt-2"
             type="email"
-            name=""
+            name="email"
             id="email"
             required
             placeholder="example@gmail.com"
+            onChange={(e)=> setEmail(e.target.value)}
+            value={email}
           />
         </div>
-        {/* full name */}
+        {/* password*/}
         <div className="text-gray-700 font-normal mt-4">
           <label htmlFor="password" className="block ">
             Password{" "}
@@ -58,10 +115,12 @@ const Login = () => {
           <input
             className="py-2 w-full rounded border-1 border-gray-400 px-2 mt-2"
             type="password"
-            name=""
+            name="password"
             id="password"
             required
             placeholder="Min. 6 characters"
+             onChange={(e)=> setPassword(e.target.value)}
+              value={password}
           />
         </div>
 

@@ -1,4 +1,4 @@
-import { assets, doctors, specialityData } from "../assets/assets_frontend/assets";
+import { assets, specialityData } from "../assets/assets_frontend/assets";
 import { AppContext } from "./AppContext";
 import {toast} from 'react-toastify'
 import axios from 'axios'
@@ -10,10 +10,12 @@ const AppContextProvider = (props) => {
   const currencySymbol = "₹"
   // backend url
   const backendUrl = import.meta.env.VITE_BACKEND_URL
+  // token set kar te hai
+  const [token, setToken] = useState('')
 
   // save fetch doctor to state
-  const [doctorList, setDoctorList] = useState([])
-  console.log("doctor list",doctorList)
+  const [doctors, setDoctors] = useState([])
+  console.log("doctor list",doctors)
   // fetching doctor list from backend
   const fetchDoctorList = async () => {
     try {
@@ -22,7 +24,7 @@ const AppContextProvider = (props) => {
       // console.log("===============",data)
       if (data.success) {
         // console.log("++++++++++ iside", data.docList)
-        setDoctorList(data.docList)
+        setDoctors(data.docList)
       }else{
         toast.error(data.message)
       }
@@ -37,6 +39,8 @@ const AppContextProvider = (props) => {
   useEffect(() => {
     fetchDoctorList()
   }, [])
+
+  
   
 
   const value = {
@@ -45,7 +49,9 @@ const AppContextProvider = (props) => {
     assets,
     currencySymbol,
    
-    fetchDoctorList,doctorList  // fetch docotr and save in state varible list
+    fetchDoctorList,  // fetch docotr and save in state varible list
+
+    token,setToken,backendUrl
   };
 
   return (
