@@ -4,6 +4,7 @@ import cors from "cors";
 import connectDB from "./config/mongodb.js";
 import cloudinaryConnect from "./config/cloudinary.js";
 import adminRouter from "./routes/admin.route.js";
+import doctorRouter from "./routes/doctor.route.js";
 
 // ------------------- env config
 dotenv.config({ path: './config/.env', quiet: true }); // so we hide the Logging of .env file loading
@@ -54,6 +55,9 @@ app.get("/", (req, res) => {
 
 app.use('/api/admin/',adminRouter)
 
+
+// frontend route for fetch doctor list
+app.use('/api/doctor/',doctorRouter)
 
 
 

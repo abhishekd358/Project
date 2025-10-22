@@ -10,11 +10,12 @@ import MyAppointments from './pages/MyAppointments'
 import MyProfile from './pages/MyProfile'
 import Login from './pages/Login'
 import Appointment from './pages/Appointment'
+import { ToastContainer } from 'react-toastify'
 
 const App = () => {
   return (
     <>
-
+    <ToastContainer/>
     <Navabar/>
      {/* pages Routing */}
      <Routes>

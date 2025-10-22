@@ -27,7 +27,25 @@ const changeAvailability = async (req, res) => {
 
 
 
-export {changeAvailability}
+// ------------------------- frontend Doctor list showing
+
+// http://localhost:3000/api/doctor/list 
+const doctorList = async (req, res) => {
+    try {
+        const docList = await Doctor.find({}).select(['-password', '-email'])
+        // console.log(docList)
+        return res.json({docList, success:true})
+        
+    } catch (error) {
+        console.log(error.message)
+        return res.json({message:error.message , success:false})
+    }
+    
+}
+
+
+
+export {changeAvailability, doctorList}
 
 // // create account for Doctors
 // export const doctorLogin = async (req, res) => {

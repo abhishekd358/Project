@@ -5,7 +5,7 @@ import {AppContext} from "../context/AppContext"
 
 const DoctorCard = () => {
     const navigate = useNavigate()
-    const {doctors} = useContext(AppContext)
+    const { doctors,doctorList} = useContext(AppContext)
   return (
     <section id='speciality' className='font-poppins py-20 px-6 md:px-16 lg:px-25'>
         {/* Title and Description */}
@@ -17,7 +17,7 @@ const DoctorCard = () => {
             <div className="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-2 sm:gap-6 md:gap-8 lg:gap-10 pt-1 md:pt-12 justify-items-center">
 
                 {/* Cards */}
-                {doctors.slice(0, 10).map((doctorCard)=>(
+                {doctorList.slice(0, 10).map((doctorCard)=>(
                     <div className="bg-[#eaefff] rounded-xl border border-blue-100 hover:shadow-lg transition duration-300 hover:scale-105 w-full flex flex-col cursor-pointer" key={doctorCard._id} onClick={()=>{navigate(`/appointment/${doctorCard._id}`); scrollTo(0, 0)}}>
                     
                         {/* Image Container */}
