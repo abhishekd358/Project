@@ -11,7 +11,7 @@ const AppContextProvider = (props) => {
   // backend url
   const backendUrl = import.meta.env.VITE_BACKEND_URL
   // token set kar te hai
-  const [token, setToken] = useState('')
+  const [token, setToken] = useState(localStorage.getItem('token') ? localStorage.getItem('token') : false)
 
   // save fetch doctor to state
   const [doctors, setDoctors] = useState([])
