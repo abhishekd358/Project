@@ -2,7 +2,7 @@ import User from "../models/user.model.js";
 import validator from 'validator'
 import bcrypt from 'bcrypt'
 import jwt from 'jsonwebtoken'
-
+import {v2 as cloudinary} from 'cloudinary'
 
 
 
@@ -18,7 +18,7 @@ const userRegister = async (req, res) => {
     }
 
     //check user must enter valid email with validtaor package
-    if(!validator.isEmail){
+    if(!validator.isEmail(email)){
         return res.json({message: "Enter valid email address", success:false})
     }
 
@@ -56,6 +56,7 @@ const userRegister = async (req, res) => {
 // new user login 
 
 const userLogin = async (req, res) => {
+
     // take the user input from the body
     const {email, password}= req.body
 
@@ -65,7 +66,7 @@ const userLogin = async (req, res) => {
     }
 
     //check user must enter valid email with validtaor package
-    if(!validator.isEmail){
+    if(!validator.isEmail(email)){
         return res.json({message: "Enter valid email address", success:false})
     }
 
@@ -97,4 +98,65 @@ const userLogin = async (req, res) => {
 
 }
 
-export {userLogin, userRegister}
+
+// get user profile data
+
+const getUserProfile = async (req, res) => {
+    
+    try {
+        const userId = req.userId
+
+    // looking user data in the db
+    if(!userId){
+        return res({message: "Unathorize access", success:false})
+    }
+
+    const userData = await User.findById(userId).select('-password')
+    return res.json({success: true, userData})
+        
+    } catch (error) {
+        return res.json({message:error.message,success:false})
+        
+    }
+}
+
+
+// update user profile
+
+const updateProfile = async (req, res) => {
+    try {
+
+        const {name, phone, address, gender,dob } = req.body
+        const userId = req.userId
+        const imageFile = req.file
+
+        if( !name || !phone || !dob || !gender) {
+            return res.json({message:"Some data is missing", success: false})
+        }
+
+        // find the user data using the userId
+        await User.findByIdAndUpdate(userId, {name, phone, address:JSON.parse(address), dob,gender})
+
+        // for image
+        if(imageFile){
+            // upload in cloudinary
+            const imgUpload = await cloudinary.uploader.upload(imageFile.path, {resource_type: 'image'})
+
+            // this return the image url of cloud
+            const imgUrl = imgUpload.secure_url
+
+            // now we save imgUrl to db
+            await User.findByIdAndUpdate(userId, {image:imgUrl})
+        }
+
+        return res.json({message:"Profile updated successfully!", success:true})
+
+        
+    } catch (error) {
+        return res.json({message:error.message,success:false})
+        
+    }
+    
+}
+
+export {userLogin, userRegister, getUserProfile, updateProfile}

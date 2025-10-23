@@ -15,7 +15,7 @@ const AppContextProvider = (props) => {
 
   // save fetch doctor to state
   const [doctors, setDoctors] = useState([])
-  console.log("doctor list",doctors)
+  // console.log("doctor list",doctors)
   // fetching doctor list from backend
   const fetchDoctorList = async () => {
     try {
@@ -40,18 +40,45 @@ const AppContextProvider = (props) => {
     fetchDoctorList()
   }, [])
 
+  //================== user profile 
+  const [userData, setUserData] = useState(false)
+  const loadUserProfileData = async () => {
+    try {
+
+      const {data} = await axios.get(`${backendUrl}/api/user/get-user-profile`,{headers:{token}} )
+      // console.log("===============",data)
+      if (data.success) {
+        setUserData(data.userData)
+      }else{
+        toast.error(data.message)
+      }
+      
+    } catch (error) {
+      console.log(error.message)
+      toast.error(error.message)
+    }
+  }
   
+
+  useEffect(() => {
+    // if our token present then only we load data
+    if(token){
+      loadUserProfileData()
+    }else{
+      setUserData(false)
+    }
+   
+  }, [token])
   
 
   const value = {
-    doctors,
-    specialityData,
-    assets,
-    currencySymbol,
+    doctors,specialityData,assets,currencySymbol,
    
     fetchDoctorList,  // fetch docotr and save in state varible list
 
-    token,setToken,backendUrl
+    token,setToken,backendUrl,
+
+    userData, setUserData, loadUserProfileData// user data for profile
   };
 
   return (

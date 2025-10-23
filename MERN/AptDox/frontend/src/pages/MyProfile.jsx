@@ -1,64 +1,65 @@
 import React, { useState } from "react";
-import { assets } from "../assets/assets_frontend/assets";
+
+import { useContext } from "react";
+import { AppContext } from "../context/AppContext";
+import { toast } from "react-toastify";
+import axios from "axios";
 
 const MyProfile = () => {
-  const [userData, setUserData] = useState({
-    name: "User Name",
-    image: assets.profile_pic,
-    email: "example@gmail.com",
-    phone: "+91 00242283",
-    address: {
-      line1: "123 street",
-      line2: "Wellington road, new york - 2891, USA",
-    },
-    gender: "Male",
-    dob: "13 Oct 2025",
-  });
-
+  const {userData, setUserData,backendUrl, token,loadUserProfileData } = useContext(AppContext)
+  console.log(userData)
   const [isEdit, setIsEdit] = useState(false);
 
-  const handleSave = () => {
-    // API call to save data
-    console.log("Saving user data:", userData);
-    setIsEdit(false);
-  };
+  const[image, setImage] = useState(false)
 
-  const handleInputChange = (e) => {
-    const { name, value } = e.target;
-    
-    if (name.includes('.')) {
-      // Handle nested objects like address.line1
-      const [parent, child] = name.split('.');
-      setUserData(prev => ({
-        ...prev,
-        [parent]: {
-          ...prev[parent],
-          [child]: value
-        }
-      }));
-    } else {
-      setUserData(prev => ({
-        ...prev,
-        [name]: value
-      }));
+  const updateProfile = async (e) => {
+    e.preventDefault()
+    try {
+      const formData = new FormData(); //create a form data for storing form info fields
+      formData.append('name', userData.name)
+      formData.append('phone', userData.phone)
+      formData.append('address', JSON.stringify(userData.address))
+      formData.append('gender', userData.gender)
+      formData.append('dob', userData.dob)
+
+      image && formData.append('image', image)
+
+      const {data} = await axios.put(`${backendUrl}/api/user/update-profile`, formData, {headers:{token}})
+      
+      if(data.success){
+        toast.success(data.message)
+        // and again we load info 
+        await loadUserProfileData()
+        setIsEdit(false)
+        setImage(false)
+
+      }
+
+    } catch (error) {
+      console.log(error.message)
+      toast.error(error.message)
     }
-  };
-
-  return (
+  }
+  
+  // it handle page reload data error
+  return userData && (
     <div className="max-w-4xl mx-10 sm:mx-20 lg:mx-auto p-6 md:p-8 lg:p-10 my-8 mb-20">
       {/* Profile Header with Image */}
       <div className="flex items-center gap-6 mb-8">
-        <div className="relative">
+        <div className="relative w-24 h-24">
           <img 
-            src={userData.image} 
+            src={image ? URL.createObjectURL(image) : userData.image} 
             alt="Profile" 
             className="w-24 h-24 md:w-28 md:h-28 rounded-full object-cover border-4 border-blue-100" 
           />
           {isEdit && (
-            <button className="absolute bottom-0 right-0 bg-blue-500 text-white p-2 rounded-full shadow-lg hover:bg-blue-600 transition-colors duration-200">
-              <img src={assets.upload_area} alt="Upload" className="w-5 h-5" />
-            </button>
+            
+            <label htmlFor="image" className="absolute bottom-0 right-0 w-8 h-8 rounded-full flex items-center justify-center cursor-pointer border border-black bg-indigo-500">
+                {/* if kisi ne edit kar na chanha , tab image file explore se choose kiya bhai ne to hum use choose image ko urlObject mai convert kar ket set kar denge varna default image hi dikhayege */}
+                <img className="w-full h-full rounded-full object-cover" src={image ? URL.createObjectURL(image): userData.image}  alt="Upload" />
+            </label>
           )}
+          <input type="file" name="image" id="image" onChange={(e)=>setImage(e.target.files[0])} className="hidden"/>
         </div>
         
         <div className="flex-1">
@@ -67,7 +68,7 @@ const MyProfile = () => {
               type="text"
               name="name"
               value={userData.name}
-              onChange={handleInputChange}
+              onChange={(e) => setUserData({ ...userData, [e.target.name]: e.target.value })}
               className="w-full text-2xl font-bold text-gray-900 bg-blue-50 px-4 py-2 rounded-lg border border-blue-200 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-colors duration-200 "
               placeholder="Enter your name"
             />
@@ -100,7 +101,7 @@ const MyProfile = () => {
                 type="tel"
                 name="phone"
                 value={userData.phone}
-                onChange={handleInputChange}
+                onChange={(e) => setUserData({ ...userData, [e.target.name]: e.target.value })}
                 className="w-full text-gray-900 bg-blue-50 px-3 py-2 rounded border border-blue-200 focus:outline-none focus:ring-1 focus:ring-blue-500 focus:border-transparent transition-colors duration-200"
                 placeholder="+91 0000000000"
               />
@@ -116,17 +117,17 @@ const MyProfile = () => {
             <div className="space-y-2">
               <input
                 type="text"
-                name="address.line1"
+                name="line1"
                 value={userData.address.line1}
-                onChange={handleInputChange}
+                onChange={(e)=>setUserData({...userData,address: { ...userData.address, line1: e.target.value },})}
                 className="w-full text-gray-900 bg-blue-50 px-3 py-2 rounded border border-blue-200 focus:outline-none focus:ring-1 focus:ring-blue-500 focus:border-transparent transition-colors duration-200"
                 placeholder="Street address"
               />
               <input
                 type="text"
-                name="address.line2"
+                name="line2"
                 value={userData.address.line2}
-                onChange={handleInputChange}
+                onChange={(e)=>setUserData({...userData,address: { ...userData.address, line2: e.target.value },})}
                 className="w-full text-gray-900 bg-blue-50 px-3 py-2 rounded border border-blue-200 focus:outline-none focus:ring-1 focus:ring-blue-500 focus:border-transparent transition-colors duration-200"
                 placeholder="City, State, ZIP"
               />
@@ -153,9 +154,10 @@ const MyProfile = () => {
               <select 
                 name="gender" 
                 value={userData.gender}
-                onChange={handleInputChange}
+                onChange={(e)=>setUserData({...userData,[e.target.name]:e.target.value})}
                 className="w-full text-gray-900 bg-blue-50 px-3 py-2 rounded border border-blue-200 focus:outline-none focus:ring-1 focus:ring-blue-500 focus:border-transparent transition-colors duration-200"
               >
+                <option value="No Selection">No Selection</option>
                 <option value="Male">Male</option>
                 <option value="Female">Female</option>
                 <option value="Transgender">Transgender</option>
@@ -174,7 +176,7 @@ const MyProfile = () => {
                 type="date"
                 name="dob"
                 value={userData.dob}
-                onChange={handleInputChange}
+                onChange={(e) => setUserData({ ...userData, [e.target.name]: e.target.value })}
                 className="w-full text-gray-900 bg-blue-50 px-3 py-2 rounded border border-blue-200 focus:outline-none focus:ring-1 focus:ring-blue-500 focus:border-transparent transition-colors duration-200"
               />
             ) : (
@@ -194,8 +196,8 @@ const MyProfile = () => {
         </button>
         
         {isEdit && (
-          <button 
-            onClick={handleSave}
+          <button type="submit"
+            onClick={updateProfile}
             className="px-6 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-blue-200 cursor-pointer"
           >
             Save Changes
