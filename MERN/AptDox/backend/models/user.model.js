@@ -10,7 +10,7 @@ const userSchema = new mongoose.Schema({
     address:{type:Object, default:{line1:'', line2:''}},
     gender:{type:String, enum:["Male", "Female", "Other", "Not Selected"], default:"Not Selected"},
     dob:{type:String, default:""},
-    phone:{type:Number, default:"+91"}
+    phone:{type:Number, default:""}
 },
 {timestamps:true}
 )

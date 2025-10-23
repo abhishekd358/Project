@@ -130,7 +130,7 @@ const updateProfile = async (req, res) => {
         const userId = req.userId
         const imageFile = req.file
 
-        if( !name || !phone || !dob || !gender) {
+        if( !name?.trim() || !phone?.trim() || !dob?.trim() || !gender?.trim()) {
             return res.json({message:"Some data is missing", success: false})
         }
 
@@ -158,5 +158,11 @@ const updateProfile = async (req, res) => {
     }
     
 }
+
+
+
+// user booking appointment 
+
+
 
 export {userLogin, userRegister, getUserProfile, updateProfile}

@@ -6,7 +6,7 @@ const Navabar = () => {
   const navigate = useNavigate();
   const [showMenu, setShowMenu] = useState(false);
 //  importign token from the context 
-  const {token, setToken}= useContext(AppContext)
+  const {token, setToken, userData}= useContext(AppContext)
 
   // logout method 
   const logout = ()=>{
@@ -78,7 +78,7 @@ const Navabar = () => {
       {token ? (
         <div className="relative group">
           <img
-            src={assets.profile_pic}
+            src={userData.image}
             alt=""
             className="w-10 h-10 object-cover cursor-pointer rounded-full border-2 border-blue-500"
           />
@@ -99,7 +99,7 @@ const Navabar = () => {
                 My Appointements
               </p>
               <p
-                onClick={logout}
+                onClick={()=>{logout(); navigate('/')}}
                 className="text-blue-700 font-bold hover:text-red-500 cursor-pointer"
               >
                 Logout

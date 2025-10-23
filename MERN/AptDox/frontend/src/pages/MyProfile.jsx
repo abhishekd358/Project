@@ -14,6 +14,19 @@ const MyProfile = () => {
 
   const updateProfile = async (e) => {
     e.preventDefault()
+
+    // Frontend mandantory validation
+     if (!userData.name.trim() || !userData.phone.trim() || !userData.gender.trim() || !userData.dob.trim()) {
+        toast.error("Please fill all required fields");
+        return;
+  }
+
+  // phone number length
+    if(userData.phone.length < 10 ){
+      toast.error('Enter valid phone number')
+      return
+  }
+
     try {
       const formData = new FormData(); //create a form data for storing form info fields
       formData.append('name', userData.name)
@@ -95,15 +108,19 @@ const MyProfile = () => {
           </div>
           
           <div>
-            <label className="block text-sm font-medium text-gray-600 mb-1">Phone</label>
+            <label className="block text-sm font-medium text-gray-600 mb-1">Phone*</label>
             {isEdit ? (
               <input
-                type="tel"
+                type="text"
                 name="phone"
+                pattern="[0-9]*"
+                inputMode="numeric"
                 value={userData.phone}
-                onChange={(e) => setUserData({ ...userData, [e.target.name]: e.target.value })}
+                onChange={(e) => {const onlyNums = e.target.value.replace(/\D/g, "").slice(0, 10);
+    setUserData({ ...userData, [e.target.name]: onlyNums });
+  }}
                 className="w-full text-gray-900 bg-blue-50 px-3 py-2 rounded border border-blue-200 focus:outline-none focus:ring-1 focus:ring-blue-500 focus:border-transparent transition-colors duration-200"
-                placeholder="+91 0000000000"
+                placeholder="Enter 10 digit phone number"
               />
             ) : (
               <p className="text-gray-900">{userData.phone}</p>
@@ -149,7 +166,7 @@ const MyProfile = () => {
         
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
           <div>
-            <label className="block text-sm font-medium text-gray-600 mb-1">Gender</label>
+            <label className="block text-sm font-medium text-gray-600 mb-1">Gender*</label>
             {isEdit ? (
               <select 
                 name="gender" 
@@ -170,7 +187,7 @@ const MyProfile = () => {
           </div>
           
           <div>
-            <label className="block text-sm font-medium text-gray-600 mb-1">Date of Birth</label>
+            <label className="block text-sm font-medium text-gray-600 mb-1">Date of Birth*</label>
             {isEdit ? (
               <input
                 type="date"
