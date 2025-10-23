@@ -4,6 +4,11 @@ import { AppContext } from "../context/AppContext";
 import { RelatedDoctor } from "../components/RelatedDoctor";
 
 const Appointment = () => {
+
+
+
+
+  
   const { docId } = useParams();
   const { doctors, assets,currencySymbol } = useContext(AppContext);
   // saving doctor info in variable state

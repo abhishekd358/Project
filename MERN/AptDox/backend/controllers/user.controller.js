@@ -3,6 +3,8 @@ import validator from 'validator'
 import bcrypt from 'bcrypt'
 import jwt from 'jsonwebtoken'
 import {v2 as cloudinary} from 'cloudinary'
+import Doctor from "../models/doctor.model.js";
+import Appointment from "../models/appointment.model.js";
 
 
 
@@ -160,9 +162,69 @@ const updateProfile = async (req, res) => {
 }
 
 
-
+// ========================== APPOINTMENT
 // user booking appointment 
 
 
+const bookAppointment = async (req, res) => {
+    // when user book the appointment we take few fields
+    const {userId, docId, slotDate, slotTime } = req.body
 
-export {userLogin, userRegister, getUserProfile, updateProfile}
+    // this field should not be empty 
+    if(!userId || !docId || !slotDate || slotTime){
+        return res.json({message:"Something missing", success:false})
+    }
+    //  now we fetch the doctor is availble or not from doctor model
+    const docData = await Doctor.findById(docId).select('-password')
+
+    // if doctor  availble field is false 
+    if(!docData.available){
+        return res.json({message:`${docData.name} is not available for appointment.`, success:false})
+    }
+
+    // if our doctor is availble 
+
+    // then we check how much slots or booked & availble
+    let slots_booked = docData.slots_booked
+
+    // user ne chooose kiye date par check karege ki kitne slots time availble hai ya nahi
+    if(slots_booked[slotDate]){ // on user choose date our doctor availble and if already in that date the user time already present means docotr not availble
+        if(slots_booked[slotDate].include(slotTime)){
+                return res.json({message:'Slot not available.', success:false})
+        }else{
+            // if include nahi hai time means docotr available hai 
+            slots_booked[slotDate].push(slotTime)
+        }
+
+    }else{
+        // means user ne choose kiye din par doctor ke pas kohi booking nahi hai to hum new book slot banayenge
+        slots_booked[slotDate] = []
+        slots_booked[slotDate].push(slotTime)
+    }
+
+    // ab user ne to date and time choose kar liya 
+    //  now we store this info user info and appointment info  to appointment MODEL 
+    const userData = await User.findById(userId).select('-password')
+
+    // delete docData.slots_booked
+
+    // sab information ek object mai store kar ke appointment MODEL mai save karenge
+    const appointmentData = {
+        userId, docId, userData, docData,
+        amount:docData.fees, slotTime, slotDate, 
+        date:Date.now()
+    }
+
+    await Appointment.create(appointmentData)
+    
+    // doctor appintment mai bhi save karenge user appoitment 
+   const doc = await Doctor.findByIdAndUpdate(docId, {slots_booked})
+
+    return res.json({message: `Appointment booked with ${doc.name}`, success:true})
+
+}
+
+
+
+
+export {userLogin, userRegister, getUserProfile, updateProfile, bookAppointment}
