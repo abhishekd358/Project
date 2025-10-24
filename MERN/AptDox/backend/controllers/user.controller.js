@@ -168,12 +168,10 @@ const updateProfile = async (req, res) => {
 
 const bookAppointment = async (req, res) => {
     // when user book the appointment we take few fields
-    const {userId, docId, slotDate, slotTime } = req.body
+    const {docId, slotDate, slotTime } = req.body
+    const userId = req.userId
 
-    // this field should not be empty 
-    if(!userId || !docId || !slotDate || slotTime){
-        return res.json({message:"Something missing", success:false})
-    }
+  
     //  now we fetch the doctor is availble or not from doctor model
     const docData = await Doctor.findById(docId).select('-password')
 
@@ -189,7 +187,7 @@ const bookAppointment = async (req, res) => {
 
     // user ne chooose kiye date par check karege ki kitne slots time availble hai ya nahi
     if(slots_booked[slotDate]){ // on user choose date our doctor availble and if already in that date the user time already present means docotr not availble
-        if(slots_booked[slotDate].include(slotTime)){
+        if(slots_booked[slotDate].includes(slotTime)){
                 return res.json({message:'Slot not available.', success:false})
         }else{
             // if include nahi hai time means docotr available hai 
@@ -226,5 +224,73 @@ const bookAppointment = async (req, res) => {
 
 
 
+// ========== get doctor appointment data
+const getMyAppointment = async (req, res) => {
 
-export {userLogin, userRegister, getUserProfile, updateProfile, bookAppointment}
+    try {
+     const userId = req.userId
+    
+     
+     const appointments = await Appointment.find({userId})
+    //  console.log('+++++++++++++',appointments);
+    
+    return res.json({appointments, success:true})   
+    } catch (error) {
+       console.log(error);
+       return res.json({message:error.message, success:false})
+        
+    }
+
+    
+}
+
+
+// ============================ cancel appointement
+
+const cancelAppointment = async (req, res) => {
+    
+    try {
+        console.log("++++++++++==1")
+        const userId = req.userId
+        console.log("--------------", userId);
+    // taking appointment id from user frontend
+    const {id} = req.body 
+    const appointmentChoose = await Appointment.findOne({_id:id, userId})
+    //  if not found any appointment
+    if(!appointmentChoose){
+        return res.json({ message: "Appointment Not Found", success: false });
+    }
+    // else
+    appointmentChoose.cancelled = true
+    await appointmentChoose.save();
+
+
+    //  now also we have to remove the slot from the appointment as well as from Doctor Database
+    const {docId, slotDate, slotTime} = appointmentChoose
+    // finding docotr in db for removing slot
+    const doctorData = await Doctor.findById(docId)
+    // take all slot_booked from the doctor database
+    let slots_booked = doctorData.slots_booked
+
+    slots_booked[slotDate] = slots_booked[slotDate].filter((t)=> t !== slotTime) // we use filter to remove the user cancel time and again we store the array of time 
+
+    await Doctor.findByIdAndUpdate(docId, {slots_booked})
+
+    return res.json({message:"Appointment Cancelled", success:true})
+        
+    } catch (error) {
+        console.log(error);
+        return res.json({ message: error.message, success: false }); 
+    }
+}
+
+
+
+// =========================================== payment method controller
+
+
+
+
+
+
+export {userLogin, userRegister, getUserProfile, updateProfile, bookAppointment, getMyAppointment,cancelAppointment}

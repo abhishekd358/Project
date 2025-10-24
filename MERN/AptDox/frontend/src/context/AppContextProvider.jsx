@@ -71,9 +71,6 @@ const AppContextProvider = (props) => {
   }, [token])
 
 
-  // ========================appointment
-  
-  
 
   const value = {
     doctors,specialityData,assets,currencySymbol,

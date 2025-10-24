@@ -1,16 +1,15 @@
 import React, { useContext, useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
+import { assets } from "../assets/assets_frontend/assets";
 import { AppContext } from "../context/AppContext";
 import { RelatedDoctor } from "../components/RelatedDoctor";
+import { toast } from "react-toastify";
+import axios from "axios";
 
 const Appointment = () => {
-
-
-
-
-  
+  const navigate = useNavigate()
   const { docId } = useParams();
-  const { doctors, assets,currencySymbol } = useContext(AppContext);
+  const { doctors, backendUrl, token, fetchDoctorList,currencySymbol } = useContext(AppContext);
   // saving doctor info in variable state
   const [docInfo, setDocInfo] = useState(null);
   // Booking state
@@ -42,6 +41,7 @@ const getAvailbleSlots = async () => {
     
     // setting end time of the date with index
     let endTime = new Date()
+  
     endTime.setDate(today.getDate()+i)
     // set docotr last end time for appointment
     endTime.setHours(21,0,0,0)
@@ -57,19 +57,32 @@ const getAvailbleSlots = async () => {
     }else{
       // not in current date 
       currentDate.setHours(10);
-      currentDate.setMinutes(0)
+      currentDate.setMinutes(0);
     }
     // Ek din ke saare slots store karne ke liye empty array
     let timeSlots = []
     while(currentDate< endTime){
       let formattedTime = currentDate.toLocaleTimeString([],{hour: '2-digit', minute:'2-digit'})
 
-      
-      // add slot to array
+
+      // ------------------------------- checking user slot  booked or not  for forntend rendering 
+      let day = currentDate.getDate()
+      let month = currentDate.getMonth()
+      let year = currentDate.getFullYear()
+
+      const slotDate = day + '_' + month + '_' + year
+      const slotTime = formattedTime 
+
+      const isSlotAvailable = docInfo?.slots_booked?.[slotDate] && docInfo?.slots_booked[slotDate].includes(slotTime) ? false : true 
+
+      if(isSlotAvailable){
+           // add slot to array
       timeSlots.push({
         datetime : new Date(currentDate),
         time: formattedTime
-      })
+      })    
+      }
+    
       // increment the time by 30 min
       currentDate.setMinutes(currentDate.getMinutes()+30)
     }
@@ -81,6 +94,48 @@ const getAvailbleSlots = async () => {
 useEffect(() => {
   getAvailbleSlots()
 }, [docInfo])
+
+
+// ========================= appointment booking
+const bookAppointment = async()=>{
+    // first check user login or token , measn token present or not
+    if(!token){
+      toast.warn('Please login to book appointment.')
+      return navigate('/login')
+    }
+
+    //  now we make a request to server
+    try {
+      // take user choose date from frontend , via above state i.e docSlots
+      const date = docSlots[slotIndex][0].datetime
+      // console.log("doc slots",docSlots)
+      // console.log("from bookappointment method",date)
+
+      // now we get date+time we breakdown into day month year
+      const day = date.getDate()
+      const month = date.getMonth()+1
+      const year = date.getFullYear()
+
+      // now we combine to make into require format
+      const slotDate = day + '_' + month + '_' + year
+
+      // now we make call to backend 
+      const {data} = await axios.post(`${backendUrl}/api/user/book-appointment`, {docId, slotDate, slotTime}, {headers:{token}})
+      
+      if(data.success){
+        toast.success(data.message)
+        fetchDoctorList()
+        navigate('/my-appointments')
+      }else{
+        toast.error(data.message)
+      }
+
+    } catch (error) {
+      console.log(error)
+      toast.error(error.message)
+    }
+
+}
 
 
 
@@ -137,7 +192,7 @@ useEffect(() => {
 
             </div>
             {/* Button for Book an appointment */}
-            <button className="bg-blue-600 text-white text-sm font-light px-14 py-3 rounded-full my-6
+            <button onClick={bookAppointment} className="bg-blue-600 text-white text-sm font-light px-14 py-3 rounded-full my-6
             cursor-pointer transition-bg duration-300 hover:bg-blue-400">Book an appointment</button>
           </div>
           {/* import the Related Doctor component */}
