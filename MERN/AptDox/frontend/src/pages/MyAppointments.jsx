@@ -3,10 +3,11 @@ import { AppContext } from "../context/AppContext";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import axios from "axios";
+import Razorpay from "razorpay";
 
 const MyAppointments = () => {
-  const { backendUrl, token, fetchDoctorList} = useContext(AppContext);
-  
+  const { backendUrl, token, fetchDoctorList } = useContext(AppContext);
+
   const navigate = useNavigate();
 
   // backend
@@ -14,15 +15,33 @@ const MyAppointments = () => {
 
   // date formating into '20_4_2024' to 20 April, 2024
 
-  const months = ["",'jan', 'feb', 'mar', 'apr', 'may', 'jun','jul', 'aug', 'sep','oct', 'nov', 'dec'];
+  const months = [
+    "",
+    "jan",
+    "feb",
+    "mar",
+    "apr",
+    "may",
+    "jun",
+    "jul",
+    "aug",
+    "sep",
+    "oct",
+    "nov",
+    "dec",
+  ];
 
-  const dateFormating = (slotDate)=>{
-    const dateArray = slotDate.split('_')
-    return " "+dateArray[0]+ ' '+ months[Number(dateArray[1])]+' '+ dateArray[2]
-  }
-
-
-
+  const dateFormating = (slotDate) => {
+    const dateArray = slotDate.split("_");
+    return (
+      " " +
+      dateArray[0] +
+      " " +
+      months[Number(dateArray[1])] +
+      " " +
+      dateArray[2]
+    );
+  };
 
   // ============================== fetch user specific appointment data
   const fetchAppointments = async () => {
@@ -47,29 +66,70 @@ const MyAppointments = () => {
     }
   }, [token]);
 
-
-
-
-// ===================================== cancel appointment 
+  // ===================================== cancel appointment
 
   const cancelledAppointment = async (id) => {
     try {
-      const {data} = await axios.post( `${backendUrl}/api/user/cancel-appointment`,{id}, {headers:{token}})
-      console.log("=============",data);
-      
-      if(data.success){
-        toast.success(data.message)
+      const { data } = await axios.post(
+        `${backendUrl}/api/user/cancel-appointment`,
+        { id },
+        { headers: { token } }
+      );
+      console.log("=============", data);
+
+      if (data.success) {
+        toast.success(data.message);
         console.log(data);
-        await fetchAppointments()
-        await fetchDoctorList()
-      }else{
-        toast.error(data.message)
+        await fetchAppointments();
+        await fetchDoctorList();
+      } else {
+        toast.error(data.message);
       }
     } catch (error) {
-      toast.error(error.message)
+      toast.error(error.message);
     }
-  } 
+  };
 
+  const initPay = async (order) => {
+     
+      const options = {
+      key: import.meta.env.VITE_KEY_ID,
+      amount: order.amount, // from backend
+      currency: order.currency, // from backend
+      name: "AptDox",
+      description: "AptDox Doctor appointment payment.",
+      order_id: order.id, //backend
+      receipt: order.receipt,
+      // for more
+      handler: async (response) => {
+        console.log(response);
+      },
+    };
+
+    let rzp = new window.Razorpay(options); //new window mai show kareng
+    rzp.open();
+  };
+
+  // ================================== razorpay
+
+  const appointmentPayment = async (appointmentId) => {
+     
+    try {
+      const { data } = await axios.post(
+        `${backendUrl}/api/user/payment-razorpay`,
+        { appointmentId },
+        { headers: { token } }
+      );
+
+      if (data.success) {
+        // console.log(data)
+        // jo backend mai otptions banye the vahi ab pass krodo checkout/init naye wale function ko
+        initPay(data.order);
+      }
+    } catch (error) {
+      toast.error(error.message);
+    }
+  };
 
   return (
     <div className="mx-10 md:mx-20 lg:mx-25 mt-5 mb-50">
@@ -79,14 +139,18 @@ const MyAppointments = () => {
       {/* -----doctor listing */}
       <div className="space-y-6 mt-6">
         {appointments.map((item, index) => (
-          <div className="grid grid-cols-[1fr_2fr] gap-4 sm:flex sm:gap-6 border border-blue-100 rounded-md bg-neutral-50 shadow-lg p-10 transition-all duration-500 hover:scale-105 hover:shadow-md hover:shadow-indigo-50 hover:bg-blue-50"
+          <div
+            className="grid grid-cols-[1fr_2fr] gap-4 sm:flex sm:gap-6 border border-blue-100 rounded-md bg-neutral-50 shadow-lg p-10 transition-all duration-500 hover:scale-105 hover:shadow-md hover:shadow-indigo-50 hover:bg-blue-50"
             key={index}
           >
             {/* image */}
-            <div onClick={() => {
-              navigate(`/appointment/${item.docId}`);
-              scrollTo(0, 0);
-            }} className="cursor-pointer">
+            <div
+              onClick={() => {
+                navigate(`/appointment/${item.docId}`);
+                scrollTo(0, 0);
+              }}
+              className="cursor-pointer"
+            >
               <img
                 src={item.docData.image}
                 alt=""
@@ -95,10 +159,13 @@ const MyAppointments = () => {
             </div>
 
             {/*appointment deatisl  */}
-            <div className="flex-1 text-sm text-gray-800 cursor-pointer" onClick={() => {
-              navigate(`/appointment/${item.docId}`);
-              scrollTo(0, 0);
-            }}>
+            <div
+              className="flex-1 text-sm text-gray-800 cursor-pointer"
+              onClick={() => {
+                navigate(`/appointment/${item.docId}`);
+                scrollTo(0, 0);
+              }}
+            >
               <p className="text-neutral-800 font-semibold ">
                 {item.docData.name}
               </p>
@@ -108,9 +175,9 @@ const MyAppointments = () => {
               <p className="text-xs">{item.docData.address.line2}</p>
               <p className="text-xs mt-1">
                 <span className="text-sm text-neutral-700 font-medium">
-                  Date & Time: 
+                  Date & Time:
                 </span>
-                 {dateFormating(item.slotDate)} | {item.slotTime}
+                {dateFormating(item.slotDate)} | {item.slotTime}
               </p>
             </div>
 
@@ -118,18 +185,31 @@ const MyAppointments = () => {
             <div></div>
             {/* btn */}
             <div className="flex flex-col gap-2 justify-end">
-            {!item.cancelled && <button className="text-sm text-stone-500 text-center sm:minw-48 py-2 px-4 border rounded hover:text-white transition-all duration-500 hover:bg-blue-500 cursor-pointer">
-                Pay Online
-              </button>}  
+              {!item.cancelled && (
+                <button
+                  onClick={() => appointmentPayment(item._id)}
+                  className="text-sm text-stone-500 text-center sm:minw-48 py-2 px-4 border rounded hover:text-white transition-all duration-500 hover:bg-blue-500 cursor-pointer"
+                >
+                  Pay Online
+                </button>
+              )}
 
               {/* we only display if not cancel appointment */}
-              {!item.cancelled ? <button onClick={()=>cancelledAppointment(item._id)} className="text-sm text-stone-500 text-center sm:minw-48 py-2 px-4 border rounded hover:text-white transition-all duration-500 hover:bg-red-500 cursor-pointer">
-                Cancel appointmenet
-              </button> 
-              : 
-              <button disabled className="text-sm bg-red-400 text-center sm:minw-48 py-2 px-4 border rounded text-white transition-all duration-500">
-                Appointment cancelled
-              </button>}
+              {!item.cancelled ? (
+                <button
+                  onClick={() => cancelledAppointment(item._id)}
+                  className="text-sm text-stone-500 text-center sm:minw-48 py-2 px-4 border rounded hover:text-white transition-all duration-500 hover:bg-red-500 cursor-pointer"
+                >
+                  Cancel appointment
+                </button>
+              ) : (
+                <button
+                  disabled
+                  className="text-sm bg-red-400 text-center sm:minw-48 py-2 px-4 border rounded text-white transition-all duration-500"
+                >
+                  Appointment cancelled
+                </button>
+              )}
             </div>
           </div>
         ))}
