@@ -48,6 +48,27 @@ const AdminContextProvider = (props) => {
 
 
 
+  // ===================== get all appointment 
+
+  // storing state for appointment
+  const [appointments, setAppointments] = useState([])
+
+  const AllAppointments = async () => {
+    try {
+       const {data} = await axios.get(`${backendUrl}/api/admin/get-appointments`, {headers:{adminToken}} )
+
+      if(data.success){
+        setAppointments(data.appointments)
+      }else{
+        toast.error(data.message)
+      }
+      
+    } catch (error) {
+      console.log(error.message) 
+    }
+  }
+
+
 
 
 
@@ -56,7 +77,10 @@ const AdminContextProvider = (props) => {
         setAdminToken,adminToken,
         backendUrl,
         fetchAllDoctors,doctors,setDoctors,
-        changeAvailabilityHandler
+        changeAvailabilityHandler,
+        
+        appointments,setAppointments, AllAppointments
+
     }
   return (
     <AdminContext.Provider value={value}>{props.children}</AdminContext.Provider>

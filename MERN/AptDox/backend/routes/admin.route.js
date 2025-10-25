@@ -1,5 +1,5 @@
 import express from 'express'
-import { addDoctor, adminLogin, allDoctors } from '../controllers/admin.controller.js'
+import { addDoctor, adminLogin, allDoctors, getAllAppointment } from '../controllers/admin.controller.js'
 import upload from '../middlewares/multer.js'  // multer config as middleware
 import { authAdmin } from '../middlewares/authAdmin.js'
 import { changeAvailability } from '../controllers/doctor.controller.js'
@@ -31,6 +31,11 @@ adminRouter.get('/all-doctors',authAdmin,allDoctors)
 // method- POST
 //full path - localhost:3000/api/admin/login
 adminRouter.patch('/change-availability',authAdmin,changeAvailability)
+
+// change avilability
+// method- POST
+//full path - localhost:3000/api/admin/login
+adminRouter.get('/get-appointments',authAdmin,getAllAppointment)
 
 export default adminRouter
 
