@@ -50,6 +50,8 @@ const MyAppointments = () => {
         `${backendUrl}/api/user/user-appointments`,
         { headers: { token } }
       );
+      console.log(data);
+      
       if (data.success) {
         setAppointments(data.appointments.reverse());
       }
@@ -75,11 +77,11 @@ const MyAppointments = () => {
         { id },
         { headers: { token } }
       );
-      console.log("=============", data);
+      // console.log("=============", data);
 
       if (data.success) {
         toast.success(data.message);
-        console.log(data);
+        // console.log(data);
         await fetchAppointments();
         await fetchDoctorList();
       } else {
@@ -90,7 +92,11 @@ const MyAppointments = () => {
     }
   };
 
-  const initPay = async (order) => {
+
+
+// =================================== payment window opening ,,,,, this function run after below function
+
+  const initPay = async (order, e) => {
      
       const options = {
       key: import.meta.env.VITE_KEY_ID,
@@ -102,15 +108,31 @@ const MyAppointments = () => {
       receipt: order.receipt,
       // for more
       handler: async (response) => {
-        console.log(response);
+        // console.log(response);
+        //  +================================ here we call verify payment from bacjend   
+        try {
+         const {data} = await axios.put(`${backendUrl}/api/user/verify-razorpay`,response,{headers:{token}})
+        //  console.log("verify", data)
+
+          if(data.success){
+            // if payment success
+            fetchAppointments()
+            navigate('/my-appointments')
+            // toast.success(data.message)
+          }
+
+        } catch (error) {
+          toast.error(error.message)
+        }
       },
     };
 
     let rzp = new window.Razorpay(options); //new window mai show kareng
     rzp.open();
+    e.preventDefault()
   };
 
-  // ================================== razorpay
+  // ================================== razorpay  first do this then above function
 
   const appointmentPayment = async (appointmentId) => {
      
@@ -185,7 +207,7 @@ const MyAppointments = () => {
             <div></div>
             {/* btn */}
             <div className="flex flex-col gap-2 justify-end">
-              {!item.cancelled && (
+              {!item.cancelled && !item.payment && (
                 <button
                   onClick={() => appointmentPayment(item._id)}
                   className="text-sm text-stone-500 text-center sm:minw-48 py-2 px-4 border rounded hover:text-white transition-all duration-500 hover:bg-blue-500 cursor-pointer"
@@ -193,6 +215,16 @@ const MyAppointments = () => {
                   Pay Online
                 </button>
               )}
+
+              {/* if already paid  */}
+               {/*  payment backend status true hai  then */}
+               {item.payment && !item.cancelled && (
+                <button disabled
+                  className="text-sm text-center sm:minw-48 py-2 px-4 border rounde text-white transition-all duration-500 bg-green-500"
+                >
+                  Already Paid
+                </button>)}
+
 
               {/* we only display if not cancel appointment */}
               {!item.cancelled ? (

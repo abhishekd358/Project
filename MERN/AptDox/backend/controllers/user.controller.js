@@ -318,7 +318,7 @@ const razorPayment = async (req, res) => {
     const options = {
       amount: appointmentData.amount * 100, // Amount is in currency subunits. converting paise to rupees multiplying
       currency: process.env.CURRENCY,
-      receipt: `aptdox_${appointmentId}`,
+      receipt: appointmentId,
     };
 
     //  razorpay create order method
@@ -331,6 +331,42 @@ const razorPayment = async (req, res) => {
   }
 };
 
+
+//   ======================== verifying razor payment
+//  to verify we have razorpay fetch method
+
+const verifyRazorpay = async (req, res) => {
+  try {
+     // first we config our razorpay instance
+    const instance = new Razorpay({
+      key_id: process.env.KEY_ID,
+      key_secret: process.env.KEY_SECRET,
+    });
+
+
+    const {razorpay_order_id} = req.body
+    const orderInfo = await instance.orders.fetch(razorpay_order_id)
+    
+    // console.log(orderInfo)
+    if(orderInfo.status === 'paid'){
+      // if user payment paid hai then only we mark appointment as paid success in APpointement DB
+      await Appointment.findByIdAndUpdate(orderInfo.receipt, {payment:true})
+      return res.json({message:'Payment Successful', success:true})
+    }else{
+      return res.json({message:"Payment Failed", success:false})
+    }
+  } catch (error) {
+    return res.json({ message: error.message, success: false });
+    
+  }
+}
+
+
+
+
+
+
+
 export {
   userLogin,
   userRegister,
@@ -340,4 +376,5 @@ export {
   getMyAppointment,
   cancelAppointment,
   razorPayment,
+  verifyRazorpay
 };
