@@ -4,6 +4,8 @@ import { v2 as cloudinary } from 'cloudinary'
 import Doctor from '../models/doctor.model.js'
 import jwt from 'jsonwebtoken'
 import Appointment from '../models/appointment.model.js'
+import User from '../models/user.model.js'
+
 // API for adding doctor 
 const addDoctor = async(req, res)=>{
     try{
@@ -123,7 +125,7 @@ const getAllAppointment = async (req, res) => {
 // appointment cancelleation
 
 
-// ============================ Cancel Appointment ============================
+// ================ Cancel Appointment===================
 const cancelAppointment = async (req, res) => {
   try {
     const { appointmentId } = req.body;
@@ -173,13 +175,38 @@ const cancelAppointment = async (req, res) => {
     return res.json({ message: "Appointment cancelled successfully", success: true });
 
   } catch (error) {
-    console.error("Cancel Appointment Error:", error);
+    // console.error("Cancel Appointment Error:", error);
     return res.json({ message: error.message, success: false });
   }
 };
 
+// ============================== ADmin Dashbord
+
+const adminDashboard = async (req, res) => {
+  try {
+    
+    // first we take all the info from the databases
+    const doctors = await Doctor.find({})
+    const users = await User.find({})
+    const appointments = await Appointment.find({})
 
 
+    // here we counting number docotrs, appointment and users
+    const dashData = {
+      doctors : doctors.length,
+      appointments : appointments.length,
+      patients:users.length,
+
+      // latest apointmetnt ko show karenge
+      latestAppointments: appointments.reverse().slice(0, 5)
+    }
+    return res.json({dashData, success:true})
+    
+  } catch (error) {
+    // console.error("Cancel Appointment Error:", error);
+    return res.json({ message: error.message, success: false });
+  }
+}
 
 
-export {addDoctor, adminLogin, allDoctors, getAllAppointment, cancelAppointment}
+export {addDoctor, adminLogin, allDoctors, getAllAppointment, cancelAppointment, adminDashboard}

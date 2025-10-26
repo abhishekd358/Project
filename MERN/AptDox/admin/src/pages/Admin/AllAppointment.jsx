@@ -6,7 +6,7 @@ import AppContext from '../../context/app_context/AppContext'
 import {assets} from '../../assets/assets_admin/assets.js'
 const AllAppointment = () => {
 
-  const {appointments,setAppointments, AllAppointments,adminToken,cancelAppointments} = useContext(AdminContext)
+  const {appointments, AllAppointments,adminToken,cancelAppointments} = useContext(AdminContext)
 
   const {calculateAge, dateFormating,currency} = useContext(AppContext)
 

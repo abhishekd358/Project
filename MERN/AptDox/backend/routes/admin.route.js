@@ -32,15 +32,20 @@ adminRouter.get('/all-doctors',authAdmin,allDoctors)
 //full path - localhost:3000/api/admin/login
 adminRouter.patch('/change-availability',authAdmin,changeAvailability)
 
-// change avilability
-// method- POST
+// get all appointment
+// method- GET
 //full path - localhost:3000/api/admin/login
 adminRouter.get('/get-appointments',authAdmin,getAllAppointment)
 
-// change avilability
-// method- POST
+// cancel appointmetnts
+// method- PUT
 //full path - localhost:3000/api/admin/login
 adminRouter.put('/cancel-appointments',authAdmin,cancelAppointment)
+
+// admin dashboard
+// method- GET
+//full path - localhost:3000/api/admin/login
+adminRouter.get('/dashboard',authAdmin,adminDashboard)
 
 export default adminRouter
 
