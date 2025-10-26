@@ -87,6 +87,28 @@ const AdminContextProvider = (props) => {
       
     } catch (error) {
       console.log(error.message) 
+      
+    }
+  }
+
+
+
+  // =============================== admin Dashboard
+  const [dashData, setDashData] = useState([])
+  
+  const getDashData = async () => {
+    try {
+
+      const {data} = await axios.get(`${backendUrl}/api/admin/dashboard`,{headers:{adminToken}} )
+      if(data.success){
+        setDashData(data.dashData)
+      }else{
+        toast.error(data.message)
+      }
+
+      
+    } catch (error) {
+       console.log(error.message) 
     }
   }
 
@@ -100,8 +122,9 @@ const AdminContextProvider = (props) => {
         fetchAllDoctors,doctors,setDoctors,
         changeAvailabilityHandler,
 
-        appointments,setAppointments, AllAppointments,cancelAppointments
+        appointments,setAppointments, AllAppointments,cancelAppointments,
 
+        getDashData,dashData
     }
   return (
     <AdminContext.Provider value={value}>{props.children}</AdminContext.Provider>

@@ -1,5 +1,5 @@
 import express from 'express'
-import { addDoctor, adminLogin, allDoctors, cancelAppointment, getAllAppointment } from '../controllers/admin.controller.js'
+import { addDoctor, adminDashboard, adminLogin, allDoctors, cancelAppointment, getAllAppointment } from '../controllers/admin.controller.js'
 import upload from '../middlewares/multer.js'  // multer config as middleware
 import { authAdmin } from '../middlewares/authAdmin.js'
 import { changeAvailability } from '../controllers/doctor.controller.js'
