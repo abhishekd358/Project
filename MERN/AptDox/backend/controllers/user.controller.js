@@ -260,12 +260,18 @@ const getMyAppointment = async (req, res) => {
 
 const cancelAppointment = async (req, res) => {
   try {
-    console.log("++++++++++==1");
+    // console.log("++++++++++==1");
     const userId = req.userId;
-    console.log("--------------", userId);
+    // console.log("--------------", userId);
     // taking appointment id from user frontend
     const { id } = req.body;
     const appointmentChoose = await Appointment.findOne({ _id: id, userId });
+    // if already value cancel then we return 
+    if(appointmentChoose.cancelled){
+      return res.json({ message: "Appointment already cancelled by athority.", success: false })
+    }
+
+
     //  if not found any appointment
     if (!appointmentChoose) {
       return res.json({ message: "Appointment Not Found", success: false });

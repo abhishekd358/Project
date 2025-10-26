@@ -56,7 +56,8 @@ const AdminContextProvider = (props) => {
   const AllAppointments = async () => {
     try {
        const {data} = await axios.get(`${backendUrl}/api/admin/get-appointments`, {headers:{adminToken}} )
-
+      // console.log(data);
+      
       if(data.success){
         setAppointments(data.appointments)
       }else{
@@ -69,6 +70,26 @@ const AdminContextProvider = (props) => {
   }
 
 
+  // ==================================== cancel appoinmtnet
+  
+  
+  const cancelAppointments = async (appointmentId) => {
+    try {
+       const {data} = await axios.put(`${backendUrl}/api/admin/cancel-appointments`,{appointmentId},{headers:{adminToken}} )
+      // console.log(data);
+      
+      if(data.success){
+        toast.success(data.message)
+        AllAppointments()
+      }else{
+        toast.error(data.message)
+      }
+      
+    } catch (error) {
+      console.log(error.message) 
+    }
+  }
+
 
 
 
@@ -78,8 +99,8 @@ const AdminContextProvider = (props) => {
         backendUrl,
         fetchAllDoctors,doctors,setDoctors,
         changeAvailabilityHandler,
-        
-        appointments,setAppointments, AllAppointments
+
+        appointments,setAppointments, AllAppointments,cancelAppointments
 
     }
   return (

@@ -16,7 +16,7 @@ const MyProfile = () => {
     e.preventDefault()
 
     // Frontend mandantory validation
-     if (!userData.name.trim() || !userData.phone.trim() || !userData.gender.trim() || !userData.dob.trim()) {
+     if (!userData.name.trim() || !userData.phone || !userData.gender.trim() || !userData.dob.trim()) {
         toast.error("Please fill all required fields");
         return;
   }
