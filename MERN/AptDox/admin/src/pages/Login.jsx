@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useState } from "react";
+import React, { useContext, useState } from "react";
 import AdminContext from "../context/admin-context/AdminContext";
 import axios from 'axios'
 import { toast } from "react-toastify";
@@ -42,8 +42,9 @@ const Login = () => {
            const {data} = await axios.post(`${backendUrl}/api/doctor/login`, {email, password})
 
            if(data.success){
-            localStorage.setItem('dToken', data.doctorToken)
+            localStorage.setItem('doctorToken', data.doctorToken)
             setDoctorToken(data.doctorToken)
+            console.log(data)
             toast.success(data.message)
            }else{
             toast.error(data.message)

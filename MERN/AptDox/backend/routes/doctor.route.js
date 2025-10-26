@@ -11,4 +11,8 @@ doctorRouter.get('/list', doctorList)
 
 doctorRouter.post('/login', loginDoctor)
 
+
+// ================= for doctor pages
+
+
 export default doctorRouter
