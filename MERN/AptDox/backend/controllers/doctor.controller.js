@@ -1,7 +1,8 @@
 // import Doctor from "../models/doctor.model"
 
 import Doctor from "../models/doctor.model.js"
-
+import bcrypt from 'bcrypt'
+import jwt from 'jsonwebtoken'
 
 
 // Available or not functinality we require in admin and Doctor as well
@@ -45,7 +46,38 @@ const doctorList = async (req, res) => {
 
 
 
-export {changeAvailability, doctorList}
+//  ==================== doctor login
+
+const loginDoctor = async (req, res) => {
+    try {
+        const {email, password } = req.body
+        const doctor = await Doctor.findOne({email})
+
+        if(!doctor){
+            return res.json({message:"Invalid credentials.", success:false})
+        }
+
+        // check the pasword
+        const isMatch = await bcrypt.compare(password, doctor.password)
+
+        // if password not math resturn 
+        if(!isMatch){
+            return res.json({message:"Please enter correct password.", success:false})
+        }
+
+        // if password correct then we genereate a token and allow to login 
+        const dToken = jwt.sign({id:doctor._id}, process.env.D_SECRET_KEY)
+
+        return res.json({message:'Login successful', success:true, dToken})
+
+    } catch (error) {
+        console.log(error.message)
+        return res.json({message:error.message , success:false})
+    }
+}
+
+
+export {changeAvailability, doctorList, loginDoctor}
 
 // // create account for Doctors
 // export const doctorLogin = async (req, res) => {

@@ -2,6 +2,7 @@ import React, { useContext, useEffect, useState } from "react";
 import AdminContext from "../context/admin-context/AdminContext";
 import axios from 'axios'
 import { toast } from "react-toastify";
+import DoctorContext from "../context/doctor-context/DoctorContext";
 
 const Login = () => {
     const [state, setState] = useState("Admin")
@@ -13,7 +14,12 @@ const Login = () => {
     const [password, setPassword] = useState('')
     // console.log("---------", password)
 
-    const adminLoginHandler = async(e)=>{
+
+
+    //  taking ===========docotr data from context
+    const{setDoctorToken} = useContext(DoctorContext)
+
+    const LoginHandler = async(e)=>{
       e.preventDefault()
 
       try {
@@ -32,6 +38,16 @@ const Login = () => {
           }else{
             toast.error(data.message)
           }
+        }else{
+           const {data} = await axios.post(`${backendUrl}/api/doctor/login`, {email, password})
+
+           if(data.success){
+            localStorage.setItem('dToken', data.doctorToken)
+            setDoctorToken(data.doctorToken)
+            toast.success(data.message)
+           }else{
+            toast.error(data.message)
+           }
         }
       
       } catch (error) {
@@ -44,7 +60,7 @@ const Login = () => {
 
   return (
     <div >
-      <form onSubmit={adminLoginHandler} className="min-h-[80vh] flex items-center">
+      <form onSubmit={LoginHandler} className="min-h-[80vh] flex items-center">
         {/* title */}
         <div className="flex flex-col gap-3 m-auto items-start p-8 min-w[340px] sm:min-w-96 border rounded-xl text-sm text-[#5E5E5E5E] shadow-lg">
             <h1 className="text-2xl font-semibold m-auto text-gray-600"><span className="text-primary">{state} </span> Login</h1>
