@@ -18,18 +18,20 @@ const DoctorList = () => {
   
 
   return (
-    <div className="m-5 max-h-[90vh] overflow-y-auto">
-  <h1 className="text-2xl font-semibold mb-6 text-gray-800">All Doctors</h1>
+   <div className="m-4 sm:m-5 max-h-[90vh] overflow-y-auto">
+  <h1 className="text-xl sm:text-2xl font-semibold mb-5 sm:mb-6 text-gray-800">
+    All Doctors
+  </h1>
 
   {/* all doctors grid */}
-  <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 xl:grid-cols-4 gap-6">
+  <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 xl:grid-cols-4 gap-4 sm:gap-6">
     {doctors.map((doctor, index) => (
       <div
         key={index}
         className="border border-indigo-200 rounded-xl shadow-sm hover:shadow-md transition-shadow duration-300 overflow-hidden bg-white cursor-pointer group"
       >
         <img
-          className="w-full h-40 object-cover bg-indigo-50 group-hover:bg-blue-400 transition-all duration-500"
+          className="w-full h-40 sm:h-44 object-cover bg-indigo-50 group-hover:bg-blue-400 transition-all duration-500"
           src={doctor.image}
           alt={doctor.name}
         />
@@ -43,11 +45,10 @@ const DoctorList = () => {
           <div className="mt-3 flex items-center gap-2 text-sm text-gray-700">
             <input
               type="checkbox"
-
               checked={doctor.available}
               readOnly
               className="accent-blue-600 w-4 h-4"
-              onChange={()=>changeAvailabilityHandler(doctor._id)}
+              onChange={() => changeAvailabilityHandler(doctor._id)}
             />
             <p>{doctor.available ? "Available" : "Unavailable"}</p>
           </div>
@@ -56,6 +57,7 @@ const DoctorList = () => {
     ))}
   </div>
 </div>
+
 
   )
 }
