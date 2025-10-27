@@ -36,15 +36,12 @@ const getAvailbleSlots = async () => {
   
 
   for (let i = 0; i < 7; i++) {
-    // getting date with index
-    let currentDate = new Date(today); // ✅ Today ki copy banao
-    
-    // setting end time of the date with index
-    let endTime = new Date()
-  
-    endTime.setDate(today.getDate()+i)
-    // set docotr last end time for appointment
-    endTime.setHours(21,0,0,0)
+  let currentDate = new Date(today);
+  currentDate.setDate(today.getDate() + i);   // ✅ move currentDate ahead by i days
+
+  let endTime = new Date(today);
+  endTime.setDate(today.getDate() + i);
+  endTime.setHours(21, 0, 0, 0);
 
     // setting hours
     if (today.getDate()=== currentDate.getDate()) {// if today date and user choose date same 
@@ -193,7 +190,7 @@ const bookAppointment = async()=>{
             </div>
             {/* Button for Book an appointment */}
             <button onClick={bookAppointment} className="bg-blue-600 text-white text-sm font-light px-14 py-3 rounded-full my-6
-            cursor-pointer transition-bg duration-300 hover:bg-blue-400">Book an appointment</button>
+            cursor-pointer transition-bg duration-300 hover:bg-blue-800">Book an appointment</button>
           </div>
           {/* import the Related Doctor component */}
           <RelatedDoctor docId={docId} speciality={docInfo.speciality}>

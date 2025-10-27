@@ -181,6 +181,10 @@ const bookAppointment = async (req, res) => {
   const { docId, slotDate, slotTime } = req.body;
   const userId = req.userId;
 
+  if(!docId || !slotDate || !slotTime){
+    return res.json({message:'choose all field', success:false})
+  }
+
   //  now we fetch the doctor is availble or not from doctor model
   const docData = await Doctor.findById(docId).select("-password");
 
