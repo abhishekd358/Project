@@ -1,6 +1,7 @@
 // import Doctor from "../models/doctor.model"
 
 import Doctor from "../models/doctor.model.js"
+import Appointment from "../models/appointment.model.js"
 import bcrypt from 'bcrypt'
 import jwt from 'jsonwebtoken'
 
@@ -77,8 +78,35 @@ const loginDoctor = async (req, res) => {
 }
 
 
+// ================ get doctor appointment fro doctor Panel 
+
+const appointmentsOfDoctor = async (req, res) => {
+    try {
+        const docId = req.docId
+        const appointments = await Appointment.find({docId})
+        // console.log(appointments)
+        if(!appointments){
+            return res.json({message:'No appointments found', success:false})
+        }
+
+        return res.json({appointments, success:true})
+
+    } catch (error) {
+      console.log(error.message)
+        return res.json({message:error.message , success:false})   
+    }
+}
 
 
 
 
-export {changeAvailability, doctorList, loginDoctor}
+
+
+
+
+
+
+
+
+
+export {changeAvailability, doctorList, loginDoctor,appointmentsOfDoctor}
