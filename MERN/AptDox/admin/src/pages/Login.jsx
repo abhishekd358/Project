@@ -1,4 +1,5 @@
 import React, { useContext, useState } from "react";
+import {useNavigate} from 'react-router-dom'
 import AdminContext from "../context/admin-context/AdminContext";
 import axios from 'axios'
 import { toast } from "react-toastify";
@@ -14,6 +15,9 @@ const Login = () => {
     const [password, setPassword] = useState('')
     // console.log("---------", password)
 
+    // navigate after login
+    const navigate = useNavigate()
+
 
 
     //  taking ===========docotr data from context
@@ -28,13 +32,14 @@ const Login = () => {
           
           const response = await axios.post(`${backendUrl}/api/admin/login`, {email, password})
           const data = response.data
-          console.log(data);
+          // console.log(data);
           
 
           if(data.success){
             // storing token in local storage as well
             localStorage.setItem('adminToken', data.adminToken);
             setAdminToken(data.adminToken)
+            navigate('/admin-dashboard')
           }else{
             toast.error(data.message)
           }
@@ -44,8 +49,9 @@ const Login = () => {
            if(data.success){
             localStorage.setItem('doctorToken', data.doctorToken)
             setDoctorToken(data.doctorToken)
-            console.log(data)
+            // console.log(data)
             toast.success(data.message)
+            navigate('/doctor-dashboard')
            }else{
             toast.error(data.message)
            }
