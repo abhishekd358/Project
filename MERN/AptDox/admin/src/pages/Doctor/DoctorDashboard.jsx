@@ -17,8 +17,9 @@ const DoctorDashboard = () => {
 useEffect(() => {
   if (doctorToken) {
     const fetchDashboard = async () => {
-      await docDashboard(); 
+      await docDashboard();
     };
+
     fetchDashboard(); 
   }
 }, [doctorToken]);

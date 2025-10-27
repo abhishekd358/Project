@@ -14,7 +14,10 @@ const DoctorAppointment = () => {
 
    useEffect(() => {
      if(doctorToken){
-      getDocAppointments()
+      const reFeth = async () => {
+       await getDocAppointments()
+      }
+      reFeth()
      }
    }, [doctorToken])
 
