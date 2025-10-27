@@ -18,7 +18,7 @@ const DoctorContextProvider = (props) => {
   const getDocAppointments = async () => {
     try {
       const {data} = await axios.get(`${backendUrl}/api/doctor/appointments`,{headers:{doctorToken}})
-      // console.log("=========================",data);
+      console.log("=========================",data);
       
       if(data.success){
         setAppointmentList(data.appointments.reverse())
@@ -31,6 +31,45 @@ const DoctorContextProvider = (props) => {
     }
   }
 
+  //  doctor appointment complete=================
+    const completeAppointment = async (appointmentId) => {
+      try {
+        const {data} = await axios.put(`${backendUrl}/api/doctor/complete-appointments`,{appointmentId},{headers:{doctorToken}})
+        // console.log("=========================",data);
+        
+        if(data.success){
+          toast.success(data.message)
+        }else{
+          toast.error(data.message)
+        }
+      } catch (error) {
+        console.log(error)
+        toast.error(error.message)
+      }
+    }
+     
+  //  doctor appointment cancel=================
+    const cancelAppointment = async (appointmentId) => {
+      try {
+        const {data} = await axios.put(`${backendUrl}/api/doctor/cancel-appointments`,{appointmentId},{headers:{doctorToken}})
+        console.log("=========================",data);
+        
+        if(data.success){
+          toast.success(data.message)
+        }else{
+          toast.error(data.message)
+        }
+      } catch (error) {
+        console.log(error)
+        toast.error(error.message)
+      }
+    }
+     
+
+
+
+
+
 
 
     let value = {
@@ -38,7 +77,9 @@ const DoctorContextProvider = (props) => {
         doctorToken,setDoctorToken,backendUrl,
 
         //appointment List for page doctor-appointments
-        getDocAppointments,appointmentList
+        getDocAppointments,appointmentList,
+
+        completeAppointment, cancelAppointment
     }
   return (
     <DoctorContext.Provider value={value}>{props.children}</DoctorContext.Provider>

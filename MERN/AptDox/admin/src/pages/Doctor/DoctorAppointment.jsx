@@ -5,7 +5,7 @@ import AppContext from '../../context/app_context/AppContext'
 import {assets} from '../../assets/assets_admin/assets.js'
 
 const DoctorAppointment = () => {
-    const {appointmentList, getDocAppointments, doctorToken} = useContext(DoctorContext)
+    const {appointmentList, getDocAppointments, doctorToken,completeAppointment, cancelAppointment} = useContext(DoctorContext)
 
     // console.log(appointmentList);
     
@@ -15,8 +15,12 @@ const DoctorAppointment = () => {
    useEffect(() => {
      if(doctorToken){
       getDocAppointments()
+      completeAppointment()
      }
    }, [doctorToken])
+
+
+   
    
 
 
@@ -41,7 +45,7 @@ const DoctorAppointment = () => {
         {/* showing all list of appointmenst  */}
 
         {
-          appointmentList.map((item, index)=>(
+          appointmentList.reverse().map((item, index)=>(
             <div key={index} className='flex flex-wrap justify-between max-sm:gap-5 max-sm:text-base sm:grid grid-cols-[0.5fr_2fr_2fr_1fr_3fr_1fr_1fr] gap-1 items-center text-gray-500 py-3 px-6 border-b hover:bg-gray-100'>
               <p className='max-sm:hidden'>{index+1}</p>
 
@@ -59,10 +63,18 @@ const DoctorAppointment = () => {
               <p >{dateFormating(item.slotDate)},{item.slotTime}</p>
               <p>{currency}{item.amount}</p>
 
-              <div>
-                <img className='w-10 cursor-pointer' src={assets.cancel_icon} alt="" />
-                <img className='w-10 cursor-pointer' src={assets.tick_icon} alt="" />
+                {
+                  item.cancelled ? 
+                  <p className='text-red-400 text-sm font-medium'>Cancelled</p> : 
+                  item.isCompleted ? 
+                  <p className='text-green-400 text-sm font-medium'>Completed</p>
+                  :  
+                <div>
+                <img onClick={()=>cancelAppointment(item._id)} className='w-10 cursor-pointer' src={assets.cancel_icon} alt="" />
+                <img onClick={()=>completeAppointment(item._id)}className='w-10 cursor-pointer' src={assets.tick_icon} alt="" />
               </div>
+                }
+              
               
             </div>
 

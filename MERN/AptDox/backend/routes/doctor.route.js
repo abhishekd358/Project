@@ -16,7 +16,7 @@ doctorRouter.post('/login', loginDoctor)
 // ================= for doctor pages
 
 doctorRouter.get('/appointments', doctorAuth,appointmentsOfDoctor)
-doctorRouter.get('/cancel-appointments', doctorAuth,cancelAppointment)
-doctorRouter.get('/complete-appointments', doctorAuth,completeAppointment)
+doctorRouter.put('/cancel-appointments', doctorAuth,cancelAppointment)
+doctorRouter.put('/complete-appointments', doctorAuth,completeAppointment)
 
 export default doctorRouter

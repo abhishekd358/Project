@@ -110,6 +110,7 @@ const completeAppointment = async (req, res) => {
 
         if(appointmentData && appointmentData.docId === docId){
             appointmentData.isCompleted = true
+            await appointmentData.save();
             return res.json({message: 'Appointment completed', success:true})
         }else{
             return res.json({message:"Failed to complete the appoinment.", success:false})
@@ -131,9 +132,12 @@ const cancelAppointment = async (req, res) => {
         const {appointmentId} = req.body
 
         const appointmentData = await Appointment.findById(appointmentId)
+        // console.log(appointmentData);
+        
 
         if(appointmentData && appointmentData.docId === docId){
             appointmentData.cancelled = true
+            await appointmentData.save();
             return res.json({message: 'Appointment cancelled ', success:true})
         }else{
             return res.json({message:"Failed to cancelled the appoinment.", success:false})
