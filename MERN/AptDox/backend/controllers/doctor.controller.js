@@ -98,6 +98,53 @@ const appointmentsOfDoctor = async (req, res) => {
 }
 
 
+// ========================= for appointment completion by doctor
+
+const completeAppointment = async (req, res) => {
+    
+    try {
+        const docId = req.docId
+        const {appointmentId} = req.body
+
+        const appointmentData = await Appointment.findById(appointmentId)
+
+        if(appointmentData && appointmentData.docId === docId){
+            appointmentData.isCompleted = true
+            return res.json({message: 'Appointment completed', success:true})
+        }else{
+            return res.json({message:"Failed to complete the appoinment.", success:false})
+        }
+        
+    } catch (error) {
+        console.log(error.message)
+        return res.json({message:error.message , success:false})   
+    }
+
+}
+
+// ========================= for appointment cancelled by doctor
+
+const cancelAppointment = async (req, res) => {
+    
+    try {
+        const docId = req.docId
+        const {appointmentId} = req.body
+
+        const appointmentData = await Appointment.findById(appointmentId)
+
+        if(appointmentData && appointmentData.docId === docId){
+            appointmentData.cancelled = true
+            return res.json({message: 'Appointment cancelled ', success:true})
+        }else{
+            return res.json({message:"Failed to cancelled the appoinment.", success:false})
+        }
+        
+    } catch (error) {
+        console.log(error.message)
+        return res.json({message:error.message , success:false})   
+    }
+
+}
 
 
 
@@ -105,8 +152,4 @@ const appointmentsOfDoctor = async (req, res) => {
 
 
 
-
-
-
-
-export {changeAvailability, doctorList, loginDoctor,appointmentsOfDoctor}
+export {changeAvailability, doctorList, loginDoctor,appointmentsOfDoctor, completeAppointment, cancelAppointment}
