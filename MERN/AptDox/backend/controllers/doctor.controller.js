@@ -150,10 +150,53 @@ const cancelAppointment = async (req, res) => {
 
 }
 
+// ============================ Doctor Dashboard
+
+const docDashboard = async (req, res) => {
+    
+    try {
+        const docId = req.docId
+ 
+       // taking all the respective docotr all appoinmtents
+        const appointmentData = await Appointment.find({docId})
+        
+        let earning = 0
+        
+            //  loop on every appoinment to fetch the amount 
+        appointmentData.map((item)=>{
+            // check appointmnet status jab tak complete ho or payment kar li ho user ne tabhi hum earning calaculate karenge
+            if(item.isCompleted || item.payment){
+                earning += item.amount
+            }
+        })
+
+        // display no. of patient 
+        let patients = []
+        appointmentData.map((item)=>{
+            // check karenge ke hamare aaray mai patient/user alrady present hai kay nahi hait to hum push karenge appointment
+            if(!patients.includes(item.userId)){
+                patients.push(item.userId) 
+            }
+        })
+        const dashData = {
+            earning,
+            appointments: appointmentData.length,
+            patients: patients.length,
+            latestAppointments: appointmentData.reverse().slice(0,5)
+        }
+        return res.json({dashData, success:true})
+        
+        
+    } catch (error) {
+        console.log(error.message)
+        return res.json({message:error.message , success:false})   
+    }
+
+}
 
 
 
 
 
 
-export {changeAvailability, doctorList, loginDoctor,appointmentsOfDoctor, completeAppointment, cancelAppointment}
+export {changeAvailability, doctorList, loginDoctor,appointmentsOfDoctor, completeAppointment, cancelAppointment, docDashboard}

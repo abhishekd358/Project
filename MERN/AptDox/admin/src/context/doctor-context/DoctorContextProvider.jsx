@@ -49,22 +49,42 @@ const DoctorContextProvider = (props) => {
     }
      
   //  doctor appointment cancel=================
-    const cancelAppointment = async (appointmentId) => {
-      try {
-        const {data} = await axios.put(`${backendUrl}/api/doctor/cancel-appointments`,{appointmentId},{headers:{doctorToken}})
-        console.log("=========================",data);
-        
-        if(data.success){
-          toast.success(data.message)
-        }else{
-          toast.error(data.message)
-        }
-      } catch (error) {
-        console.log(error)
-        toast.error(error.message)
+  const cancelAppointment = async (appointmentId) => {
+    try {
+      const {data} = await axios.put(`${backendUrl}/api/doctor/cancel-appointments`,{appointmentId},{headers:{doctorToken}})
+      console.log("=========================",data);
+      
+      if(data.success){
+        toast.success(data.message)
+      }else{
+        toast.error(data.message)
       }
+    } catch (error) {
+      console.log(error)
+      toast.error(error.message)
     }
-     
+  }
+  
+  
+  
+  // ==================== docotr dashvoard
+  
+  const [dashData, setDashData] = useState(false)
+  const docDashboard = async () => {
+    try {
+      const {data} = await axios.get(`${backendUrl}/api/doctor/dashboard`,{headers:{doctorToken}})
+      console.log("=========================",data);
+      
+      if(data.success){
+      setDashData(data.dashData)
+      }else{
+        toast.error(data.message)
+      }
+    } catch (error) {
+      console.log(error)
+      toast.error(error.message)
+    }
+  }
 
 
 
@@ -79,7 +99,10 @@ const DoctorContextProvider = (props) => {
         //appointment List for page doctor-appointments
         getDocAppointments,appointmentList,
 
-        completeAppointment, cancelAppointment
+        completeAppointment, cancelAppointment,
+
+        // dashboard
+        docDashboard,dashData, setDashData,
     }
   return (
     <DoctorContext.Provider value={value}>{props.children}</DoctorContext.Provider>
