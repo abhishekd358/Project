@@ -15,7 +15,6 @@ const DoctorAppointment = () => {
    useEffect(() => {
      if(doctorToken){
       getDocAppointments()
-      completeAppointment()
      }
    }, [doctorToken])
 
