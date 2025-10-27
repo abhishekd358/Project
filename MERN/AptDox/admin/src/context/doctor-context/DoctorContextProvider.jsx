@@ -39,6 +39,7 @@ const DoctorContextProvider = (props) => {
         
         if(data.success){
           toast.success(data.message)
+          await docDashboard()
         }else{
           toast.error(data.message)
         }
@@ -56,6 +57,7 @@ const DoctorContextProvider = (props) => {
       
       if(data.success){
         toast.success(data.message)
+        await docDashboard()
       }else{
         toast.error(data.message)
       }
