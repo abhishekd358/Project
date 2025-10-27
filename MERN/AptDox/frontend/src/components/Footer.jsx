@@ -1,5 +1,5 @@
 import { assets } from "../assets/assets_frontend/assets"
-
+import { Link } from "react-router-dom"
 const Footer = () => {
   return (
     <section className="px-10 py-2 bg-blue-50/40 border-t-1 border-blue-100 !mx-0">
@@ -7,7 +7,8 @@ const Footer = () => {
         {/* left container */}
         <div>
           <img className="mb-5 w-40" src={assets.logo} alt="" />
-          <p className="w-full md:w-2/3 text-gray-600 leading-6">Learn How to make MERN Stack Doctor Appointment Booking App using React JS, MongoDB, Express and Node JS | Compete Full Stack React JS project for Resume</p>
+          <p className="w-full md:w-2/3 text-gray-600 leading-6">AptDox seamlessly connects patients, doctors, and administrators.
+          It simplifies appointments, records, and daily healthcare operations with ease.</p>
 
         </div>
 
@@ -15,9 +16,10 @@ const Footer = () => {
         <div>
             <p className="uppercase text-xl font-medium mb-5 font-poppins ">COMPANY</p>
             <ul className="flex flex-col gap-2 text-gray-600">
-              <li>Home</li>
-              <li>About us</li>
-              <li>Contact</li>
+              <Link to={'/'} className="hover:text-blue-500">Home</Link>
+              <Link to={'/doctors'} className="hover:text-blue-500" >Doctors</Link>
+              <Link to={'/about'} className="hover:text-blue-500">About us</Link>
+              <Link to={'contact'} className="hover:text-blue-500">Contact</Link>
             </ul>
         </div>
 

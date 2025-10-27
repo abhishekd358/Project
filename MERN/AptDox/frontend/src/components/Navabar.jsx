@@ -38,6 +38,20 @@ const Navabar = () => {
             Home
           </NavLink>
         </li>
+
+        <li>
+          {" "}
+          <NavLink
+            to="/doctors"
+            className={({ isActive }) =>
+              isActive ? "nav-link active" : "nav-link"
+            }
+          >
+            Doctors
+          </NavLink>
+        </li>
+        
+
         <li>
           {" "}
           <NavLink
@@ -49,6 +63,7 @@ const Navabar = () => {
             About
           </NavLink>
         </li>
+
         <li>
           {" "}
           <NavLink
@@ -61,17 +76,6 @@ const Navabar = () => {
           </NavLink>
         </li>
 
-        <li>
-          {" "}
-          <NavLink
-            to="/doctors"
-            className={({ isActive }) =>
-              isActive ? "nav-link active" : "nav-link"
-            }
-          >
-            Doctor
-          </NavLink>
-        </li>
       </ul>
 
       <div className="flex items-center gap-3">
