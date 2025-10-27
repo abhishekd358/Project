@@ -7,8 +7,6 @@ import { toast } from "react-toastify";
 const DoctorProfile = () => {
   const { getDocProfile, profileData, doctorToken, setProfileData,backendUrl } =
     useContext(DoctorContext);
-
-    console.log(profileData);
     
 
   const {currency } = useContext(AppContext);
