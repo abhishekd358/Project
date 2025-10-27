@@ -80,7 +80,8 @@ const AdminContextProvider = (props) => {
       
       if(data.success){
         toast.success(data.message)
-        AllAppointments()
+        await AllAppointments()
+        await getDashData()
       }else{
         toast.error(data.message)
       }
