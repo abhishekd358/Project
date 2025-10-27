@@ -16,10 +16,10 @@ const Footer = () => {
         <div>
             <p className="uppercase text-xl font-medium mb-5 font-poppins ">COMPANY</p>
             <ul className="flex flex-col gap-2 text-gray-600">
-              <Link to={'/'} className="hover:text-blue-500">Home</Link>
-              <Link to={'/doctors'} className="hover:text-blue-500" >Doctors</Link>
-              <Link to={'/about'} className="hover:text-blue-500">About us</Link>
-              <Link to={'contact'} className="hover:text-blue-500">Contact</Link>
+              <Link to={'/'} onClick={() => scrollTo(0, 0)} className="hover:text-blue-500">Home</Link>
+              <Link to={'/doctors'} onClick={() => scrollTo(0, 0)} className="hover:text-blue-500" >Doctors</Link>
+              <Link to={'/about'} onClick={() => scrollTo(0, 0)} className="hover:text-blue-500">About us</Link>
+              <Link to={'contact'} onClick={() => scrollTo(0, 0)} className="hover:text-blue-500">Contact</Link>
             </ul>
         </div>
 
