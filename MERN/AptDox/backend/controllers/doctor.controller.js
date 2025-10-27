@@ -1,6 +1,7 @@
 // import Doctor from "../models/doctor.model"
 
 import Doctor from "../models/doctor.model.js"
+import User from "../models/user.model.js"
 import Appointment from "../models/appointment.model.js"
 import bcrypt from 'bcrypt'
 import jwt from 'jsonwebtoken'
@@ -196,7 +197,47 @@ const docDashboard = async (req, res) => {
 
 
 
+// a======================== docotr profile data get
+const getDoctorProfile = async (req, res) => {
+    try {
+        const docId = req.docId
+        const profileData = await Doctor.findById(docId).select('-password')
+        // console.log(profileData);
+        
+        if(!profileData){
+            return res.json({message:"Unathorizd access", success:false})
+        }
+        return res.json({profileData, success:true})
+
+
+    } catch (error) {
+
+        console.log(error.message)
+        return res.json({message:error.message , success:false})  
+    }
+}
+
+
+// ======================= update profile doc data
+const docProfileUpdate = async (req, res) => {
+    try {
+        const docId = req.docId
+        const {fees, address, available} = req.body
+        const profileData = await Doctor.findByIdAndUpdate(docId,{fees, address, available},{ new: true })
+
+        if(!profileData){
+            return res.json({message:"Unathorizd access", success:false})
+        }
+        return res.json({message:'Profile Updated successfully', success:true})
+
+
+    } catch (error) {
+
+        console.log(error.message)
+        return res.json({message:error.message , success:false})  
+    }
+}
 
 
 
-export {changeAvailability, doctorList, loginDoctor,appointmentsOfDoctor, completeAppointment, cancelAppointment, docDashboard}
+export {changeAvailability, doctorList, loginDoctor,appointmentsOfDoctor, completeAppointment, cancelAppointment, docDashboard, getDoctorProfile,docProfileUpdate}
