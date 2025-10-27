@@ -14,10 +14,13 @@ const DoctorAppointment = () => {
 
    useEffect(() => {
      if(doctorToken){
-      const reFeth = async () => {
-       await getDocAppointments()
-      }
-      reFeth()
+      getDocAppointments()
+      
+      // auto refresh
+      const refreshInterval = setInterval(()=>{
+            getDocAppointments()
+      }, 5000)
+      return ()=> clearInterval(refreshInterval)  //only ensures that if the component re-renders or unmounts, React doesn’t keep creating new intervals stacking on top of each other.
      }
    }, [doctorToken])
 

@@ -14,15 +14,30 @@ const DoctorDashboard = () => {
   const { dateFormating, currency } = useContext(AppContext);
   console.log("+++++++++",dashData);
   
-useEffect(() => {
-  if (doctorToken) {
-    const fetchDashboard = async () => {
-      await docDashboard();
-    };
+// ==================================================================
 
-    fetchDashboard(); 
-  }
-}, [doctorToken]);
+  useEffect(() => {
+    // Agar doctorToken available hai (matlab doctor logged in hai)
+    if (doctorToken) {
+      
+    docDashboard() // hum fetch kar lete docDashboard ka data
+
+      // — Ab ek interval set kar rahe hain jo har 5 second (5000ms) mein data fetch karega
+      const interval = setInterval(() => {
+        docDashboard(); // har 5s mein API call karke latest appointments laa lo
+      }, 5000);
+
+      //  — Cleanup function: 
+      // jab component unmount hoga ya doctorToken change hoga, 
+      // tab ye purana interval clear kar dega taaki multiple intervals ek saath na chalein.
+      return () => clearInterval(interval);
+    }
+
+    // Dependency array: ye effect sirf tab chalega jab doctorToken change hoga
+  }, [doctorToken]);
+
+
+// ========================================================================
 
   return (
     dashData && (
