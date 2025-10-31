@@ -7,9 +7,19 @@ export default function Home() {
     title: '',
     desc: ''
   })
+// console.log(formData);
 
   // onchangeHandler
+  const onchangeHandler= (e) =>{
+      // when value change
+      setFormData((prev)=> ({...prev, [e.target.name]:e.target.value}))
+  }
   // onSubmitHandler
+  const onSubmitHandler = (e) =>{
+      e.preventDefault()
+
+
+  }
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-pink-50 to-rose-200 py-8 px-4">
@@ -17,13 +27,15 @@ export default function Home() {
       <div className="max-w-4xl mx-auto rounded-2xl p-8 mb-12 border border-pink-100 bg-white/30">
         <h2 className="text-3xl font-bold text-center text-pink-600 mb-8">Add New Task</h2>
         
-        <form action="">
+        <form action="" onSubmit={onSubmitHandler}>
           {/* Title Input */}
           <div className="flex flex-col lg:flex-row lg:items-center gap-4 mb-6">
             <label htmlFor="title" className="text-pink-600 font-bold text-lg lg:w-1/4 lg:text-right">
               Task Title:
             </label>
             <input 
+              onChange={onchangeHandler}
+              value={formData.title}
               type="text" 
               name="title" 
               id="title" 
@@ -38,6 +50,8 @@ export default function Home() {
               Description:
             </label>
             <textarea 
+              onChange={onchangeHandler}
+              value={formData.desc}
               name="desc" 
               id="desc" 
               className="w-full lg:w-3/4 px-4 py-3 bg-rose-50 border border-pink-200 rounded-xl text-gray-700 focus:outline-none focus:ring-2 focus:ring-pink-400 focus:border-pink-300 transition-all duration-300 resize-none min-h-[120px] placeholder-gray-400"
@@ -61,7 +75,7 @@ export default function Home() {
         <div className="overflow-x-auto">
           <table className="w-full">
             <thead>
-              <tr className="bg-gradient-to-r from-pink-500 to-rose-500 text-white">
+              <tr className="bg-gradient-to-r from-pink-300 to-rose-300 text-white">
                 <th className="px-6 py-4 text-left font-bold text-lg rounded-tl-2xl">Title</th>
                 <th className="px-6 py-4 text-left font-bold text-lg">Description</th>
                 <th className="px-6 py-4 text-left font-bold text-lg rounded-tr-2xl">Actions</th>
