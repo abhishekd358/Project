@@ -1,6 +1,18 @@
-import React from 'react'
+const Todo = async () => {
+  // api call to render the todo from db 
+    // fetchAlltodo
+  const fetchAllTodo = async() =>{
+      try {
+        // api call
+        const response =await fetch('http://localhost:3000/api',{cache:'no-store'})
+        const data = await response.json()
+        console.log(data)
 
-const Todo = () => {
+      } catch (error) {
+        
+      }
+  }
+
   return (
     <>
 
