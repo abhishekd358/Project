@@ -54,13 +54,29 @@ export async function GET (req){
 
 
 
-// 2. Complete todo to db
+// 3. Complete todo to db
 export async function PUT (req){
     try {
         const {id} = await req.json()
         // find in db that task is complete
         await todoModel.findByIdAndUpdate(id,{isCompleted:true},{new:true})
         return NextResponse.json({message:'Task Completed ✅', success:true})
+    } catch (error) {
+        console.log(error.message)
+        return NextResponse.json({message:'Internal server error', success:true})
+    }
+
+}
+
+
+
+// 4. remove todo to db
+export async function DELETE (req){
+    try {
+        const {id} = await req.json()
+        // find in db that task is complete
+        await todoModel.findByIdAndDelete(id)
+        return NextResponse.json({message:'Task removed 🗑', success:true})
     } catch (error) {
         console.log(error.message)
         return NextResponse.json({message:'Internal server error', success:true})

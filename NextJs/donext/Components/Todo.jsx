@@ -25,7 +25,11 @@ const Todo =  () => {
   }
 
   useEffect(() => {
-    fetchAllTodo()
+    const interval = setInterval(()=>{
+      fetchAllTodo()
+    },500)
+    // clean interval when anomoutn
+    return () => clearInterval(interval)
   }, [])
 
 
@@ -41,6 +45,22 @@ const completeTask = async (id) => {
       
     }
   }
+
+
+    // ----------------------------------- remove the todo
+const removeTask = async (id) => {
+    try {
+      const {data} = await axios.delete('http://localhost:3000/api',{data:{id}})
+      if(data.success){
+        await fetchAllTodo()
+        toast.success(data.message)
+      }
+    } catch (error) {
+      toast.error(error.message)
+      
+    }
+  }
+
 
 
   return (
@@ -79,7 +99,7 @@ const completeTask = async (id) => {
                       <span>✅</span>
                       Completed
                     </button>
-                    <button className="bg-gradient-to-r from-rose-500 to-pink-500 hover:from-rose-600 hover:to-pink-600 py-2 px-4 font-semibold text-white rounded-lg shadow-sm hover:shadow-md transition-all duration-300 flex items-center justify-center gap-2 cursor-pointer">
+                    <button onClick={()=>removeTask(task._id)} className="bg-gradient-to-r from-rose-500 to-pink-500 hover:from-rose-600 hover:to-pink-600 py-2 px-4 font-semibold text-white rounded-lg shadow-sm hover:shadow-md transition-all duration-300 flex items-center justify-center gap-2 cursor-pointer">
                       <span>🗑️</span>
                       Remove
                     </button>

@@ -1,4 +1,4 @@
-
+import { ToastContainer } from "react-toastify";
 import Form from "@/Components/Form";
 import Todo from "@/Components/Todo";
 export default function Home() {
@@ -6,7 +6,7 @@ export default function Home() {
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-pink-50 to-rose-200 py-8 px-4">
-   
+      <ToastContainer/>
       <Form/>
       {/* Table Section */}
       <div className="max-w-6xl mx-auto bg-white/40 rounded-2xl shadow-lg p-8 border border-pink-100">
