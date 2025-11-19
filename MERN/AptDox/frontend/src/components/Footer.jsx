@@ -17,7 +17,7 @@ const Footer = () => {
             <p className="uppercase text-xl font-medium mb-5 font-poppins ">COMPANY</p>
             <ul className="flex flex-col gap-2 text-gray-600">
               <Link to={'/'} onClick={() => scrollTo(0, 0)} className="hover:text-blue-500">Home</Link>
-              <Link to={'/doctors'} onClick={() => scrollTo(0, 0)} className="hover:text-blue-500" >Doctors</Link>
+              <Link target="_blank" to={'/doctors'} onClick={() => scrollTo(0, 0)} className="hover:text-blue-500" >Doctors</Link>
               <Link to={'/about'} onClick={() => scrollTo(0, 0)} className="hover:text-blue-500">About us</Link>
               <Link to={'contact'} onClick={() => scrollTo(0, 0)} className="hover:text-blue-500">Contact</Link>
             </ul>

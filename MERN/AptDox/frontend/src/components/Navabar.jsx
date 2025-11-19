@@ -1,22 +1,22 @@
-import { NavLink, useNavigate } from "react-router-dom";
+import { NavLink, useNavigate, Link } from "react-router-dom";
 import { assets } from "../assets/assets_frontend/assets.js";
 import { useContext, useState } from "react";
 import { AppContext } from "../context/AppContext.jsx";
 const Navabar = () => {
   const navigate = useNavigate();
   const [showMenu, setShowMenu] = useState(false);
-//  importign token from the context 
-  const {token, setToken, userData}= useContext(AppContext)
+  //  importign token from the context
+  const { token, setToken, userData } = useContext(AppContext);
 
-  // logout method 
-  const logout = ()=>{
-    setToken(false)
-    localStorage.removeItem('token')
-  }
+  // logout method
+  const logout = () => {
+    setToken(false);
+    localStorage.removeItem("token");
+  };
 
   return (
     <div className="flex justify-between md:justify-around items-center p-5">
-      <NavLink to="/" className='flex-shrink-0'>
+      <NavLink to="/" className="flex-shrink-0">
         <img
           src={assets.logo}
           alt="aptdox logo"
@@ -50,7 +50,6 @@ const Navabar = () => {
             Doctors
           </NavLink>
         </li>
-        
 
         <li>
           {" "}
@@ -75,68 +74,102 @@ const Navabar = () => {
             Contact
           </NavLink>
         </li>
+        {/* DOCTOR ADMIN LOGIN------------------------------------------ */}
+        <li className="relative group">
+          <span className="nav-link cursor-pointer">LOGIN</span>
 
+          {/* Dropdown */}
+          <div
+            className="absolute left-0 mt-1 w-40 bg-white shadow-lg rounded-md py-2 z-50
+                  hidden group-hover:block"
+          >
+            <Link
+              to="/login"
+              className="block px-4 py-2 hover:bg-gray-200 nav-link"
+            >
+              User Login
+            </Link>
+
+            <Link
+              target="_blank"
+              to="https://aptdox-panel.vercel.app/"
+              className="block px-4 py-2 hover:bg-gray-200 nav-link"
+            >
+              Doctor Login
+            </Link>
+
+            <Link
+              target="_blank"
+              to="https://aptdox-panel.vercel.app/"
+              className="block px-4 py-2 hover:bg-gray-200 nav-link"
+            >
+              Admin Login
+            </Link>
+          </div>
+        </li>
       </ul>
 
       <div className="flex items-center gap-3">
-      {token ? (
-        <div className="relative group">
-          <img
-            src={userData.image}
-            alt=""
-            className="w-10 h-10 object-cover cursor-pointer rounded-full border-2 border-blue-500"
-          />
+        {token ? (
+          <div className="relative group">
+            <img
+              src={userData.image}
+              alt=""
+              className="w-10 h-10 object-cover cursor-pointer rounded-full border-2 border-blue-500"
+            />
 
-          {/* menu-profile-hover-card */}
-          <div className="absolute top-full right-0 mt-2 w-48 shadow-xl rounded-lg opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 transform translate-y-2 group-hover:translate-y-0 z-50 border border-blue-100">
-            <div className="min-w-48 bg-blue-50 shadow-lg p-4 rounded flex flex-col gap-4 font-medium text-gray-600">
-              <p
-                onClick={() => navigate("/my-profile")}
-                className="hover:text-black cursor-pointer"
-              >
-                My Profile
-              </p>
-              <p
-                onClick={() => navigate("/my-appointments")}
-                className="hover:text-black cursor-pointer"
-              >
-                My Appointements
-              </p>
-              <p
-                onClick={()=>{logout(); navigate('/')}}
-                className="text-blue-700 font-bold hover:text-red-500 cursor-pointer"
-              >
-                Logout
-              </p>
+            {/* menu-profile-hover-card */}
+            <div className="absolute top-full right-0 mt-2 w-48 shadow-xl rounded-lg opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 transform translate-y-2 group-hover:translate-y-0 z-50 border border-blue-100">
+              <div className="min-w-48 bg-blue-50 shadow-lg p-4 rounded flex flex-col gap-4 font-medium text-gray-600">
+                <p
+                  onClick={() => navigate("/my-profile")}
+                  className="hover:text-black cursor-pointer"
+                >
+                  My Profile
+                </p>
+                <p
+                  onClick={() => navigate("/my-appointments")}
+                  className="hover:text-black cursor-pointer"
+                >
+                  My Appointements
+                </p>
+                <p
+                  onClick={() => {
+                    logout();
+                    navigate("/");
+                  }}
+                  className="text-blue-700 font-bold hover:text-red-500 cursor-pointer"
+                >
+                  Logout
+                </p>
+              </div>
             </div>
           </div>
-        </div>
-      ) : (
-        <button
-          onClick={() => navigate("/login")}
-          className="bg-blue-700 px-4 py-2 border-none rounded-2xl cursor-pointer text-white font-semibold hidden md:block"
-        >
-          Create Account
-        </button>
-      )}
-      
+        ) : (
+          <button
+            onClick={() => navigate("/login")}
+            className="bg-blue-700 px-4 py-2 border-none rounded-2xl cursor-pointer text-white font-semibold hidden md:block"
+          >
+            Create Account
+          </button>
+        )}
 
-      {/* mobile menu drawer sccren*/}
-      
-      {/*MOBILE MENU BUTTON */}
-      <img
-        onClick={() => setShowMenu(true)}
-        src={assets.menu_icon}
-        alt="Menu"
-        className="w-6 cursor-pointer md:hidden transition-transform duration-300 hover:scale-110"
-      />
-    </div>
+        {/* mobile menu drawer sccren*/}
+
+        {/*MOBILE MENU BUTTON */}
+        <img
+          onClick={() => setShowMenu(true)}
+          src={assets.menu_icon}
+          alt="Menu"
+          className="w-6 cursor-pointer md:hidden transition-transform duration-300 hover:scale-110"
+        />
+      </div>
 
       {/* ========== OVERLAY (Background Dim) ========== */}
       <div
         className={`fixed inset-0 bg-black z-40 transition-opacity duration-500 ${
-          showMenu 
-            ? "opacity-50 pointer-events-auto" 
+          showMenu
+            ? "opacity-50 pointer-events-auto"
             : "opacity-0 pointer-events-none"
         } md:hidden`}
         onClick={() => setShowMenu(false)}
@@ -145,12 +178,9 @@ const Navabar = () => {
       {/* ========== DRAWER ITSELF ========== */}
       <div
         className={`fixed top-0 right-0 h-full w-80 bg-white z-50 transform transition-transform duration-500 ease-in-out ${
-          showMenu 
-            ? "translate-x-0" 
-            : "translate-x-full"
+          showMenu ? "translate-x-0" : "translate-x-full"
         } md:hidden shadow-2xl`}
       >
-        
         {/* ========== DRAWER HEADER ========== */}
         <div className="flex justify-between items-center px-6 py-6 border-b border-gray-200">
           <img src={assets.logo} alt="Logo" className="w-32" />
@@ -224,9 +254,53 @@ const Navabar = () => {
               Contact
             </NavLink>
           </li>
+
+          {/* =========additional login */}
+          <li>
+            <NavLink
+              to="/login"
+              onClick={() => setShowMenu(false)}
+              className={({ isActive }) =>
+                `block py-3 px-4 rounded-lg transition-all duration-300 ${
+                  isActive
+                    ? "bg-blue-100 text-blue-600 font-semibold"
+                    : "text-gray-700 hover:bg-gray-100 hover:text-blue-600"
+                }`
+              }
+            >
+              User Login
+            </NavLink>
+          </li>
+
+          <li>
+            <Link
+              target="_blank"
+              to="https://aptdox-panel.vercel.app/"
+              onClick={() => setShowMenu(false)}
+              className="block py-3 px-4 rounded-lg transition-all duration-300 text-gray-700 hover:bg-gray-100 hover:text-blue-600"
+  
+            >
+              Doctor Login
+            </Link>
+          </li>
+
+          <li>
+            <Link
+              target="_blank"
+              to="https://aptdox-panel.vercel.app/"
+              onClick={() => setShowMenu(false)}
+              className="block py-3 px-4 rounded-lg transition-all duration-300 text-gray-700 hover:bg-gray-100 hover:text-blue-600"
+  
+            >
+              Admin Login
+            </Link>
+          </li>
+          
+          
+
+
         </ul>
       </div>
-    
     </div>
   );
 };
