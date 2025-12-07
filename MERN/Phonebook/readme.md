@@ -8,8 +8,8 @@ While building it, I solved multiple issues and improved the project with the he
 ## 📫 Live Demo
 [Live Demo](https://phonebook-psi-five.vercel.app/)
 
-<img src="./screenshots/phonebook1.jpg" width=300></img>
-<img src="./screenshots/phonebook2.jpg" width=300></img>
+<img src="./screenshots/phonebook1.jpg" width=350></img>
+<img src="./screenshots/phonebook2.jpg" width=395></img>
 
 
 
