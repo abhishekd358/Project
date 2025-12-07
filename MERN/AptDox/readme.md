@@ -28,6 +28,7 @@ I spent **24 days** developing and refining this project to make it fully produc
 ## Admin Panel
 <img src="./Screenshots/admin-1.jpg" width="295"></img>
 <img src="./Screenshots/admin4.jpg" width="300"></img>
+<br>
 <img src="./Screenshots/admin2.jpg" width="325"></img>
 <img src="./Screenshots/admin3.jpg" width="300"></img>
 
