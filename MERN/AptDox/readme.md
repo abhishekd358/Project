@@ -37,6 +37,11 @@ I spent **24 days** developing and refining this project to make it fully produc
 <img src="./Screenshots/doc2.jpg" width="300"></img>
 
 ---
+## 🔐 Access Credentials (Admin / Doctor Panels)
+
+To access the **Admin Panel** or **Doctor Panel** in detail, please contact me directly.  
+I will provide the required login credentials upon request.
+
 
 ## 🏆 Key Features & Improvements
 
