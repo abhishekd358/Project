@@ -33,7 +33,7 @@ I spent **24 days** developing and refining this project to make it fully produc
 
 ## Doctor Panel
 <img src="./Screenshots/Doc1.jpg" width="330"></img>
-<img src="./Screenshots/Doc2.jpg" width="300"></img>
+<img src="./Screenshots/doc2.jpg" width="300"></img>
 
 ---
 
