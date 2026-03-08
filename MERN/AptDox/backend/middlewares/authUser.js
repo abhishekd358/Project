@@ -1,4 +1,5 @@
 import jwt from 'jsonwebtoken';
+import sessionDB from '../models/session.model.js';
 
 export const authUser= async(req, res,next) => {
 
@@ -12,12 +13,21 @@ export const authUser= async(req, res,next) => {
         }
 
         // if we receive token then we verify
-        const validToken = jwt.verify(token,  process.env.U_SECRET_KEY)
+        const validSession = jwt.verify(token,  process.env.U_SECRET_KEY)
 
+        
+        // now check valid session refrence to which userId
+        const session = await sessionDB.findById(validSession.sessionId)
 
+        if(!session){
+            return res.json({message: "Session expired. Please login again.", success: false})
+        }
+
+        // if valid session then we store the respective session userID
       
 
-         req.userId = validToken.id
+         req.userId = session.userId 
+         req.sessionId = session._id
          
 
         next()

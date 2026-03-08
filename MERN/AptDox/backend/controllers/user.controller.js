@@ -6,6 +6,10 @@ import { v2 as cloudinary } from "cloudinary";
 import Doctor from "../models/doctor.model.js";
 import Appointment from "../models/appointment.model.js";
 import Razorpay from "razorpay";
+import sessionDB from "../models/session.model.js";
+import {} from '../controllers/otp.controller.js'
+import sendMail from "../utils/sendEmail.js";
+import otpDB from "../models/otp.model.js";
 
 // user Registeration controller
 
@@ -42,14 +46,45 @@ const userRegister = async (req, res) => {
     return res.json({ message: "Email already exists", success: false });
   }
 
+
+  // ==== create verified email
+  // verify otp 
+  const otpRecord = await otpDB.findOne({email})
+
+  // if email ka otp nahi hai or verified nahi hai to user register nahi hoga
+  if(!otpRecord || !otpRecord.verified){
+    return res.json({message:"Please Verify Your Email", success:false})
+  }
+
+
   // now we hash the password
   const hashPassword = await bcrypt.hash(password, 10);
 
   // other wise we create new user entry to db
   const newUser = await User.create({ name, email, password: hashPassword });
 
+  // // delete otp
+  await otpDB.deleteMany({email})
+
+  //  we create a session as well
+  const sessionCreated = await sessionDB.create({
+    userId: newUser._id,
+    expireAt: new Date(Date.now() + 7 * 24 * 60 * 60 * 1000)
+  })
+
+
+
+  // =============== send email
+  const html = `
+  <h2>Welcome to AptDox 🎉</h2>
+  <p>Hello ${newUser.name},</p>
+  <p>Your account has been successfully created.</p>
+  `
+
+  await sendMail(newUser.email,"Welcome to AptDox",html)
+
   // when user register then we give him a token
-  const token = jwt.sign({ id: newUser._id }, process.env.U_SECRET_KEY);
+  const token = jwt.sign({ sessionId: sessionCreated._id }, process.env.U_SECRET_KEY);
 
   return res.json({
     message: `${newUser.name} 🙏🏻 Welcome to AptDox 🎉`,
@@ -91,7 +126,7 @@ const userLogin = async (req, res) => {
   // IF USER EXISTS
   // we hash the unhash the password
   const decodePassword = await bcrypt.compare(password, user.password);
-  console.log(decodePassword);
+  // console.log(decodePassword);
   // if password not decode return false
   if (!decodePassword) {
     return res.json({
@@ -101,8 +136,22 @@ const userLogin = async (req, res) => {
   }
 
   // ELSE
+  // Now we check the number of session user has if more than 2 : then we delete the 1st one from db and then allow
+  const allSessions= await sessionDB.find({userId:user._id}).sort({createdAt:1})
+
+  // if sesssion greatere than 2 then we remove session 1st old session
+  if(allSessions.length>=2){
+    const oldSession = allSessions[0]
+    await sessionDB.findByIdAndDelete(oldSession._id)
+  }
+  // if user has 1 session or 0 session then we need to create a new one
+  const newSession = await sessionDB.create({
+    userId:user._id,
+    expireAt: new Date(Date.now() + 7 * 24* 60* 60 * 1000)
+  })
+
   // measn user credentials correct then we allow to login and give me a token
-  const token = jwt.sign({ id: user._id }, process.env.U_SECRET_KEY);
+  const token = jwt.sign({ sessionId: newSession._id }, process.env.U_SECRET_KEY);
 
   return res.json({
     message: `${user.name} 🙏🏻 Welcome back to AptDox 🎉`,
@@ -110,6 +159,32 @@ const userLogin = async (req, res) => {
     success: true,
   });
 };
+
+
+
+// Logout 
+const logout = async (req, res) => {
+  try {
+    await sessionDB.findByIdAndDelete(req.sessionId)
+    return res.json({message:"Logout successful", success:true})
+    
+  } catch (error) {
+    return res.json({message:error.message,success:false})
+  }
+}
+
+// logout from all devices
+const logoutAllDevices = async (req, res) => {
+  try {
+    await sessionDB.deleteMany({userId: req.userId})
+    return res.json({message:"Logout From All Devices!", success:true})
+    
+  } catch (error) {
+    return res.json({message:error.message,success:false})
+  }
+}
+
+
 
 // get user profile data
 
@@ -386,5 +461,7 @@ export {
   getMyAppointment,
   cancelAppointment,
   razorPayment,
-  verifyRazorpay
+  verifyRazorpay,
+  logout,
+  logoutAllDevices
 };

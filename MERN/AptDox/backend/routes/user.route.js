@@ -1,5 +1,5 @@
 import express from 'express'
-import { bookAppointment, cancelAppointment, getMyAppointment, getUserProfile, razorPayment, updateProfile, userLogin, userRegister, verifyRazorpay } from '../controllers/user.controller.js'
+import { bookAppointment, cancelAppointment, getMyAppointment, getUserProfile, logout, logoutAllDevices, razorPayment, updateProfile, userLogin, userRegister, verifyRazorpay } from '../controllers/user.controller.js'
 import { authUser } from '../middlewares/authUser.js'
 import upload from '../middlewares/multer.js'
 
@@ -15,6 +15,17 @@ userRouter.post('/register', userRegister)
 // api/user/login
 //method : post
 userRouter.post('/login', userLogin)
+
+
+// logout
+// api/user/logout
+//method : post
+userRouter.post('/logout',authUser, logout)
+
+// logout Form All Devices
+// api/user/logoutAll
+//method : post
+userRouter.post('/logoutAll',authUser, logoutAllDevices)
 
 // Login
 // api/user/get-user-profile

@@ -6,7 +6,7 @@ import cloudinaryConnect from "./config/cloudinary.js";
 import adminRouter from "./routes/admin.route.js";
 import doctorRouter from "./routes/doctor.route.js";
 import userRouter from "./routes/user.route.js";
-
+import otpRouter from "./routes/otp.route.js";
 // ------------------- env config
 dotenv.config({ path: './config/.env', quiet: true }); // so we hide the Logging of .env file loading
 
@@ -62,6 +62,9 @@ app.use('/api/doctor/',doctorRouter)
 
 // user router
 app.use('/api/user/',userRouter)
+
+// otp ruter 
+app.use('/api/otp/',otpRouter)
 
 
 
