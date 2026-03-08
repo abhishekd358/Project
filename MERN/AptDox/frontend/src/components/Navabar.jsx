@@ -6,12 +6,14 @@ const Navabar = () => {
   const navigate = useNavigate();
   const [showMenu, setShowMenu] = useState(false);
   //  importign token from the context
-  const { token, setToken, userData } = useContext(AppContext);
+  const { token, setToken, userData , logoutUser,logoutAllDevices} = useContext(AppContext);
 
   // logout method
-  const logout = () => {
+  const logout = async() => {
+    logoutUser()
     setToken(false);
     localStorage.removeItem("token");
+    navigate("/")
   };
 
   return (
@@ -25,7 +27,7 @@ const Navabar = () => {
       </NavLink>
 
       {/* navigation NavLink */}
-      <ul className="flex justify-center items-center gap-8 sm:gap-10 font-medium text-sm sm:text-base md:text-lg lg:text-[18px] max-md:hidden">
+      <ul className="flex justify-center items-center gap-8 sm:gap-10 font-medium text-sm sm:text-base md:text-lg lg:text-[18px] max-md:hidden ">
         <li>
           {" "}
           {/* New thing to Learn */}
@@ -76,20 +78,13 @@ const Navabar = () => {
         </li>
         {/* DOCTOR ADMIN LOGIN------------------------------------------ */}
         <li className="relative group">
-          <span className="nav-link cursor-pointer">LOGIN</span>
+          <span className="nav-link cursor-pointer">PANEL</span>
 
           {/* Dropdown */}
           <div
             className="absolute left-0 mt-1 w-40 bg-white shadow-lg rounded-md py-2 z-50
                   hidden group-hover:block"
           >
-            <Link
-              to="/login"
-              className="block px-4 py-2 hover:bg-gray-200 nav-link"
-            >
-              User Login
-            </Link>
-
             <Link
               target="_blank"
               to="https://aptdox-panel.vercel.app/"
@@ -107,6 +102,7 @@ const Navabar = () => {
             </Link>
           </div>
         </li>
+
       </ul>
 
       <div className="flex items-center gap-3">
@@ -119,7 +115,7 @@ const Navabar = () => {
             />
 
             {/* menu-profile-hover-card */}
-            <div className="absolute top-full right-0 mt-2 w-48 shadow-xl rounded-lg opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 transform translate-y-2 group-hover:translate-y-0 z-50 border border-blue-100">
+            <div className="absolute top-full right-1 mt-2 w-80 shadow-xl rounded-lg opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 transform translate-y-2 group-hover:translate-y-0 z-50 border border-blue-100">
               <div className="min-w-48 bg-blue-50 shadow-lg p-4 rounded flex flex-col gap-4 font-medium text-gray-600">
                 <p
                   onClick={() => navigate("/my-profile")}
@@ -142,13 +138,22 @@ const Navabar = () => {
                 >
                   Logout
                 </p>
+                {/* logout all devices */}
+                <p
+                  onClick={() => {
+                    logoutAllDevices();
+                  }}
+                  className="font-semibold text-red-400/90 hover:text-red-500 cursor-pointer"
+                >
+                  Logout From All Devices
+                </p>
               </div>
             </div>
           </div>
         ) : (
           <button
             onClick={() => navigate("/login")}
-            className="bg-blue-700 px-4 py-2 border-none rounded-2xl cursor-pointer text-white font-semibold hidden md:block"
+            className="bg-blue-500 px-4 py-2 border-none rounded-2xl cursor-pointer text-white font-semibold hidden md:block"
           >
             Create Account
           </button>

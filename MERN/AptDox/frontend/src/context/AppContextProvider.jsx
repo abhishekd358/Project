@@ -50,6 +50,13 @@ const AppContextProvider = (props) => {
       if (data.success) {
         setUserData(data.userData)
       }else{
+        //  check the session expire or not 
+        if (data.message === "Session expired. Please login again.") {
+        localStorage.removeItem("token");
+        setToken(false);
+        window.location.href = "/";
+        }
+
         toast.error(data.message)
       }
       
@@ -72,6 +79,38 @@ const AppContextProvider = (props) => {
 
 
 
+
+
+  // -======= user logout
+  const logoutUser = async () => {
+    try {
+      const token = localStorage.getItem("token");
+      await axios.post(`${backendUrl}/api/user/logout`, {}, {headers:{token}})
+    } catch (error) {
+      console.log(error)
+      toast.error(error.message)
+    }
+    
+  }
+
+  // logout from all devices
+  const logoutAllDevices = async () => {
+    try {
+      const token = localStorage.getItem("token");
+      await axios.post(`${backendUrl}/api/user/logoutAll`, {}, {headers:{token}})
+      setToken(false);
+      localStorage.removeItem("token");
+      setUserData(false);
+      window.location.href = "/";
+    } catch (error) {
+      console.log(error)
+      toast.error(error.message)
+    }
+    
+  }
+  
+
+
   const value = {
     doctors,specialityData,assets,currencySymbol,
    
@@ -79,7 +118,9 @@ const AppContextProvider = (props) => {
 
     token,setToken,backendUrl,
 
-    userData, setUserData, loadUserProfileData// user data for profile
+    userData, setUserData, loadUserProfileData,// user data for profile
+
+    logoutUser, logoutAllDevices
   };
 
   return (
