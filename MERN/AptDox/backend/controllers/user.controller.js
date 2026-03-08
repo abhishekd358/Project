@@ -10,30 +10,34 @@ import sessionDB from "../models/session.model.js";
 import {} from '../controllers/otp.controller.js'
 import sendMail from "../utils/sendEmail.js";
 import otpDB from "../models/otp.model.js";
-
+import {sanitize} from '../utils/sanitize.js'
 // user Registeration controller
 
 const userRegister = async (req, res) => {
   // take the user input from the body
   const { name, email, password } = req.body;
 
+  const cleanName = sanitize(name)
+  const cleanEmail = sanitize(email)
+  const cleanPassword = sanitize(password)
+
   // if no field above should not be empty
-  if (!name || !email || !password) {
+  if (!cleanName || !cleanEmail || !cleanPassword) {
     return res.json({ message: "All field are required", success: false });
   }
 
   //check user must enter valid email with validtaor package
-  if (!validator.isEmail(email)) {
+  if (!validator.isEmail(cleanEmail)) {
     return res.json({ message: "Enter valid email address", success: false });
   }
 
   // name must be 2 char at least
-  if (name.length < 2) {
+  if (cleanName.length < 2) {
     return res.json({ message: "name at least 2 characters", success: false });
   }
 
   // now check user enter password length should  not be less than 6 char
-  if (password.length < 6) {
+  if (cleanPassword.length < 6) {
     return res.json({
       message: "Password must be 6 characters",
       success: false,
@@ -41,7 +45,7 @@ const userRegister = async (req, res) => {
   }
 
   // now check user email arelady exist in db ord not
-  const emailExists = await User.findOne({ email });
+  const emailExists = await User.findOne({ cleanEmail });
   if (emailExists) {
     return res.json({ message: "Email already exists", success: false });
   }
@@ -49,7 +53,7 @@ const userRegister = async (req, res) => {
 
   // ==== create verified email
   // verify otp 
-  const otpRecord = await otpDB.findOne({email})
+  const otpRecord = await otpDB.findOne({cleanEmail})
 
   // if email ka otp nahi hai or verified nahi hai to user register nahi hoga
   if(!otpRecord || !otpRecord.verified){
@@ -58,13 +62,13 @@ const userRegister = async (req, res) => {
 
 
   // now we hash the password
-  const hashPassword = await bcrypt.hash(password, 10);
+  const hashPassword = await bcrypt.hash(cleanPassword, 10);
 
   // other wise we create new user entry to db
-  const newUser = await User.create({ name, email, password: hashPassword });
+  const newUser = await User.create({ cleanName, cleanEmail, password: hashPassword });
 
   // // delete otp
-  await otpDB.deleteMany({email})
+  await otpDB.deleteMany({cleanEmail})
 
   //  we create a session as well
   const sessionCreated = await sessionDB.create({
